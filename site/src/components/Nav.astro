@@ -1,0 +1,31 @@
+---
+import { withBase } from '../utils/paths';
+
+const links = [
+  { label: 'Home', href: '/' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Download', href: '/download' },
+  { label: 'Docs', href: '/docs' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const { pathname } = Astro.url;
+const normalize = (value) => (value.endsWith('/') && value !== '/' ? value.slice(0, -1) : value);
+---
+<nav class="nav">
+  <a class="brand" href={withBase('/')}>Uyava</a>
+  <div class="nav-links">
+    {links.map((link) => {
+      const href = withBase(link.href);
+      const isActive = normalize(pathname) === normalize(href);
+      return (
+        <a class={isActive ? 'is-active' : undefined} href={href}>
+          {link.label}
+        </a>
+      );
+    })}
+  </div>
+  <div class="nav-actions">
+    <a class="btn small" href={withBase('/pricing')}>View pricing</a>
+  </div>
+</nav>

@@ -2,3 +2,7 @@
 .idea/
 .dart_tool/
 build/
+site/node_modules/
+site/dist/
+site/.astro/
+site/src/content/legal/

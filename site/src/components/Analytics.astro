@@ -1,0 +1,30 @@
+---
+import { ANALYTICS } from '../config';
+
+const { provider, scriptSrc, siteId, domain } = ANALYTICS;
+let src = scriptSrc;
+
+if (!src) {
+  if (provider === 'plausible' && domain) {
+    src = 'https://plausible.io/js/script.js';
+  }
+  if (provider === 'umami' && siteId) {
+    src = 'https://analytics.umami.is/script.js';
+  }
+}
+
+const shouldInject = Boolean(
+  src &&
+    ((provider === 'plausible' && domain) ||
+      (provider === 'umami' && siteId) ||
+      (provider !== 'plausible' && provider !== 'umami'))
+);
+---
+{shouldInject ? (
+  <script
+    src={src}
+    defer
+    data-domain={provider === 'plausible' ? domain : undefined}
+    data-website-id={provider === 'umami' ? siteId : undefined}
+  />
+) : null}

@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { withBase } from '../utils/paths';
+---
+<BaseLayout title="Download" description="Download Uyava Desktop or get the DevTools extension.">
+  <section class="container">
+    <SectionHeader
+      eyebrow="Download"
+      title="Desktop app installers"
+      description="Installers will be published here when Pro builds are available."
+    />
+    <div class="download-grid">
+      <div class="download-card">
+        <h3>macOS</h3>
+        <p>Installer (.dmg)</p>
+        <span class="pill">Coming soon</span>
+      </div>
+      <div class="download-card">
+        <h3>Windows</h3>
+        <p>Installer (.exe / .msi)</p>
+        <span class="pill">Coming soon</span>
+      </div>
+      <div class="download-card">
+        <h3>Linux</h3>
+        <p>AppImage</p>
+        <span class="pill">Coming soon</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <SectionHeader
+      eyebrow="DevTools"
+      title="Get the DevTools extension"
+      description="The free DevTools extension lives in the documentation."
+    />
+    <a class="btn primary" href={withBase('/docs/installation')}>Go to installation</a>
+  </section>
+
+  <section class="container">
+    <SectionHeader
+      eyebrow="Releases"
+      title="Changelogs and release notes"
+      description="Release artifacts will be published to GitHub Releases."
+    />
+    <a class="btn" href="https://github.com/alex-marochko/uyava/releases" target="_blank" rel="noreferrer">
+      View releases
+    </a>
+  </section>
+
+  <section class="container">
+    <SectionHeader
+      eyebrow="Requirements"
+      title="System requirements"
+      description="Lightweight by default, with room for larger recordings."
+    />
+    <div class="card">
+      <ul>
+        <li>macOS 12+, Windows 10+, or modern Linux (x86_64).</li>
+        <li>Flutter app running with DevTools enabled.</li>
+        <li>8 GB RAM recommended for long sessions.</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

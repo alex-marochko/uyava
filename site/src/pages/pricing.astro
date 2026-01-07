@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { withBase } from '../utils/paths';
+---
+<BaseLayout title="Pricing" description="Choose between the free DevTools extension and the Pro desktop app.">
+  <section class="container">
+    <SectionHeader
+      eyebrow="Pricing"
+      title="Two plans, one workflow"
+      description="Start free with the DevTools extension. Upgrade to Pro when you need recording and replay."
+    />
+    <div class="grid two">
+      <div class="card pricing-card">
+        <p class="pill">Free</p>
+        <h3>DevTools Extension</h3>
+        <p class="price">$0</p>
+        <ul>
+          <li>DevTools extension (open-source, MIT).</li>
+          <li>Core visualization and navigation.</li>
+          <li>Filters, grouping, and event chains.</li>
+        </ul>
+        <a class="btn" href={withBase('/download')}>Get started</a>
+      </div>
+      <div class="card pricing-card highlight">
+        <p class="pill">Pro</p>
+        <h3>Desktop App</h3>
+        <p class="price">Paid</p>
+        <ul>
+          <li>Recording and replay workflows.</li>
+          <li>Offline analysis for longer sessions.</li>
+          <li>Optimized handling for larger datasets.</li>
+        </ul>
+        <a class="btn primary" href={withBase('/contact')}>Request access</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <SectionHeader
+      eyebrow="FAQ"
+      title="Common questions"
+      description="Short answers before you reach out."
+    />
+    <div class="grid two">
+      <div class="card">
+        <h3>How are payments handled?</h3>
+        <p>Payments and invoices are processed by Paddle.</p>
+      </div>
+      <div class="card">
+        <h3>What about refunds?</h3>
+        <p>See the refund policy for details on eligibility and timelines.</p>
+        <a class="btn small" href={withBase('/legal/refunds')}>Refund policy</a>
+      </div>
+      <div class="card">
+        <h3>How does licensing work?</h3>
+        <p>
+          Pro licenses are tied to activation and can be managed per device or team.
+          Specific terms will be listed with the release.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Can I stay on Free?</h3>
+        <p>Yes. The DevTools extension remains open-source and free to use.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

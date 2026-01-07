@@ -1,0 +1,38 @@
+---
+import { SITE } from '../config';
+import { withBase } from '../utils/paths';
+import { legalNav } from '../data/legal';
+---
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <p class="footer-brand">Uyava</p>
+      <p class="footer-text">
+        Developer tooling for Flutter architecture visibility.
+      </p>
+      <p class="footer-text">Operated by {SITE.operator}.</p>
+    </div>
+    <div>
+      <p class="footer-title">Product</p>
+      <a href={withBase('/download')}>Download</a>
+      <a href={withBase('/pricing')}>Pricing</a>
+      <a href={withBase('/docs')}>Documentation</a>
+    </div>
+    <div>
+      <p class="footer-title">Contact</p>
+      <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>
+      <a href={SITE.github} target="_blank" rel="noreferrer">GitHub</a>
+      <a href={`${SITE.github}/issues`} target="_blank" rel="noreferrer">Issues</a>
+    </div>
+    <div>
+      <p class="footer-title">Legal</p>
+      {legalNav.map((item) => (
+        <a href={withBase(item.href)}>{item.title}</a>
+      ))}
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© {new Date().getFullYear()} Uyava</span>
+    <span class="footer-note">Privacy-friendly analytics, no tracking cookies.</span>
+  </div>
+</footer>

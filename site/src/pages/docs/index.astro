@@ -1,0 +1,19 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { docsNav } from '../../data/docs';
+import { withBase } from '../../utils/paths';
+---
+<DocsLayout title="Documentation" description="Guides for using Uyava DevTools and Desktop.">
+  <h1>Documentation</h1>
+  <p>
+    Start with a quick overview, then drill into concepts and workflows.
+  </p>
+  <div class="grid two">
+    {docsNav.map((item) => (
+      <a class="card" href={withBase(item.href)}>
+        <h3>{item.title}</h3>
+        <p>{item.description}</p>
+      </a>
+    ))}
+  </div>
+</DocsLayout>

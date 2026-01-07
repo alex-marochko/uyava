@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config';
+import Analytics from '../components/Analytics.astro';
+import Footer from '../components/Footer.astro';
+import Nav from '../components/Nav.astro';
+import Seo from '../components/Seo.astro';
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
+const pageDescription = description ?? SITE.description;
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <Seo title={pageTitle} description={pageDescription} canonical={canonical} />
+  </head>
+  <body>
+    <div class="page">
+      <Nav />
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <Analytics />
+  </body>
+</html>

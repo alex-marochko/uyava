@@ -1,0 +1,28 @@
+---
+import { SITE } from '../config';
+import { withBase } from '../utils/paths';
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  canonical = SITE.url,
+} = Astro.props;
+
+const ogImage = withBase('/og.png');
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />

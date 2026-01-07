@@ -1,0 +1,15 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import DocsSidebar from '../components/DocsSidebar.astro';
+
+const { title, description } = Astro.props;
+const { pathname } = Astro.url;
+---
+<BaseLayout title={title} description={description}>
+  <section class="docs-layout">
+    <DocsSidebar currentPath={pathname} />
+    <article class="docs-content markdown">
+      <slot />
+    </article>
+  </section>
+</BaseLayout>

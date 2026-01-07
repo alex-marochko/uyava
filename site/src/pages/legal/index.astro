@@ -1,0 +1,17 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { legalNav } from '../../data/legal';
+import { withBase } from '../../utils/paths';
+---
+<LegalLayout title="Legal" description="Uyava legal policies and licensing information.">
+  <h1>Legal</h1>
+  <p>Review the latest terms, privacy, refund, and licensing documents.</p>
+  <div class="grid two">
+    {legalNav.map((item) => (
+      <a class="card" href={withBase(item.href)}>
+        <h3>{item.title}</h3>
+        <p>View document</p>
+      </a>
+    ))}
+  </div>
+</LegalLayout>

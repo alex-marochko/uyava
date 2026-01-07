@@ -1,0 +1,21 @@
+---
+import { docsNav } from '../data/docs';
+import { withBase } from '../utils/paths';
+
+const { currentPath } = Astro.props;
+const normalize = (value) => (value.endsWith('/') && value !== '/' ? value.slice(0, -1) : value);
+---
+<aside class="docs-sidebar">
+  <p class="sidebar-title">Docs</p>
+  <nav class="sidebar-nav">
+    {docsNav.map((item) => {
+      const href = withBase(item.href);
+      const isActive = normalize(currentPath) === normalize(href);
+      return (
+        <a class={isActive ? 'is-active' : undefined} href={href}>
+          {item.title}
+        </a>
+      );
+    })}
+  </nav>
+</aside>

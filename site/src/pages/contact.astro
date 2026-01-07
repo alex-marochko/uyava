@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { SITE } from '../config';
+---
+<BaseLayout title="Contact" description="Contact Uyava support or reach the team on GitHub.">
+  <section class="container">
+    <SectionHeader
+      eyebrow="Contact"
+      title="Talk to the team"
+      description="We reply quickly on email and GitHub issues."
+    />
+    <div class="grid two">
+      <div class="card">
+        <h3>Email</h3>
+        <p>Reach us directly for support, access requests, or licensing.</p>
+        <a class="btn" href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>
+      </div>
+      <div class="card">
+        <h3>GitHub</h3>
+        <p>Bug reports and feature requests live in GitHub issues.</p>
+        <a class="btn" href={`${SITE.github}/issues`} target="_blank" rel="noreferrer">Open an issue</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
