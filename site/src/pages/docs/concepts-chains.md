@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: Concepts: Event Chains
-description: Follow causality with event chains and replay.
+title: "Concepts: Event Chains"
+description: "Follow causality with event chains and replay."
 ---
 
 # Concepts: Event Chains

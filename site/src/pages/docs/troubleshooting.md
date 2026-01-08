@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: Troubleshooting
-description: Quick fixes for common issues.
+title: "Troubleshooting"
+description: "Quick fixes for common issues."
 ---
 
 # Troubleshooting

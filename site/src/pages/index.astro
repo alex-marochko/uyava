@@ -11,8 +11,8 @@ import { withBase } from '../utils/paths';
         <span class="badge">Flutter architecture visibility</span>
         <h1>Uyava turns runtime activity into a living architecture map.</h1>
         <p>
-          Use the free DevTools extension for everyday debugging and exploration.
-          Upgrade to the Pro desktop app for recording, replay, and offline analysis.
+          Use the free DevTools extension or the free desktop app for daily exploration.
+          Upgrade to Desktop Pro when you need advanced replay and navigation of .uyava logs.
         </p>
         <div class="hero-actions">
           <a class="btn primary" href={withBase('/download')}>Download</a>
@@ -34,11 +34,11 @@ import { withBase } from '../utils/paths';
 
   <section class="container">
     <SectionHeader
-      eyebrow="Two parts"
+      eyebrow="Three options"
       title="Pick the workflow that matches your day"
-      description="Uyava ships as a free DevTools extension and an optional Pro desktop app for deeper analysis."
+      description="Use free DevTools, free Desktop, or unlock Desktop Pro for advanced replay."
     />
-    <div class="grid two">
+    <div class="grid three">
       <div class="card highlight reveal">
         <p class="pill">Free · Open-source</p>
         <h3>DevTools Extension</h3>
@@ -53,16 +53,29 @@ import { withBase } from '../utils/paths';
         </ul>
       </div>
       <div class="card reveal" style="animation-delay: 0.1s;">
-        <p class="pill">Pro · Desktop</p>
+        <p class="pill">Free · Desktop</p>
         <h3>Desktop App</h3>
         <p>
-          Capture sessions and replay them offline. Designed for longer,
-          high-volume traces that need more space, context, and repeatability.
+          Run outside the browser for more headroom and tighter integrations.
+          Capture sessions and preview .uyava logs with basic playback.
         </p>
         <ul>
-          <li>Recording and replay workflows for deeper analysis.</li>
-          <li>Offline review without a live device attached.</li>
-          <li>Optimized for long sessions and larger datasets.</li>
+          <li>Better performance for larger graphs.</li>
+          <li>IDE integration to jump from map to code.</li>
+          <li>Record and preview .uyava logs.</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="animation-delay: 0.2s;">
+        <p class="pill">Pro · Desktop</p>
+        <h3>Desktop Pro</h3>
+        <p>
+          Unlock advanced replay controls and deeper navigation for recorded sessions.
+          Built for long investigations and repeatable analysis.
+        </p>
+        <ul>
+          <li>Advanced replay controls with a seekbar.</li>
+          <li>Deeper navigation across .uyava logs.</li>
+          <li>Priority for feature requests and bug fixes.</li>
         </ul>
       </div>
     </div>
@@ -89,7 +102,7 @@ import { withBase } from '../utils/paths';
     <SectionHeader
       eyebrow="Get started"
       title="Move from screenshots to living architecture"
-      description="Start with the free extension, then add Pro when you need deeper offline workflows."
+      description="Start with free DevTools or the free desktop app, then add Pro when you need advanced replay."
     />
     <div class="hero-actions">
       <a class="btn primary" href={withBase('/download')}>Go to downloads</a>

@@ -3,14 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { withBase } from '../utils/paths';
 ---
-<BaseLayout title="Pricing" description="Choose between the free DevTools extension and the Pro desktop app.">
+<BaseLayout title="Pricing" description="Choose between free DevTools, free Desktop, or Desktop Pro.">
   <section class="container">
     <SectionHeader
       eyebrow="Pricing"
-      title="Two plans, one workflow"
-      description="Start free with the DevTools extension. Upgrade to Pro when you need recording and replay."
+      title="Three options, one workflow"
+      description="Use the free extension or free desktop app, then upgrade to Desktop Pro when needed."
     />
-    <div class="grid two">
+    <div class="grid three">
       <div class="card pricing-card">
         <p class="pill">Free</p>
         <h3>DevTools Extension</h3>
@@ -22,14 +22,28 @@ import { withBase } from '../utils/paths';
         </ul>
         <a class="btn" href={withBase('/download')}>Get started</a>
       </div>
-      <div class="card pricing-card highlight">
-        <p class="pill">Pro</p>
+      <div class="card pricing-card">
+        <p class="pill">Free · Desktop</p>
         <h3>Desktop App</h3>
-        <p class="price">Paid</p>
+        <p class="price">$0</p>
         <ul>
-          <li>Recording and replay workflows.</li>
-          <li>Offline analysis for longer sessions.</li>
-          <li>Optimized handling for larger datasets.</li>
+          <li>Desktop performance for larger graphs.</li>
+          <li>IDE integration to jump from map to code.</li>
+          <li>Record and preview .uyava logs.</li>
+        </ul>
+        <a class="btn" href={withBase('/download')}>Download</a>
+      </div>
+      <div class="card pricing-card highlight">
+        <p class="pill">Pro · Desktop</p>
+        <h3>Desktop Pro</h3>
+        <p class="price">
+          $10<span class="price-unit">/month</span>
+        </p>
+        <p class="price-alt">$80 lifetime + 1 year updates</p>
+        <ul>
+          <li>Advanced replay and navigation for .uyava logs.</li>
+          <li>Seekbar controls for long sessions.</li>
+          <li>Priority for feature requests and bug fixes.</li>
         </ul>
         <a class="btn primary" href={withBase('/contact')}>Request access</a>
       </div>
@@ -55,13 +69,13 @@ import { withBase } from '../utils/paths';
       <div class="card">
         <h3>How does licensing work?</h3>
         <p>
-          Pro licenses are tied to activation and can be managed per device or team.
-          Specific terms will be listed with the release.
+          Desktop is free to use without activation. Desktop Pro licenses unlock
+          advanced replay features and are managed per device or team.
         </p>
       </div>
       <div class="card">
         <h3>Can I stay on Free?</h3>
-        <p>Yes. The DevTools extension remains open-source and free to use.</p>
+        <p>Yes. Both the DevTools extension and Desktop app are free to use.</p>
       </div>
     </div>
   </section>

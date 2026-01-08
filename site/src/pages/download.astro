@@ -3,12 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { withBase } from '../utils/paths';
 ---
-<BaseLayout title="Download" description="Download Uyava Desktop or get the DevTools extension.">
+<BaseLayout title="Download" description="Download the free desktop app or get the DevTools extension.">
   <section class="container">
     <SectionHeader
       eyebrow="Download"
       title="Desktop app installers"
-      description="Installers will be published here when Pro builds are available."
+      description="Desktop is free. Desktop Pro unlocks advanced replay features."
     />
     <div class="download-grid">
       <div class="download-card">
@@ -26,6 +26,12 @@ import { withBase } from '../utils/paths';
         <p>AppImage</p>
         <span class="pill">Coming soon</span>
       </div>
+    </div>
+    <div class="card">
+      <p>
+        Desktop is free to use. Desktop Pro adds advanced replay and navigation
+        for .uyava logs. <a href={withBase('/pricing')}>See pricing</a>.
+      </p>
     </div>
   </section>
 

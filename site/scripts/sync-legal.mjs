@@ -10,10 +10,10 @@ const archivePath = path.resolve(siteRoot, '..', 'legal_3.zip');
 const outDir = path.join(siteRoot, 'src', 'content', 'legal');
 
 const targets = {
-  'legal/terms.md': 'terms.md',
-  'legal/privacy.md': 'privacy.md',
-  'legal/refunds.md': 'refunds.md',
-  'legal/licenses.md': 'licenses.md',
+  terms: 'terms.md',
+  privacy: 'privacy.md',
+  refunds: 'refunds.md',
+  licenses: 'licenses.md',
 };
 
 if (!fs.existsSync(archivePath)) {
@@ -24,13 +24,24 @@ if (!fs.existsSync(archivePath)) {
 fs.mkdirSync(outDir, { recursive: true });
 
 const zip = new AdmZip(archivePath);
-const entries = new Map(zip.getEntries().map((entry) => [entry.entryName, entry]));
+const entries = zip.getEntries();
+
+const findEntry = (filename) => {
+  const matches = entries.filter((entry) => {
+    if (entry.entryName.includes('__MACOSX')) {
+      return false;
+    }
+    return entry.entryName.endsWith(`/${filename}`) || entry.entryName === filename;
+  });
+
+  return matches[0];
+};
 
 let missing = false;
-for (const [entryName, outName] of Object.entries(targets)) {
-  const entry = entries.get(entryName);
+for (const [key, outName] of Object.entries(targets)) {
+  const entry = findEntry(outName);
   if (!entry) {
-    console.error(`Missing ${entryName} inside legal_3.zip`);
+    console.error(`Missing ${outName} inside legal_3.zip`);
     missing = true;
     continue;
   }

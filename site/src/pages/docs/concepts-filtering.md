@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: Concepts: Filtering and Grouping
-description: Reduce noise in complex graphs using filters and group controls.
+title: "Concepts: Filtering and Grouping"
+description: "Reduce noise in complex graphs using filters and group controls."
 ---
 
 # Concepts: Filtering and Grouping

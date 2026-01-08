@@ -1,17 +1,23 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: Desktop Pro: Recording and Replay
-description: Offline workflows for long sessions.
+title: "Desktop Pro: Advanced Replay"
+description: "Upgrade to advanced replay controls for long sessions."
 ---
 
-# Desktop Pro: Recording and Replay
+# Desktop Pro: Advanced Replay
 
-The Pro desktop app focuses on capturing longer sessions and replaying them offline. This helps when you need to analyze large datasets or share sessions with your team.
+The free desktop app already lets you record sessions and preview .uyava logs. Desktop Pro unlocks advanced replay controls and deeper navigation for long investigations.
 
-## What it provides
+## What the free desktop app includes
 
-- Recording and replay workflows.
-- Offline analysis without a live device attached.
-- More space and context for long-running sessions.
+- Better performance than web-based tooling.
+- IDE integration to jump from map or events to code.
+- Recording and basic preview of .uyava logs.
+
+## What Desktop Pro adds
+
+- Advanced replay controls with a seekbar.
+- Deeper navigation across .uyava logs.
+- Priority for feature requests and bug fixes.
 
 Planned features like LLM-assisted insights are not part of the current Pro release.

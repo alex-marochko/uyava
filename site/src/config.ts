@@ -1,7 +1,7 @@
 export const SITE = {
   title: 'Uyava',
   description:
-    'A developer tool for Flutter that visualizes architecture and event flows with a DevTools extension and a Pro desktop app.',
+    'A developer tool for Flutter that visualizes architecture and event flows with a DevTools extension plus a free desktop app and Pro upgrade.',
   url: 'https://uyava.io',
   github: 'https://github.com/alex-marochko/uyava',
   supportEmail: 'support@uyava.io',

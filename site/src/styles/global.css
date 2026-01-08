@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Libre+Baskerville:wght@400;700&display=swap');
 
 :root {
   --bg: #f6f1ea;
@@ -13,7 +13,7 @@
   --shadow: 0 24px 60px rgba(20, 17, 15, 0.08);
   --radius: 20px;
   --radius-sm: 14px;
-  --font-display: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --font-display: 'Libre Baskerville', 'IBM Plex Sans', serif;
   --font-body: 'IBM Plex Sans', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
@@ -298,6 +298,19 @@ a:hover {
   font-size: 2.4rem;
   font-weight: 700;
   color: var(--ink);
+}
+
+.price-unit {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-left: 6px;
+}
+
+.price-alt {
+  margin-top: -6px;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
 }
 
 .pill {

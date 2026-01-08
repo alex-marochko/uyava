@@ -30,9 +30,9 @@ export const docsNav = [
     description: 'Follow causal paths and playback chains of activity.',
   },
   {
-    title: 'Desktop Pro: Recording and Replay',
+    title: 'Desktop Pro: Advanced Replay',
     href: '/docs/desktop-pro',
-    description: 'Offline analysis workflows and session playback.',
+    description: 'Upgrade to advanced replay controls and navigation.',
   },
   {
     title: 'Troubleshooting',

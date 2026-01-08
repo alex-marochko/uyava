@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: Quick Tour
-description: A fast walkthrough of Uyava's core UI.
+title: "Quick Tour"
+description: "A fast walkthrough of Uyava's core UI."
 ---
 
 # Quick Tour

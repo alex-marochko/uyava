@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: Concepts: Events, Nodes, Edges
-description: Learn the core graph model behind Uyava.
+title: "Concepts: Events, Nodes, Edges"
+description: "Learn the core graph model behind Uyava."
 ---
 
 # Concepts: Events, Nodes, Edges
