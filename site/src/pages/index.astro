@@ -14,13 +14,25 @@ import { withBase } from '../utils/paths';
           Use the free DevTools extension or the free desktop app for daily exploration.
           Upgrade to Desktop Pro when you need advanced replay and navigation of .uyava logs.
         </p>
+        <p class="name-note">
+          “Uyava” means “imagination” in Ukrainian (pronounced “oo-yah-vah”).
+        </p>
         <div class="hero-actions">
           <a class="btn primary" href={withBase('/download')}>Download</a>
           <a class="btn" href={withBase('/docs')}>Read docs</a>
           <a class="btn" href={withBase('/pricing')}>View pricing</a>
         </div>
       </div>
-      <div class="hero-card reveal" style="animation-delay: 0.15s;">
+      <div class="hero-visual reveal" style="animation-delay: 0.15s;">
+        <img
+          src={withBase('/images/screenshot_desktop.png')}
+          alt="Uyava Desktop graph view preview"
+        />
+        <p class="caption">Desktop preview: live graph with event overlays.</p>
+      </div>
+    </div>
+    <div class="hero-support reveal" style="animation-delay: 0.25s;">
+      <div class="hero-card">
         <h3>What it helps with</h3>
         <ul>
           <li>Visualize app behavior as a fast, interactive graph.</li>
@@ -96,6 +108,14 @@ import { withBase } from '../utils/paths';
         We will clearly mark these features before any public release.
       </p>
     </Callout>
+  </section>
+
+  <section class="container logo-showcase">
+    <img
+      class="logo-large"
+      src={withBase('/images/uyava_logo_n_text_horizontal_large_dark.png')}
+      alt="Uyava"
+    />
   </section>
 
   <section class="container">

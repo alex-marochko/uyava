@@ -13,7 +13,13 @@ const { pathname } = Astro.url;
 const normalize = (value) => (value.endsWith('/') && value !== '/' ? value.slice(0, -1) : value);
 ---
 <nav class="nav">
-  <a class="brand" href={withBase('/')}>Uyava</a>
+  <a class="brand" href={withBase('/')} aria-label="Uyava home">
+    <img
+      class="brand-logo"
+      src={withBase('/images/uyava_logo_n_text_horizontal_medium_dark.png')}
+      alt="Uyava"
+    />
+  </a>
   <div class="nav-links">
     {links.map((link) => {
       const href = withBase(link.href);
