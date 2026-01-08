@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@500;600;700&display=swap');
 
 :root {
   --bg: #0b0f14;
@@ -13,7 +13,7 @@
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
   --radius: 20px;
   --radius-sm: 14px;
-  --font-display: 'Source Sans 3', 'IBM Plex Sans', sans-serif;
+  --font-display: 'Inter', 'IBM Plex Sans', sans-serif;
   --font-body: 'IBM Plex Sans', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
@@ -68,6 +68,7 @@ h3,
 h4 {
   font-family: var(--font-display);
   letter-spacing: -0.01em;
+  font-weight: 600;
   margin: 0 0 12px;
 }
 
@@ -88,6 +89,23 @@ p {
   color: var(--ink-soft);
   line-height: 1.7;
   font-size: 1rem;
+}
+
+ul,
+ol {
+  margin: 0 0 20px;
+  padding-left: 20px;
+}
+
+ul li,
+ol li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+ul li:last-child,
+ol li:last-child {
+  margin-bottom: 0;
 }
 
 a {
@@ -307,12 +325,12 @@ a.card {
 }
 
 .card ul {
-  padding-left: 18px;
+  padding-left: 20px;
   margin: 0;
 }
 
 .card li {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: var(--ink-soft);
 }
 
@@ -447,7 +465,7 @@ a.card {
 .markdown ul,
 .markdown ol {
   padding-left: 1.4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.4rem;
 }
 
 .markdown code {
@@ -456,6 +474,41 @@ a.card {
   background: rgba(255, 255, 255, 0.08);
   padding: 2px 6px;
   border-radius: 6px;
+}
+
+.markdown pre {
+  background: #0f141c;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin: 0 0 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-color: #2a3648 #0f141c;
+  scrollbar-width: thin;
+}
+
+.markdown pre code {
+  background: none;
+  padding: 0;
+  display: block;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.markdown pre::-webkit-scrollbar {
+  height: 10px;
+}
+
+.markdown pre::-webkit-scrollbar-track {
+  background: #0f141c;
+  border-radius: 999px;
+}
+
+.markdown pre::-webkit-scrollbar-thumb {
+  background: #2a3648;
+  border-radius: 999px;
+  border: 2px solid #0f141c;
 }
 
 .footer {
