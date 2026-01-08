@@ -9,12 +9,18 @@ const {
 } = Astro.props;
 
 const ogImage = withBase('/og.png');
+const faviconSvg = withBase('/favicon.svg');
+const faviconPng = withBase('/favicon-32.png');
+const appleTouchIcon = withBase('/apple-touch-icon.png');
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+<link rel="icon" href={faviconSvg} type="image/svg+xml" />
+<link rel="icon" href={faviconPng} type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href={appleTouchIcon} sizes="180x180" />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />

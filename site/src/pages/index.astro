@@ -15,7 +15,7 @@ import { withBase } from '../utils/paths';
           Upgrade to Desktop Pro when you need advanced replay and navigation of .uyava logs.
         </p>
         <p class="name-note">
-          “Uyava” means “imagination” in Ukrainian (pronounced “oo-yah-vah”).
+          “Uyava” means “imagination” in Ukrainian (pronounced “oo-YAH-vah”).
         </p>
         <div class="hero-actions">
           <a class="btn primary" href={withBase('/download')}>Download</a>
@@ -23,13 +23,19 @@ import { withBase } from '../utils/paths';
           <a class="btn" href={withBase('/pricing')}>View pricing</a>
         </div>
       </div>
-      <div class="hero-visual reveal" style="animation-delay: 0.15s;">
+      <a
+        class="hero-visual reveal"
+        style="animation-delay: 0.15s;"
+        href={withBase('/images/screenshot_desktop.png')}
+        target="_blank"
+        rel="noreferrer"
+      >
         <img
           src={withBase('/images/screenshot_desktop.png')}
           alt="Uyava Desktop graph view preview"
         />
         <p class="caption">Desktop preview: live graph with event overlays.</p>
-      </div>
+      </a>
     </div>
     <div class="hero-support reveal" style="animation-delay: 0.25s;">
       <div class="hero-card">
@@ -51,7 +57,7 @@ import { withBase } from '../utils/paths';
       description="Use free DevTools, free Desktop, or unlock Desktop Pro for advanced replay."
     />
     <div class="grid three">
-      <div class="card highlight reveal">
+      <a class="card reveal" href={withBase('/pricing')}>
         <p class="pill">Free · Open-source</p>
         <h3>DevTools Extension</h3>
         <p>
@@ -63,8 +69,8 @@ import { withBase } from '../utils/paths';
           <li>Filters for nodes, edges, and event severity.</li>
           <li>Built for daily debugging and onboarding.</li>
         </ul>
-      </div>
-      <div class="card reveal" style="animation-delay: 0.1s;">
+      </a>
+      <a class="card reveal" style="animation-delay: 0.1s;" href={withBase('/pricing')}>
         <p class="pill">Free · Desktop</p>
         <h3>Desktop App</h3>
         <p>
@@ -76,8 +82,8 @@ import { withBase } from '../utils/paths';
           <li>IDE integration to jump from map to code.</li>
           <li>Record and preview .uyava logs.</li>
         </ul>
-      </div>
-      <div class="card reveal" style="animation-delay: 0.2s;">
+      </a>
+      <a class="card reveal" style="animation-delay: 0.2s;" href={withBase('/pricing')}>
         <p class="pill">Pro · Desktop</p>
         <h3>Desktop Pro</h3>
         <p>
@@ -89,7 +95,7 @@ import { withBase } from '../utils/paths';
           <li>Deeper navigation across .uyava logs.</li>
           <li>Priority for feature requests and bug fixes.</li>
         </ul>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -121,7 +127,7 @@ import { withBase } from '../utils/paths';
   <section class="container">
     <SectionHeader
       eyebrow="Get started"
-      title="Move from screenshots to living architecture"
+      title="Move from flat logs to living architecture"
       description="Start with free DevTools or the free desktop app, then add Pro when you need advanced replay."
     />
     <div class="hero-actions">

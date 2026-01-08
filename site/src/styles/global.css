@@ -294,6 +294,10 @@ a:hover {
   flex-direction: column;
 }
 
+a.card {
+  cursor: pointer;
+}
+
 .card.highlight {
   border-color: rgba(83, 214, 182, 0.3);
 }
