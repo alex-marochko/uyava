@@ -1,23 +1,41 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: "Desktop Pro: Advanced Replay"
-description: "Upgrade to advanced replay controls for long sessions."
+title: "Desktop Pro"
+description: "Advanced replay controls and long-session tooling."
 ---
 
-# Desktop Pro: Advanced Replay
+# Desktop Pro
 
-The free desktop app already lets you record sessions and preview .uyava logs. Desktop Pro unlocks advanced replay controls and deeper navigation for long investigations.
+Desktop Pro is a paid upgrade for teams who work with long sessions, large graphs, and deep replay workflows.
 
-## What the free desktop app includes
+## Free vs Pro
 
-- Better performance than web-based tooling.
-- IDE integration to jump from map or events to code.
-- Recording and basic preview of .uyava logs.
+Free Desktop includes:
 
-## What Desktop Pro adds
+- live graph view
+- IDE integration
+- basic recording and preview of `.uyava` logs
 
-- Advanced replay controls with a seekbar.
-- Deeper navigation across .uyava logs.
-- Priority for feature requests and bug fixes.
+Desktop Pro adds:
 
-Planned features like LLM-assisted insights are not part of the current Pro release.
+- advanced replay controls with a seekbar
+- deeper navigation across long recordings
+- priority for feature requests and bug fixes
+
+## Replay workflow
+
+When you open a `.uyava` file:
+
+- Desktop switches to File mode.
+- The timeline lets you scrub and play recorded events.
+- Event markers highlight moments of activity.
+
+Pro expands this with faster seeking and navigation controls, making it practical to review multi-minute or multi-hour logs.
+
+## When to upgrade
+
+Upgrade to Pro if you:
+
+- need to investigate large production sessions
+- replay logs frequently for triage and onboarding
+- want advanced navigation tools for .uyava archives

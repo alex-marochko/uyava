@@ -12,27 +12,52 @@ export const docsNav = [
   {
     title: 'Quick Tour',
     href: '/docs/quick-tour',
-    description: 'A fast walkthrough of the graph, filters, and panels.',
+    description: 'A walkthrough of the graph, panels, and daily workflow.',
   },
   {
-    title: 'Concepts: Events, Nodes, Edges',
+    title: 'Graph Model and Styling',
     href: '/docs/concepts-graph',
-    description: 'How the graph model is structured and interpreted.',
+    description: 'Nodes, edges, groups, lifecycle, and visual semantics.',
   },
   {
-    title: 'Concepts: Filtering and Grouping',
+    title: 'Filters, Focus, and Grouping',
     href: '/docs/concepts-filtering',
-    description: 'Refine large graphs with tags, severity, and logic filters.',
+    description: 'How filters affect the graph, journal, and panels.',
   },
   {
-    title: 'Concepts: Event Chains',
+    title: 'Journal and Diagnostics',
+    href: '/docs/journal-diagnostics',
+    description: 'Event history, diagnostics, and focus workflows.',
+  },
+  {
+    title: 'Metrics Dashboard',
+    href: '/docs/metrics-dashboard',
+    description: 'Define metrics, record samples, and read aggregates.',
+  },
+  {
+    title: 'Event Chains',
     href: '/docs/concepts-chains',
     description: 'Follow causal paths and playback chains of activity.',
   },
   {
-    title: 'Desktop Pro: Advanced Replay',
+    title: 'Recording and .uyava Logs',
+    href: '/docs/recording-logs',
+    description: 'Record sessions, export logs, and replay offline.',
+  },
+  {
+    title: 'SDK Integration',
+    href: '/docs/sdk-integration',
+    description: 'Instrument apps and ship Uyava data safely.',
+  },
+  {
+    title: 'Desktop Pro',
     href: '/docs/desktop-pro',
-    description: 'Upgrade to advanced replay controls and navigation.',
+    description: 'Advanced replay controls and long-session tooling.',
+  },
+  {
+    title: 'Under the Hood',
+    href: '/docs/architecture',
+    description: 'How the SDK, core, and UI fit together.',
   },
   {
     title: 'Troubleshooting',
