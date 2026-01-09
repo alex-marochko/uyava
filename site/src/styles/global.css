@@ -368,7 +368,28 @@ a.card {
 
 .price-alt {
   margin-top: -6px;
-  font-size: 0.95rem;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--ink-soft);
+}
+
+.price-alt-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.price-alt-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.price-alt-unit {
+  font-size: 0.9rem;
+  font-weight: 500;
   color: var(--ink-soft);
 }
 
