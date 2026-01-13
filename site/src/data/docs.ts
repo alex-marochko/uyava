@@ -50,6 +50,11 @@ export const docsNav = [
     description: 'Instrument apps and ship Uyava data safely.',
   },
   {
+    title: 'Best Practices',
+    href: '/docs/best-practices',
+    description: 'Keep graphs stable, logs useful, and IDE links accurate.',
+  },
+  {
     title: 'Desktop Pro',
     href: '/docs/desktop-pro',
     description: 'Advanced replay controls and long-session tooling.',
