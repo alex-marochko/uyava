@@ -50,6 +50,35 @@ Notes:
 - Invalid chain IDs or steps emit diagnostics (for example `chains.unknown_id`).
 - The Chains panel shows active attempts as chips and keeps completed runs in history.
 
+## Failure modes
+
+Chains can fail in two ways:
+
+- **Explicit failure status**: set `chain.status` to `failed`/`failure` (case-insensitive). This marks the attempt as failed immediately.
+- **Out-of-order steps**: starting from a non-first step or skipping expected steps fails the attempt.
+
+Example status-based failure:
+
+```dart
+Uyava.emitNodeEvent(
+  nodeId: 'logic.auth',
+  message: 'Auth failed',
+  payload: {
+    'chain': {
+      'id': 'auth.login_flow',
+      'step': 'success',
+      'attempt': 'a1',
+      'status': 'failed',
+    },
+  },
+);
+```
+
+Additional notes:
+
+- Unknown chain IDs/steps or mismatched node/edge identifiers are ignored with diagnostics (they do not increment failure totals).
+- `expectedSeverity` is metadata for UI display and does not affect pass/fail logic.
+
 ## Replay behavior
 
 Desktop Pro replays chain attempts alongside the timeline. This makes it easier to follow causal paths in large logs.
