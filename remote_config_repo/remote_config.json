@@ -1,3 +1,5 @@
 {
-  "purchaseUrl": "https://uyava.io/pricing"
+  "purchaseUrl": "https://uyava.io/pricing",
+  "supportIssueUrl": "https://github.com/alex-marochko/uyava-desktop-issues/issues/new/choose",
+  "supportEmail": "support@uyava.io"
 }
