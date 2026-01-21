@@ -1,6 +1,0 @@
-# Ignore editor/OS
-.DS_Store
-.idea/
-.vscode/
-
-# Nothing else needed here; this repo is public and only hosts JSON/README.

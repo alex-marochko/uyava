@@ -23,3 +23,9 @@ npm run build
 ```
 
 The output is generated in `dist/` and deployed via GitHub Pages.
+
+## Remote config
+
+The desktop remote config is hosted alongside the site at
+`/remote_config.json`. Update `public/remote_config.json` to publish new
+support links or purchase URLs.
