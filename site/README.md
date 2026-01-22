@@ -27,5 +27,6 @@ The output is generated in `dist/` and deployed via GitHub Pages.
 ## Remote config
 
 The desktop remote config is hosted alongside the site at
-`/remote_config.json`. Update `public/remote_config.json` to publish new
-support links or purchase URLs.
+`/remote_config.json`. Update `public/remote_config.json` to publish purchase
+links, support contacts, and update metadata (`latestDesktopVersion`,
+`downloadUrl`, `releaseNotesUrl`, `minRequiredVersion`).
