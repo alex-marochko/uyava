@@ -2,8 +2,8 @@
   "purchaseUrl": "https://uyava.io/pricing",
   "supportIssueUrl": "https://github.com/alex-marochko/uyava-desktop-issues/issues/new/choose",
   "supportEmail": "support@uyava.io",
-  "latestDesktopVersion": "0.3.0",
-  "downloadUrl": "https://uyava.io",
+  "latestDesktopVersion": "0.1.0",
+  "downloadUrl": "https://uyava.io/download/",
   "releaseNotesUrl": "",
   "minRequiredVersion": ""
 }
