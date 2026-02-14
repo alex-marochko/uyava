@@ -7,6 +7,7 @@ description: "Advanced replay controls and long-session tooling."
 # Desktop Pro
 
 Desktop Pro is a paid upgrade for teams who work with long sessions, large graphs, and deep replay workflows.
+Desktop Pro does not include a trial period.
 
 ## Free vs Pro
 
@@ -21,6 +22,8 @@ Desktop Pro adds:
 - advanced replay controls with a seekbar
 - deeper navigation across long recordings
 - priority for feature requests and bug fixes
+
+Desktop Pro periodically verifies subscription status. If the device is temporarily offline, a grace period applies before Pro features are paused.
 
 ## Replay workflow
 
