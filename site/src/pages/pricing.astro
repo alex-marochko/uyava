@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { withBase } from '../utils/paths';
+
+const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
+const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_pro').trim();
 ---
 <BaseLayout title="Pricing" description="Choose between free DevTools, free Desktop, or Desktop Pro.">
   <section class="container">
@@ -48,7 +51,26 @@ import { withBase } from '../utils/paths';
           <li>Advanced replay and navigation for .uyava logs.</li>
           <li>Seekbar controls for long sessions.</li>
         </ul>
-        <a class="btn primary" href={withBase('/contact')}>Request access</a>
+        <div
+          class="checkout-actions"
+          id="checkout-actions"
+          data-billing-api-base={billingApiBase}
+          data-product-id={billingProductId}
+        >
+          <button class="btn primary" type="button" data-checkout-plan="monthly">
+            Buy monthly · $10
+          </button>
+          <button class="btn" type="button" data-checkout-plan="yearly">
+            Buy yearly · $80
+          </button>
+          <p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p>
+          <p class="checkout-note">
+            After purchase, activate Pro in Desktop with your license key.
+          </p>
+        </div>
+        <noscript>
+          <a class="btn primary" href={withBase('/contact')}>Request access</a>
+        </noscript>
       </div>
     </div>
   </section>
@@ -90,3 +112,111 @@ import { withBase } from '../utils/paths';
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const root = document.getElementById('checkout-actions');
+    if (!root) return;
+
+    const statusEl = document.getElementById('checkout-status');
+    const buttons = Array.from(root.querySelectorAll('button[data-checkout-plan]'));
+    const billingApiBase = (root.dataset.billingApiBase || '').trim();
+    const productId = (root.dataset.productId || 'desktop_pro').trim();
+
+    const setStatus = (message, isError = false) => {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.dataset.state = isError ? 'error' : 'ok';
+    };
+
+    const setBusy = (busy) => {
+      for (const button of buttons) {
+        button.disabled = busy;
+      }
+    };
+
+    const createStableCustomerId = () => {
+      const storageKey = 'uyava_checkout_customer_id';
+      const existing = localStorage.getItem(storageKey);
+      if (existing && /^web_[a-z0-9_-]{8,}$/i.test(existing)) return existing;
+
+      let randomPart = '';
+      if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+        randomPart = window.crypto.randomUUID().replace(/-/g, '');
+      } else {
+        randomPart = `${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`;
+      }
+      const customerId = `web_${randomPart}`;
+      localStorage.setItem(storageKey, customerId);
+      return customerId;
+    };
+
+    const createIdempotencyKey = (plan) => {
+      const random = Math.random().toString(36).slice(2, 10);
+      return `site-${plan}-${Date.now().toString(36)}-${random}`;
+    };
+
+    const buildCheckoutUrl = () => {
+      if (!billingApiBase) return '';
+      return `${billingApiBase.replace(/\/+$/, '')}/billing/checkout`;
+    };
+
+    const onCheckoutClick = async (plan) => {
+      const endpoint = buildCheckoutUrl();
+      if (!endpoint) {
+        setStatus('Checkout is temporarily unavailable. Please contact support.', true);
+        return;
+      }
+
+      setBusy(true);
+      setStatus('Creating secure checkout session...');
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            customerId: createStableCustomerId(),
+            productId,
+            plan,
+            idempotencyKey: createIdempotencyKey(plan),
+          }),
+        });
+
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.ok) {
+          const message =
+            payload?.message ||
+            (response.status === 409
+              ? 'An active entitlement already exists for this account.'
+              : `Checkout failed (${response.status}).`);
+          throw new Error(message);
+        }
+
+        if (typeof payload.checkoutUrl !== 'string' || payload.checkoutUrl.length === 0) {
+          throw new Error('Checkout URL is missing in backend response.');
+        }
+
+        setStatus('Redirecting to Paddle...');
+        window.location.assign(payload.checkoutUrl);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unexpected checkout error.';
+        setStatus(message, true);
+        setBusy(false);
+      }
+    };
+
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        const plan = button.dataset.checkoutPlan;
+        if (plan !== 'monthly' && plan !== 'yearly') {
+          setStatus('Invalid plan selected.', true);
+          return;
+        }
+        void onCheckoutClick(plan);
+      });
+    }
+  })();
+</script>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { withBase } from '../../utils/paths';
+---
+<BaseLayout
+  title="Purchase Received"
+  description="Your Paddle payment was received. Activate Desktop Pro with your license key."
+>
+  <section class="container">
+    <SectionHeader
+      eyebrow="Checkout"
+      title="Payment received"
+      description="Your order is processing. If a license key is not shown immediately, check your Paddle receipt email."
+    />
+    <div class="grid two">
+      <div class="card">
+        <h3>Next step in Desktop</h3>
+        <p>
+          Open Desktop, paste your license key in the activation screen, and
+          complete activation.
+        </p>
+        <a class="btn primary" href={withBase('/download')}>Open Desktop Download</a>
+      </div>
+      <div class="card">
+        <h3>Need help?</h3>
+        <p>
+          If the license key did not arrive, contact support and include your
+          Paddle receipt ID.
+        </p>
+        <a class="btn" href={withBase('/contact')}>Contact support</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

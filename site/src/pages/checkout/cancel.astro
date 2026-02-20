@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { withBase } from '../../utils/paths';
+---
+<BaseLayout
+  title="Checkout Canceled"
+  description="No charge was completed. You can return to pricing and try again."
+>
+  <section class="container">
+    <SectionHeader
+      eyebrow="Checkout"
+      title="Checkout canceled"
+      description="No payment was completed. You can retry purchase at any time."
+    />
+    <div class="grid two">
+      <div class="card">
+        <h3>Try again</h3>
+        <p>Return to pricing and choose monthly or yearly Desktop Pro.</p>
+        <a class="btn primary" href={withBase('/pricing')}>Back to pricing</a>
+      </div>
+      <div class="card">
+        <h3>Questions before purchase?</h3>
+        <p>
+          Check the refund policy or reach out to support for billing help.
+        </p>
+        <a class="btn" href={withBase('/legal/refunds')}>Refund policy</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

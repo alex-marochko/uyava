@@ -14,6 +14,11 @@ npm ci
 npm run dev
 ```
 
+Optional checkout-related env vars:
+
+- `PUBLIC_BILLING_API_BASE` (for example, `https://<billing-host>`)
+- `PUBLIC_BILLING_PRODUCT_ID` (defaults to `desktop_pro`)
+
 The legal documents are synced automatically via `npm run sync-legal`.
 
 ## Build
