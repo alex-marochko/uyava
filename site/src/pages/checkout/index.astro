@@ -79,7 +79,7 @@ const paddleEnvironment = (import.meta.env.PUBLIC_PADDLE_ENV ?? '').trim();
           displayMode: 'overlay',
           variant: 'one-page',
           allowLogout: false,
-          successUrl: `${window.location.origin}/checkout/success`,
+          successUrl: `${window.location.origin}/checkout/success?_ptxn=${encodeURIComponent(transactionId)}`,
         },
       });
     };
@@ -98,6 +98,7 @@ const paddleEnvironment = (import.meta.env.PUBLIC_PADDLE_ENV ?? '').trim();
       setStatus('Invalid checkout link. Please return to pricing and try again.', true);
       return;
     }
+    localStorage.setItem('uyava_checkout_last_transaction_id', transactionId);
 
     if (!configuredToken) {
       setStatus('Checkout is not configured yet. Missing Paddle client token.', true);
