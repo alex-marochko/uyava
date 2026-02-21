@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { withBase } from '../../utils/paths';
+
+const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
+---
+<BaseLayout
+  title="Manage Subscription"
+  description="Cancel or switch your Uyava Desktop Pro subscription."
+>
+  <section class="container">
+    <SectionHeader
+      eyebrow="Subscription"
+      title="Manage Desktop Pro plan"
+      description="Use your license key and purchase email to cancel or switch monthly/yearly billing."
+    />
+
+    <div class="grid two">
+      <div class="card">
+        <h3>Verify access</h3>
+        <p class="checkout-note">
+          For security, management actions require both your license key and the same email used in Paddle checkout.
+        </p>
+        <div class="manage-fields">
+          <label for="manage-license-key">License key</label>
+          <input id="manage-license-key" type="text" autocomplete="off" placeholder="AAAA-BBBB-CCCC-0001" />
+          <label for="manage-email">Purchase email</label>
+          <input id="manage-email" type="email" autocomplete="email" placeholder="you@example.com" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Actions</h3>
+        <div class="hero-actions">
+          <button class="btn primary" id="manage-switch-yearly" type="button">
+            Switch to yearly
+          </button>
+          <button class="btn" id="manage-switch-monthly" type="button">
+            Switch to monthly
+          </button>
+          <button class="btn" id="manage-cancel" type="button">
+            Cancel subscription
+          </button>
+        </div>
+        <p class="checkout-status" id="manage-status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Need help?</h3>
+      <p>If verification fails, contact support and include your license key and Paddle receipt.</p>
+      <a class="btn" href={withBase('/contact')}>Contact support</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ billingApiBase }}>
+  (() => {
+    const licenseInput = document.getElementById('manage-license-key');
+    const emailInput = document.getElementById('manage-email');
+    const statusEl = document.getElementById('manage-status');
+    const switchYearlyBtn = document.getElementById('manage-switch-yearly');
+    const switchMonthlyBtn = document.getElementById('manage-switch-monthly');
+    const cancelBtn = document.getElementById('manage-cancel');
+    const allButtons = [switchYearlyBtn, switchMonthlyBtn, cancelBtn].filter(Boolean);
+    const apiBase = (billingApiBase || '').trim();
+
+    const setStatus = (message, isError = false) => {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.dataset.state = isError ? 'error' : 'ok';
+    };
+
+    const setBusy = (busy) => {
+      for (const button of allButtons) {
+        button.disabled = busy;
+      }
+    };
+
+    const readPayload = () => {
+      const licenseKey = (licenseInput?.value || '').trim();
+      const email = (emailInput?.value || '').trim();
+      if (!licenseKey || !email) {
+        setStatus('Enter license key and purchase email first.', true);
+        return null;
+      }
+      return { licenseKey, email };
+    };
+
+    const endpoint = (path) => {
+      if (!apiBase) return '';
+      return `${apiBase.replace(/\/+$/, '')}${path}`;
+    };
+
+    const postAction = async (path, payload, pendingMessage, successMessage) => {
+      const url = endpoint(path);
+      if (!url) {
+        setStatus('Billing API is not configured for this site build.', true);
+        return;
+      }
+      setBusy(true);
+      setStatus(pendingMessage);
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok || !body.ok) {
+          throw new Error(body?.message || `Request failed (${response.status})`);
+        }
+        setStatus(successMessage);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unexpected request error.';
+        setStatus(message, true);
+      } finally {
+        setBusy(false);
+      }
+    };
+
+    switchYearlyBtn?.addEventListener('click', () => {
+      const payload = readPayload();
+      if (!payload) return;
+      void postAction(
+        '/billing/subscription/change-plan',
+        { ...payload, plan: 'yearly' },
+        'Switching to yearly plan...',
+        'Plan updated to yearly.',
+      );
+    });
+
+    switchMonthlyBtn?.addEventListener('click', () => {
+      const payload = readPayload();
+      if (!payload) return;
+      void postAction(
+        '/billing/subscription/change-plan',
+        { ...payload, plan: 'monthly' },
+        'Switching to monthly plan...',
+        'Plan updated to monthly.',
+      );
+    });
+
+    cancelBtn?.addEventListener('click', () => {
+      const payload = readPayload();
+      if (!payload) return;
+      void postAction(
+        '/billing/subscription/cancel',
+        { ...payload, effectiveFrom: 'next_billing_period' },
+        'Scheduling cancellation...',
+        'Cancellation scheduled for next billing period.',
+      );
+    });
+  })();
+</script>
