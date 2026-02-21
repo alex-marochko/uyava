@@ -381,6 +381,18 @@ a.card {
   color: var(--accent);
 }
 
+.checkout-license-key {
+  display: block;
+  margin: 4px 0 8px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(15, 20, 28, 0.9);
+  font-family: var(--font-mono);
+  color: var(--ink);
+  letter-spacing: 0.03em;
+}
+
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;

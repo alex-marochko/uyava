@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { withBase } from '../../utils/paths';
+
+const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
 ---
 <BaseLayout
   title="Purchase Received"
@@ -11,9 +13,25 @@ import { withBase } from '../../utils/paths';
     <SectionHeader
       eyebrow="Checkout"
       title="Payment received"
-      description="Your order is processing. If a license key is not shown immediately, check your Paddle receipt email."
+      description="Your order is processing. If the key is not shown immediately, wait a few seconds and refresh this page."
     />
     <div class="grid two">
+      <div class="card">
+        <h3>Your license key</h3>
+        <p id="claim-status">
+          Looking up your key...
+        </p>
+        <code id="license-key-value" class="checkout-license-key" hidden></code>
+        <div class="hero-actions">
+          <button id="copy-license-key" class="btn primary" type="button" hidden>
+            Copy key
+          </button>
+          <a class="btn" href={withBase('/pricing')}>Back to pricing</a>
+        </div>
+        <p class="checkout-note">
+          Save this key in a secure place before closing this page.
+        </p>
+      </div>
       <div class="card">
         <h3>Next step in Desktop</h3>
         <p>
@@ -22,14 +40,86 @@ import { withBase } from '../../utils/paths';
         </p>
         <a class="btn primary" href={withBase('/download')}>Open Desktop Download</a>
       </div>
-      <div class="card">
-        <h3>Need help?</h3>
-        <p>
-          If the license key did not arrive, contact support and include your
-          Paddle receipt ID.
-        </p>
-        <a class="btn" href={withBase('/contact')}>Contact support</a>
-      </div>
     </div>
   </section>
 </BaseLayout>
+
+<script define:vars={{ billingApiBase }}>
+  (() => {
+    const statusEl = document.getElementById('claim-status');
+    const keyEl = document.getElementById('license-key-value');
+    const copyBtn = document.getElementById('copy-license-key');
+    const transactionId = new URLSearchParams(window.location.search).get('_ptxn')?.trim() || '';
+    const customerId = localStorage.getItem('uyava_checkout_customer_id')?.trim() || '';
+    const apiBase = (billingApiBase || '').trim();
+
+    const setStatus = (message, isError = false) => {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.style.color = isError ? '#ff9870' : '';
+    };
+
+    const endpoint = () => {
+      if (!apiBase) return '';
+      return `${apiBase.replace(/\/+$/, '')}/billing/license/claim`;
+    };
+
+    const revealKey = (licenseKey) => {
+      if (!keyEl || !copyBtn) return;
+      keyEl.hidden = false;
+      keyEl.textContent = licenseKey;
+      copyBtn.hidden = false;
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(licenseKey);
+          setStatus('License key copied.');
+        } catch (_) {
+          setStatus('Unable to copy key. Please copy it manually.', true);
+        }
+      });
+    };
+
+    const loadKey = async () => {
+      if (!transactionId) {
+        setStatus('Missing transaction id. Open checkout from pricing and try again.', true);
+        return;
+      }
+      if (!customerId) {
+        setStatus('Missing customer id in this browser. Open checkout from this browser and try again.', true);
+        return;
+      }
+      const claimEndpoint = endpoint();
+      if (!claimEndpoint) {
+        setStatus('Billing API is not configured for this site build.', true);
+        return;
+      }
+
+      try {
+        const response = await fetch(claimEndpoint, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            transactionId,
+            customerId,
+          }),
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.ok) {
+          throw new Error(payload?.message || `Claim failed (${response.status})`);
+        }
+        if (typeof payload.licenseKey !== 'string' || payload.licenseKey.length === 0) {
+          throw new Error('License key is missing in claim response.');
+        }
+        revealKey(payload.licenseKey);
+        setStatus('License key ready.');
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unable to load license key.';
+        setStatus(`${message} Contact support if this persists.`, true);
+      }
+    };
+
+    void loadKey();
+  })();
+</script>
