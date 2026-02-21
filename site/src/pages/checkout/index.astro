@@ -84,6 +84,16 @@ const paddleEnvironment = (import.meta.env.PUBLIC_PADDLE_ENV ?? '').trim();
       });
     };
 
+    const waitForPaddle = async () => {
+      const maxAttempts = 40;
+      const delayMs = 150;
+      for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+        if (window.Paddle) return true;
+        await new Promise((resolve) => setTimeout(resolve, delayMs));
+      }
+      return false;
+    };
+
     if (!transactionId || !/^txn_/i.test(transactionId)) {
       setStatus('Invalid checkout link. Please return to pricing and try again.', true);
       return;
@@ -94,34 +104,43 @@ const paddleEnvironment = (import.meta.env.PUBLIC_PADDLE_ENV ?? '').trim();
       return;
     }
 
-    if (!window.Paddle) {
-      setStatus('Failed to load Paddle checkout script. Refresh the page and try again.', true);
-      return;
-    }
+    const start = async () => {
+      setStatus('Loading checkout assets...');
+      const paddleReady = await waitForPaddle();
+      if (!paddleReady || !window.Paddle) {
+        setStatus(
+          'Failed to load Paddle checkout script. Refresh the page and try again.',
+          true,
+        );
+        return;
+      }
 
-    const environment = inferEnvironment();
-    if (environment === 'sandbox') {
-      window.Paddle.Environment.set('sandbox');
-    }
+      const environment = inferEnvironment();
+      if (environment === 'sandbox') {
+        window.Paddle.Environment.set('sandbox');
+      }
 
-    window.Paddle.Initialize({
-      token: configuredToken,
-      eventCallback: (event) => {
-        if (event?.name === 'checkout.loaded') {
-          setStatus('Checkout loaded.');
-        }
-      },
-    });
-
-    if (openButton) {
-      openButton.disabled = false;
-      openButton.addEventListener('click', () => {
-        setStatus('Opening checkout...');
-        openCheckout();
+      window.Paddle.Initialize({
+        token: configuredToken,
+        eventCallback: (event) => {
+          if (event?.name === 'checkout.loaded') {
+            setStatus('Checkout loaded.');
+          }
+        },
       });
-    }
 
-    setStatus('Opening checkout...');
-    openCheckout();
+      if (openButton) {
+        openButton.disabled = false;
+        openButton.addEventListener('click', () => {
+          setStatus('Opening checkout...');
+          openCheckout();
+        });
+      }
+
+      setStatus('Opening checkout...');
+      openCheckout();
+    };
+
+    void start();
   })();
 </script>
