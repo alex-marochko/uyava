@@ -38,6 +38,8 @@ jobs:
         env:
           PUBLIC_BILLING_API_BASE: ${{ vars.PUBLIC_BILLING_API_BASE }}
           PUBLIC_BILLING_PRODUCT_ID: ${{ vars.PUBLIC_BILLING_PRODUCT_ID || 'desktop_pro' }}
+          PUBLIC_PADDLE_CLIENT_TOKEN: ${{ vars.PUBLIC_PADDLE_CLIENT_TOKEN }}
+          PUBLIC_PADDLE_ENV: ${{ vars.PUBLIC_PADDLE_ENV || '' }}
         run: npm run build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

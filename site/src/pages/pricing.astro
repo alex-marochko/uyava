@@ -106,6 +106,27 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
         </p>
       </div>
       <div class="card">
+        <h3>Do I get a new key every month?</h3>
+        <p>
+          No. Your subscription keeps the same Desktop Pro key active. Renewals
+          update entitlement status without requiring a new key.
+        </p>
+      </div>
+      <div class="card">
+        <h3>What if I switch monthly to yearly?</h3>
+        <p>
+          Plan changes keep the same product entitlement. In normal cases your
+          existing key remains valid.
+        </p>
+      </div>
+      <div class="card">
+        <h3>When can access be revoked?</h3>
+        <p>
+          Access is revoked if subscription status becomes canceled, past due,
+          payment failed, or approved refund/chargeback is applied.
+        </p>
+      </div>
+      <div class="card">
         <h3>Can I stay on Free?</h3>
         <p>Yes. Both the DevTools extension and Desktop app are free to use.</p>
       </div>
@@ -181,6 +202,8 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
             customerId: createStableCustomerId(),
             productId,
             plan,
+            successUrl: `${window.location.origin}/checkout/success`,
+            cancelUrl: `${window.location.origin}/checkout/cancel`,
             idempotencyKey: createIdempotencyKey(plan),
           }),
         });

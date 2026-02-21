@@ -18,6 +18,8 @@ Optional checkout-related env vars:
 
 - `PUBLIC_BILLING_API_BASE` (for example, `https://<billing-host>`)
 - `PUBLIC_BILLING_PRODUCT_ID` (defaults to `desktop_pro`)
+- `PUBLIC_PADDLE_CLIENT_TOKEN` (Paddle.js client-side token: `test_...` for sandbox, `live_...` for production)
+- `PUBLIC_PADDLE_ENV` (optional override: `sandbox` or `live`; auto-inferred from token when omitted)
 
 The legal documents are synced automatically via `npm run sync-legal`.
 

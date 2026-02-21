@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { withBase } from '../../utils/paths';
+
+const paddleToken = (import.meta.env.PUBLIC_PADDLE_CLIENT_TOKEN ?? '').trim();
+const paddleEnvironment = (import.meta.env.PUBLIC_PADDLE_ENV ?? '').trim();
+---
+<BaseLayout
+  title="Checkout"
+  description="Secure checkout powered by Paddle."
+>
+  <section class="container">
+    <SectionHeader
+      eyebrow="Checkout"
+      title="Complete your Desktop Pro purchase"
+      description="We are preparing secure checkout. If it does not open automatically, use the button below."
+    />
+    <div class="grid two">
+      <div class="card">
+        <h3>Status</h3>
+        <p id="checkout-flow-status">
+          Initializing checkout...
+        </p>
+        <div class="hero-actions">
+          <button
+            id="checkout-open-button"
+            class="btn primary"
+            type="button"
+            disabled
+          >
+            Open checkout
+          </button>
+          <a class="btn" href={withBase('/pricing')}>Back to pricing</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>After payment</h3>
+        <p>
+          You will return to the success page with next steps. Then activate
+          Desktop Pro in the app using your license key.
+        </p>
+        <a class="btn" href={withBase('/checkout/success')}>View success page</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script define:vars={{ paddleToken, paddleEnvironment }}>
+  (() => {
+    const statusEl = document.getElementById('checkout-flow-status');
+    const openButton = document.getElementById('checkout-open-button');
+    const configuredToken = (paddleToken || '').trim();
+    const configuredEnvironment = (paddleEnvironment || '').trim().toLowerCase();
+    const params = new URLSearchParams(window.location.search);
+    const transactionId = params.get('_ptxn')?.trim() || '';
+
+    const setStatus = (message, isError = false) => {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.style.color = isError ? '#ff9870' : '';
+    };
+
+    const inferEnvironment = () => {
+      if (configuredEnvironment === 'sandbox' || configuredEnvironment === 'live') {
+        return configuredEnvironment;
+      }
+      if (configuredToken.startsWith('test_')) return 'sandbox';
+      if (configuredToken.startsWith('live_')) return 'live';
+      return null;
+    };
+
+    const openCheckout = () => {
+      if (!window.Paddle || !transactionId) return;
+      window.Paddle.Checkout.open({
+        transactionId,
+        settings: {
+          displayMode: 'overlay',
+          variant: 'one-page',
+          allowLogout: false,
+          successUrl: `${window.location.origin}/checkout/success`,
+        },
+      });
+    };
+
+    if (!transactionId || !/^txn_/i.test(transactionId)) {
+      setStatus('Invalid checkout link. Please return to pricing and try again.', true);
+      return;
+    }
+
+    if (!configuredToken) {
+      setStatus('Checkout is not configured yet. Missing Paddle client token.', true);
+      return;
+    }
+
+    if (!window.Paddle) {
+      setStatus('Failed to load Paddle checkout script. Refresh the page and try again.', true);
+      return;
+    }
+
+    const environment = inferEnvironment();
+    if (environment === 'sandbox') {
+      window.Paddle.Environment.set('sandbox');
+    }
+
+    window.Paddle.Initialize({
+      token: configuredToken,
+      eventCallback: (event) => {
+        if (event?.name === 'checkout.loaded') {
+          setStatus('Checkout loaded.');
+        }
+      },
+    });
+
+    if (openButton) {
+      openButton.disabled = false;
+      openButton.addEventListener('click', () => {
+        setStatus('Opening checkout...');
+        openCheckout();
+      });
+    }
+
+    setStatus('Opening checkout...');
+    openCheckout();
+  })();
+</script>
