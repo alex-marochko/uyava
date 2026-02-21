@@ -49,7 +49,11 @@ const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
     const statusEl = document.getElementById('claim-status');
     const keyEl = document.getElementById('license-key-value');
     const copyBtn = document.getElementById('copy-license-key');
-    const transactionId = new URLSearchParams(window.location.search).get('_ptxn')?.trim() || '';
+    const transactionIdFromQuery =
+      new URLSearchParams(window.location.search).get('_ptxn')?.trim() || '';
+    const transactionIdFromStorage =
+      localStorage.getItem('uyava_checkout_last_transaction_id')?.trim() || '';
+    const transactionId = transactionIdFromQuery || transactionIdFromStorage;
     const customerId = localStorage.getItem('uyava_checkout_customer_id')?.trim() || '';
     const apiBase = (billingApiBase || '').trim();
 
@@ -80,8 +84,11 @@ const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
     };
 
     const loadKey = async () => {
+      if (transactionIdFromQuery) {
+        localStorage.setItem('uyava_checkout_last_transaction_id', transactionIdFromQuery);
+      }
       if (!transactionId) {
-        setStatus('Missing transaction id. Open checkout from pricing and try again.', true);
+        setStatus('Missing transaction id. Open checkout from pricing in this browser and try again.', true);
         return;
       }
       if (!customerId) {

@@ -178,6 +178,12 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
       return `site-${plan}-${Date.now().toString(36)}-${random}`;
     };
 
+    const rememberLastTransactionId = (transactionId) => {
+      const normalized = (transactionId || '').trim();
+      if (!normalized) return;
+      localStorage.setItem('uyava_checkout_last_transaction_id', normalized);
+    };
+
     const buildCheckoutUrl = () => {
       if (!billingApiBase) return '';
       return `${billingApiBase.replace(/\/+$/, '')}/billing/checkout`;
@@ -221,6 +227,9 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
 
         if (typeof payload.checkoutUrl !== 'string' || payload.checkoutUrl.length === 0) {
           throw new Error('Checkout URL is missing in backend response.');
+        }
+        if (typeof payload.transactionId === 'string' && payload.transactionId.length > 0) {
+          rememberLastTransactionId(payload.transactionId);
         }
 
         setStatus('Redirecting to Paddle...');
