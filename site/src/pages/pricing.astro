@@ -53,7 +53,7 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
           data-product-id={billingProductId}
         >
           <label class="checkout-field-label" for="checkout-email">
-            Email for license delivery and subscription management
+            Email for license delivery and subscription cancellation
           </label>
           <input
             id="checkout-email"
@@ -127,8 +127,8 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
       <div class="card">
         <h3>When can access be revoked?</h3>
         <p>
-          Access is revoked if subscription status becomes canceled, past due,
-          payment failed, or approved refund/chargeback is applied.
+          Access may be revoked if subscription status becomes canceled, past
+          due, payment failed, or an approved refund/chargeback is processed.
         </p>
       </div>
       <div class="card">

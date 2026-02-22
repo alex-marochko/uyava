@@ -30,9 +30,8 @@ Desktop Pro periodically verifies subscription status. If the device is temporar
 - Desktop Pro is activated with a license key after purchase.
 - The same key is valid on up to 2 devices.
 - Renewals keep the same key active; you don't need a new key every billing cycle.
-- Switching monthly/yearly plans keeps the same product entitlement in normal cases.
-- Access can be revoked if subscription state becomes canceled, past due, payment failed, or approved refund/chargeback.
-- You can manage plan/cancellation from the website using your license key + purchase email.
+- Access may be revoked if subscription state becomes canceled, past due, payment failed, or an approved refund/chargeback is processed.
+- You can cancel future renewals from the website using your license key + purchase email.
 
 ## Replay workflow
 
