@@ -40,12 +40,7 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
         <p class="pill">Pro · Desktop</p>
         <h3>Desktop Pro</h3>
         <p class="price">
-          $10<span class="price-unit">/month</span>
-        </p>
-        <p class="price-alt">
-          <span class="price-alt-label">or</span>
-          <span class="price-alt-value">$80</span>
-          <span class="price-alt-unit">/year</span>
+          $8<span class="price-unit">/month</span>
         </p>
         <ul>
           <li>Advanced replay and navigation for .uyava logs.</li>
@@ -70,10 +65,7 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
             required
           />
           <button class="btn primary" type="button" data-checkout-plan="monthly">
-            Buy monthly · $10
-          </button>
-          <button class="btn" type="button" data-checkout-plan="yearly">
-            Buy yearly · $80
+            Start subscription · $8/month
           </button>
           <p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p>
           <p class="checkout-note">
@@ -126,10 +118,10 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
         </p>
       </div>
       <div class="card">
-        <h3>What if I switch monthly to yearly?</h3>
+        <h3>How do I cancel my subscription?</h3>
         <p>
-          Plan changes keep the same product entitlement. In normal cases your
-          existing key remains valid.
+          Use the Manage subscription page with your license key and purchase
+          email to stop future renewals.
         </p>
       </div>
       <div class="card">
@@ -269,7 +261,7 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
     for (const button of buttons) {
       button.addEventListener('click', () => {
         const plan = button.dataset.checkoutPlan;
-        if (plan !== 'monthly' && plan !== 'yearly') {
+        if (plan !== 'monthly') {
           setStatus('Invalid plan selected.', true);
           return;
         }

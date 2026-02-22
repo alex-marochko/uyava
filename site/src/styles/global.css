@@ -177,10 +177,14 @@ a:hover {
   padding: 12px 20px;
   border-radius: 999px;
   border: 1px solid var(--border);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.2;
   font-weight: 600;
   color: var(--ink);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
 }
 
 .btn.primary {
@@ -429,6 +433,10 @@ a.card {
   color: var(--ink);
   padding: 10px 12px;
   font-size: 0.95rem;
+}
+
+.manage-help-card {
+  margin-top: 24px;
 }
 
 .btn:disabled {
