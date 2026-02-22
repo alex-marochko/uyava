@@ -57,6 +57,18 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
           data-billing-api-base={billingApiBase}
           data-product-id={billingProductId}
         >
+          <label class="checkout-field-label" for="checkout-email">
+            Email for license delivery and subscription management
+          </label>
+          <input
+            id="checkout-email"
+            class="checkout-email-input"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          />
           <button class="btn primary" type="button" data-checkout-plan="monthly">
             Buy monthly · $10
           </button>
@@ -141,6 +153,7 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
     if (!root) return;
 
     const statusEl = document.getElementById('checkout-status');
+    const emailInput = document.getElementById('checkout-email');
     const buttons = Array.from(root.querySelectorAll('button[data-checkout-plan]'));
     const billingApiBase = (root.dataset.billingApiBase || '').trim();
     const productId = (root.dataset.productId || 'desktop_pro').trim();
@@ -155,7 +168,13 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
       for (const button of buttons) {
         button.disabled = busy;
       }
+      if (emailInput) {
+        emailInput.disabled = busy;
+      }
     };
+
+    const normalizeEmail = (value) => (value || '').trim().toLowerCase();
+    const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
     const createStableCustomerId = () => {
       const storageKey = 'uyava_checkout_customer_id';
@@ -195,6 +214,11 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
         setStatus('Checkout is temporarily unavailable. Please contact support.', true);
         return;
       }
+      const email = normalizeEmail(emailInput?.value);
+      if (!isValidEmail(email)) {
+        setStatus('Enter a valid email address before checkout.', true);
+        return;
+      }
 
       setBusy(true);
       setStatus('Creating secure checkout session...');
@@ -207,6 +231,7 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
           },
           body: JSON.stringify({
             customerId: createStableCustomerId(),
+            email,
             productId,
             plan,
             successUrl: `${window.location.origin}/checkout/success`,

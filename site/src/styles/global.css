@@ -381,6 +381,24 @@ a.card {
   color: var(--accent);
 }
 
+.checkout-field-label {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.checkout-email-input {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(11, 16, 24, 0.85);
+  color: var(--ink);
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
 .checkout-license-key {
   display: block;
   margin: 4px 0 8px;
