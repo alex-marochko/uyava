@@ -102,25 +102,43 @@ const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
       }
 
       try {
-        const response = await fetch(claimEndpoint, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify({
-            transactionId,
-            customerId,
-          }),
-        });
-        const payload = await response.json().catch(() => ({}));
-        if (!response.ok || !payload.ok) {
-          throw new Error(payload?.message || `Claim failed (${response.status})`);
+        const maxAttempts = 25;
+        const retryDelayMs = 2000;
+        for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+          if (attempt > 1) {
+            setStatus(`Finalizing purchase... (${attempt}/${maxAttempts})`);
+            await new Promise((resolve) => setTimeout(resolve, retryDelayMs));
+          }
+
+          const response = await fetch(claimEndpoint, {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              transactionId,
+              customerId,
+            }),
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (response.ok && payload.ok) {
+            if (typeof payload.licenseKey !== 'string' || payload.licenseKey.length === 0) {
+              throw new Error('License key is missing in claim response.');
+            }
+            revealKey(payload.licenseKey);
+            setStatus('License key ready.');
+            return;
+          }
+
+          const notReady =
+            response.status === 409 ||
+            payload?.error === 'not_ready' ||
+            /not found for transaction/i.test(String(payload?.message || ''));
+          if (!notReady) {
+            throw new Error(payload?.message || `Claim failed (${response.status})`);
+          }
         }
-        if (typeof payload.licenseKey !== 'string' || payload.licenseKey.length === 0) {
-          throw new Error('License key is missing in claim response.');
-        }
-        revealKey(payload.licenseKey);
-        setStatus('License key ready.');
+        throw new Error('License is still processing. Please refresh this page in a moment.');
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unable to load license key.';
         setStatus(`${message} Contact support if this persists.`, true);
