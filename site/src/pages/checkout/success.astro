@@ -68,6 +68,26 @@ const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
       return `${apiBase.replace(/\/+$/, '')}/billing/license/claim`;
     };
 
+    const toClaimErrorMessage = ({ status, payload, error }) => {
+      const code = typeof payload?.error === 'string' ? payload.error : '';
+      if (code === 'validation_error' || status === 400) {
+        return 'Invalid checkout link. Please return to pricing and try again.';
+      }
+      if (code === 'not_ready' || status === 409) {
+        return 'Your purchase is still processing. Please refresh this page in a moment.';
+      }
+      if (code === 'not_found' || status === 404) {
+        return 'Purchase not found yet. Please refresh this page in a moment.';
+      }
+      if (code === 'paddle_api_error' || code === 'internal_error' || status >= 500) {
+        return 'Unable to load your license key right now. Please refresh this page in a moment.';
+      }
+      if (error instanceof TypeError) {
+        return 'Unable to reach billing service. Check your connection and try again.';
+      }
+      return 'Unable to load your license key right now.';
+    };
+
     const revealKey = (licenseKey) => {
       if (!keyEl || !copyBtn) return;
       keyEl.hidden = false;
@@ -123,7 +143,10 @@ const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
           const payload = await response.json().catch(() => ({}));
           if (response.ok && payload.ok) {
             if (typeof payload.licenseKey !== 'string' || payload.licenseKey.length === 0) {
-              throw new Error('License key is missing in claim response.');
+              console.error('Claim response missing licenseKey', payload);
+              throw new Error(
+                'Unable to load your license key right now. Please refresh this page in a moment.',
+              );
             }
             revealKey(payload.licenseKey);
             setStatus('License key ready.');
@@ -135,12 +158,24 @@ const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
             payload?.error === 'not_ready' ||
             /not found for transaction/i.test(String(payload?.message || ''));
           if (!notReady) {
-            throw new Error(payload?.message || `Claim failed (${response.status})`);
+            console.error('License claim failed', {
+              status: response.status,
+              payload,
+            });
+            throw new Error(
+              toClaimErrorMessage({ status: response.status, payload }),
+            );
           }
         }
         throw new Error('License is still processing. Please refresh this page in a moment.');
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unable to load license key.';
+        if (!(error instanceof Error)) {
+          console.error('License claim error', error);
+        }
+        const message =
+          error instanceof Error && error.message
+            ? error.message
+            : toClaimErrorMessage({ error });
         setStatus(`${message} Contact support if this persists.`, true);
       }
     };

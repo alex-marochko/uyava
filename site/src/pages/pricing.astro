@@ -200,6 +200,26 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
       return `${billingApiBase.replace(/\/+$/, '')}/billing/checkout`;
     };
 
+    const toCheckoutErrorMessage = ({ status, payload, error }) => {
+      const code = typeof payload?.error === 'string' ? payload.error : '';
+      if (code === 'active_entitlement_exists' || status === 409) {
+        return 'Active entitlement already exists for this customer and product.';
+      }
+      if (code === 'validation_error') {
+        return 'Please check your email and try again.';
+      }
+      if (code === 'paddle_api_error') {
+        return 'Checkout is temporarily unavailable. Please try again in a moment.';
+      }
+      if (code === 'internal_error') {
+        return 'Checkout is temporarily unavailable. Please try again later.';
+      }
+      if (error instanceof TypeError) {
+        return 'Unable to reach checkout service. Check your connection and try again.';
+      }
+      return 'Unable to start checkout right now. Please try again later.';
+    };
+
     const onCheckoutClick = async (plan) => {
       const endpoint = buildCheckoutUrl();
       if (!endpoint) {
@@ -234,16 +254,18 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
 
         const payload = await response.json().catch(() => ({}));
         if (!response.ok || !payload.ok) {
-          const message =
-            payload?.message ||
-            (response.status === 409
-              ? 'An active entitlement already exists for this account.'
-              : `Checkout failed (${response.status}).`);
-          throw new Error(message);
+          console.error('Checkout request failed', {
+            status: response.status,
+            payload,
+          });
+          throw new Error(
+            toCheckoutErrorMessage({ status: response.status, payload }),
+          );
         }
 
         if (typeof payload.checkoutUrl !== 'string' || payload.checkoutUrl.length === 0) {
-          throw new Error('Checkout URL is missing in backend response.');
+          console.error('Checkout response missing checkoutUrl', payload);
+          throw new Error('Checkout is temporarily unavailable. Please try again later.');
         }
         if (typeof payload.transactionId === 'string' && payload.transactionId.length > 0) {
           rememberLastTransactionId(payload.transactionId);
@@ -252,7 +274,13 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
         setStatus('Redirecting to Paddle...');
         window.location.assign(payload.checkoutUrl);
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unexpected checkout error.';
+        if (!(error instanceof Error)) {
+          console.error('Unexpected checkout error', error);
+        }
+        const message =
+          error instanceof Error && error.message
+            ? error.message
+            : toCheckoutErrorMessage({ error });
         setStatus(message, true);
         setBusy(false);
       }

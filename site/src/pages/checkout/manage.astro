@@ -85,6 +85,29 @@ const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
       return `${apiBase.replace(/\/+$/, '')}${path}`;
     };
 
+    const toManageErrorMessage = ({ status, body, error }) => {
+      const code = typeof body?.error === 'string' ? body.error : '';
+      if (code === 'forbidden' || status === 403) {
+        return 'Email does not match this license';
+      }
+      if (code === 'validation_error' || status === 400) {
+        return 'Please enter a valid license key and purchase email.';
+      }
+      if (code === 'not_ready' || status === 409) {
+        return 'Subscription management is not ready for this purchase yet. Please try again later.';
+      }
+      if (code === 'not_found' || status === 404) {
+        return 'License not found. Check the key and try again.';
+      }
+      if (code === 'paddle_api_error' || code === 'internal_error' || status >= 500) {
+        return 'Subscription management is temporarily unavailable. Please try again later.';
+      }
+      if (error instanceof TypeError) {
+        return 'Unable to reach billing service. Check your connection and try again.';
+      }
+      return 'Unexpected request error. Please try again later.';
+    };
+
     const postAction = async (path, payload, pendingMessage, successMessage) => {
       const url = endpoint(path);
       if (!url) {
@@ -101,11 +124,24 @@ const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
         });
         const body = await response.json().catch(() => ({}));
         if (!response.ok || !body.ok) {
-          throw new Error(body?.message || `Request failed (${response.status})`);
+          console.error('Manage billing action failed', {
+            path,
+            status: response.status,
+            body,
+          });
+          throw new Error(
+            toManageErrorMessage({ status: response.status, body }),
+          );
         }
         setStatus(successMessage);
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unexpected request error.';
+        if (!(error instanceof Error)) {
+          console.error('Manage billing action error', error);
+        }
+        const message =
+          error instanceof Error && error.message
+            ? error.message
+            : toManageErrorMessage({ error });
         setStatus(message, true);
       } finally {
         setBusy(false);
