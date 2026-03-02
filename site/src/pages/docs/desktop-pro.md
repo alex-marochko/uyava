@@ -33,6 +33,12 @@ Desktop Pro periodically verifies subscription status. If the device is temporar
 - Access may be revoked if subscription state becomes canceled, past due, payment failed, or an approved refund/chargeback is processed.
 - You can cancel future renewals from the website using your license key + purchase email.
 
+## Privacy and analytics
+
+- Desktop Pro works without analytics enabled.
+- Anonymous product analytics are opt-in and can be changed later in app preferences.
+- We use low-frequency aggregated metrics to understand feature usage and stability.
+
 ## Replay workflow
 
 When you open a `.uyava` file:
