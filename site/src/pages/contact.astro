@@ -3,12 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { SITE } from '../config';
 ---
-<BaseLayout title="Contact" description="Contact Uyava support or reach the team on GitHub.">
+<BaseLayout title="Contact" description="Contact support or choose the right issue tracker.">
   <section class="container">
     <SectionHeader
       eyebrow="Contact"
-      title="Talk to the team"
-      description="We reply quickly on email and GitHub issues."
+      title="Contact"
+      description="Support and issue reporting."
     />
     <div class="grid two">
       <div class="card">
@@ -17,10 +17,22 @@ import { SITE } from '../config';
         <a class="btn" href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>
       </div>
       <div class="card">
-        <h3>GitHub</h3>
-        <p>Bug reports and feature requests live in GitHub issues.</p>
-        <a class="btn" href={`${SITE.github}/issues`} target="_blank" rel="noreferrer">Open an issue</a>
+        <h3>GitHub (DevTools / SDK)</h3>
+        <p>Public packages, DevTools extension, and shared SDK issues.</p>
+        <a class="btn" href={SITE.githubCoreIssues} target="_blank" rel="noreferrer">
+          Open Core issue
+        </a>
+      </div>
+      <div class="card">
+        <h3>GitHub (Desktop Pro)</h3>
+        <p>Desktop app UX, licensing, activation, and billing-related desktop flows.</p>
+        <a class="btn" href={SITE.githubDesktopIssues} target="_blank" rel="noreferrer">
+          Open Desktop issue
+        </a>
       </div>
     </div>
+    <p class="contact-note">
+      If a report spans both products, file it in either tracker and we will cross-link the canonical ticket.
+    </p>
   </section>
 </BaseLayout>
