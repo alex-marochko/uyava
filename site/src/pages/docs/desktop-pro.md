@@ -37,7 +37,9 @@ Desktop Pro periodically verifies subscription status. If the device is temporar
 
 - Desktop Pro works without analytics enabled.
 - Anonymous product analytics are opt-in and can be changed later in app preferences.
+- Crash and error reporting is a separate opt-in toggle and can also be changed later.
 - We use low-frequency aggregated metrics to understand feature usage and stability.
+- If crash reporting is enabled, diagnostics are sent via Sentry to help triage failures.
 
 ## Replay workflow
 
