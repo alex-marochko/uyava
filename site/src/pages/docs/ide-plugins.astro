@@ -1,0 +1,64 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { IDE_PLUGINS } from '../../config';
+
+const hasJetBrainsMarketplace = IDE_PLUGINS.jetbrainsMarketplace.trim().length > 0;
+const jetBrainsHref = hasJetBrainsMarketplace
+  ? IDE_PLUGINS.jetbrainsMarketplace
+  : IDE_PLUGINS.jetbrainsMarketplaceSearch;
+---
+<DocsLayout
+  title="IDE Plugins"
+  description="Install VS Code and Android Studio launchers for Uyava Desktop."
+>
+  <h1>IDE Plugins</h1>
+  <p>
+    Uyava Desktop launchers let you open or attach Desktop directly from your IDE.
+    They pass project context and VM Service URI when available.
+  </p>
+
+  <h2>VS Code</h2>
+  <ul>
+    <li>Plugin: <strong>Uyava Desktop Launcher</strong></li>
+    <li>Command: <code>Uyava: Launch/Attach Desktop</code></li>
+    <li>
+      Install:
+      <a href={IDE_PLUGINS.vscodeMarketplace} target="_blank" rel="noreferrer">
+        VS Code Marketplace
+      </a>
+    </li>
+  </ul>
+
+  <h2>Android Studio / IntelliJ</h2>
+  <ul>
+    <li>Plugin: <strong>Uyava Desktop Launcher</strong></li>
+    <li>Command: <code>Tools → Uyava Desktop → Launch/Attach</code></li>
+    <li>
+      Install:
+      <a href={jetBrainsHref} target="_blank" rel="noreferrer">
+        {hasJetBrainsMarketplace
+          ? 'JetBrains Marketplace'
+          : 'JetBrains listing (coming soon)'}
+      </a>
+    </li>
+  </ul>
+
+  {!hasJetBrainsMarketplace && (
+    <p>
+      JetBrains direct listing URL will be added after first public publication.
+      Until then, use the search link above.
+    </p>
+  )}
+
+  <h2>Requirements</h2>
+  <ul>
+    <li>Uyava Desktop installed locally.</li>
+    <li>Flutter app running in debug/profile when using attach flow.</li>
+    <li>Flutter plugin enabled in the IDE for VM Service auto-detection.</li>
+  </ul>
+
+  <h2>Known limitation</h2>
+  <p>
+    Open in IDE line/column fidelity is still being improved in some cases.
+  </p>
+</DocsLayout>

@@ -1,7 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import { IDE_PLUGINS } from '../config';
 import { withBase } from '../utils/paths';
+
+const hasJetBrainsMarketplace = IDE_PLUGINS.jetbrainsMarketplace.trim().length > 0;
+const jetBrainsHref = hasJetBrainsMarketplace
+  ? IDE_PLUGINS.jetbrainsMarketplace
+  : IDE_PLUGINS.jetbrainsMarketplaceSearch;
 ---
 <BaseLayout title="Download" description="Download the free desktop app or get the DevTools extension.">
   <section class="container">
@@ -42,6 +48,37 @@ import { withBase } from '../utils/paths';
       description="The free DevTools extension lives in the documentation."
     />
     <a class="btn primary" href={withBase('/docs/installation')}>Go to installation</a>
+  </section>
+
+  <section class="container">
+    <SectionHeader
+      eyebrow="IDE Plugins"
+      title="Install IDE launchers for Desktop"
+      description="Open or attach Uyava Desktop directly from VS Code and Android Studio."
+    />
+    <div class="download-grid">
+      <div class="download-card">
+        <h3>VS Code</h3>
+        <p>Uyava Desktop Launcher</p>
+        <a class="btn" href={IDE_PLUGINS.vscodeMarketplace} target="_blank" rel="noreferrer">
+          Open VS Code Marketplace
+        </a>
+      </div>
+      <div class="download-card">
+        <h3>Android Studio / IntelliJ</h3>
+        <p>Uyava Desktop Launcher</p>
+        <a class="btn" href={jetBrainsHref} target="_blank" rel="noreferrer">
+          {hasJetBrainsMarketplace
+            ? 'Open JetBrains Marketplace'
+            : 'JetBrains listing (coming soon)'}
+        </a>
+      </div>
+    </div>
+    <div class="card plugin-guide-card">
+      <p>
+        Full setup guide: <a href={withBase('/docs/ide-plugins')}>IDE Plugins documentation</a>.
+      </p>
+    </div>
   </section>
 
   <section class="container">

@@ -16,3 +16,11 @@ export const ANALYTICS = {
   siteId: '',
   domain: '',
 };
+
+export const IDE_PLUGINS = {
+  vscodeMarketplace:
+    'https://marketplace.visualstudio.com/items?itemName=uyava.uyava-desktop-launcher',
+  jetbrainsMarketplace: '',
+  jetbrainsMarketplaceSearch:
+    'https://plugins.jetbrains.com/search?search=Uyava%20Desktop%20Launcher',
+};

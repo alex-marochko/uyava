@@ -28,6 +28,12 @@ Open DevTools while your app runs in debug or profile mode, then select the Uyav
 - Launch the app and paste the VM Service URI from your running Flutter app.
 - The desktop host mirrors the DevTools UI but runs locally for better performance.
 
+## IDE plugins (VS Code / Android Studio)
+
+- Install IDE launchers from the marketplace links in [IDE Plugins](/docs/ide-plugins).
+- Use them to open or attach Uyava Desktop with project context and VM Service URI.
+- Keep Desktop installed locally; plugins are launchers, not replacements for Desktop.
+
 Useful CLI shortcuts (desktop):
 
 ```bash

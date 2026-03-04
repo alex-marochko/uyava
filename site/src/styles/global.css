@@ -514,6 +514,10 @@ a.card {
   background: rgba(20, 28, 40, 0.85);
 }
 
+.plugin-guide-card {
+  margin-top: 20px;
+}
+
 .docs-layout {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);

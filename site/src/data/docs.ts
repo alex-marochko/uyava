@@ -10,6 +10,11 @@ export const docsNav = [
     description: 'Install the DevTools extension and the desktop app.',
   },
   {
+    title: 'IDE Plugins',
+    href: '/docs/ide-plugins',
+    description: 'Install VS Code and Android Studio launchers for Desktop.',
+  },
+  {
     title: 'Quick Tour',
     href: '/docs/quick-tour',
     description: 'A walkthrough of the graph, panels, and daily workflow.',
