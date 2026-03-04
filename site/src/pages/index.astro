@@ -4,16 +4,13 @@ import SectionHeader from '../components/SectionHeader.astro';
 import Callout from '../components/Callout.astro';
 import { withBase } from '../utils/paths';
 ---
-<BaseLayout>
+<BaseLayout hideNavBrand={true}>
   <section class="hero container">
     <div class="hero-grid">
       <div class="reveal">
-        <span class="badge">Flutter architecture visibility</span>
-        <h1>Uyava turns runtime activity into a living architecture map.</h1>
-        <p>
-          Use the free DevTools extension or the free desktop app for daily exploration.
-          Upgrade to Desktop Pro when you need advanced replay and navigation of .uyava logs.
-        </p>
+        <span class="badge">Flutter runtime visibility</span>
+        <h1>Your app&apos;s live map</h1>
+        <p class="hero-subtitle">Visual debugging &amp; event replay for Flutter apps.</p>
         <p class="name-note">
           “Uyava” means “imagination” in Ukrainian (pronounced “oo-YAH-vah”).
         </p>
@@ -23,9 +20,26 @@ import { withBase } from '../utils/paths';
           <a class="btn" href={withBase('/pricing')}>View pricing</a>
         </div>
       </div>
+      <div class="hero-logo-panel reveal" style="animation-delay: 0.15s;">
+        <img
+          class="hero-logo"
+          src={withBase('/images/uyava_logo_n_text_horizontal_large_dark.png')}
+          alt="Uyava logo"
+        />
+      </div>
+    </div>
+    <div class="hero-support reveal grid two" style="animation-delay: 0.25s;">
+      <div class="hero-card">
+        <h3>What it helps with</h3>
+        <ul>
+          <li>See runtime behavior as an interactive architecture graph.</li>
+          <li>Trace event paths and chain reactions across features.</li>
+          <li>Inspect nodes, relationships, and metrics in one view.</li>
+          <li>Replay recorded sessions to debug tricky scenarios.</li>
+        </ul>
+      </div>
       <a
-        class="hero-visual reveal"
-        style="animation-delay: 0.15s;"
+        class="hero-visual"
         href={withBase('/images/screenshot_desktop.png')}
         target="_blank"
         rel="noreferrer"
@@ -37,64 +51,56 @@ import { withBase } from '../utils/paths';
         <p class="caption">Desktop preview: live graph with event overlays.</p>
       </a>
     </div>
-    <div class="hero-support reveal" style="animation-delay: 0.25s;">
-      <div class="hero-card">
-        <h3>What it helps with</h3>
-        <ul>
-          <li>Visualize app behavior as a fast, interactive graph.</li>
-          <li>Understand event flows and chains across features.</li>
-          <li>Filter, group, and navigate complex runtime activity.</li>
-          <li>Improve onboarding, debugging, and architecture alignment.</li>
-        </ul>
-      </div>
-    </div>
   </section>
 
   <section class="container">
     <SectionHeader
-      eyebrow="Three options"
-      title="Pick the workflow that matches your day"
-      description="Use free DevTools, free Desktop, or unlock Desktop Pro for advanced replay."
+      eyebrow="Core capabilities"
+      title="Short feature overview"
     />
     <div class="grid three">
-      <a class="card reveal" href={withBase('/pricing')}>
-        <p class="pill">Free · Open-source</p>
-        <h3>DevTools Extension</h3>
+      <div class="card reveal feature-card">
+        <div class="feature-media-placeholder">Graph screenshot / GIF</div>
+        <h3>Live Architecture Graph</h3>
         <p>
-          Inspect your running Flutter app inside DevTools. Explore the graph,
-          dig into nodes and events, and keep architectural context while you debug.
+          See nodes and edges as the app runs, so structure is visible during debugging.
         </p>
-        <ul>
-          <li>Instant graph visualization with tags and grouping.</li>
-          <li>Filters for nodes, edges, and event severity.</li>
-          <li>Built for daily debugging and onboarding.</li>
-        </ul>
-      </a>
-      <a class="card reveal" style="animation-delay: 0.1s;" href={withBase('/pricing')}>
-        <p class="pill">Free · Desktop</p>
-        <h3>Desktop App</h3>
+      </div>
+      <div class="card reveal feature-card" style="animation-delay: 0.05s;">
+        <div class="feature-media-placeholder">Animated events / GIF</div>
+        <h3>Event Flow Animation</h3>
         <p>
-          Run outside the browser for more headroom and tighter integrations.
-          Capture sessions and preview .uyava logs with basic playback.
+          Watch events move through the graph to understand cause and effect quickly.
         </p>
-        <ul>
-          <li>Better performance for larger graphs.</li>
-          <li>IDE integration to jump from map to code.</li>
-          <li>Record and preview .uyava logs.</li>
-        </ul>
-      </a>
-      <a class="card reveal" style="animation-delay: 0.2s;" href={withBase('/pricing')}>
-        <p class="pill">Pro · Desktop</p>
-        <h3>Desktop Pro</h3>
+      </div>
+      <div class="card reveal feature-card" style="animation-delay: 0.1s;">
+        <div class="feature-media-placeholder">Node tree screenshot</div>
+        <h3>Node Hierarchy Drilldown</h3>
         <p>
-          Unlock advanced replay controls and deeper navigation for recorded sessions.
-          Built for long investigations and repeatable analysis.
+          Move from high-level graph to detailed node information and relations.
         </p>
-        <ul>
-          <li>Advanced replay controls with a seekbar.</li>
-          <li>Deeper navigation across .uyava logs.</li>
-        </ul>
-      </a>
+      </div>
+      <div class="card reveal feature-card" style="animation-delay: 0.15s;">
+        <div class="feature-media-placeholder">Metrics panel screenshot</div>
+        <h3>Runtime Metrics</h3>
+        <p>
+          Track counters and timing signals to spot load, churn, and bottlenecks.
+        </p>
+      </div>
+      <div class="card reveal feature-card" style="animation-delay: 0.2s;">
+        <div class="feature-media-placeholder">Replay controls screenshot</div>
+        <h3>Replay and Chains</h3>
+        <p>
+          Rewind recorded sessions and inspect event chains step by step.
+        </p>
+      </div>
+      <div class="card reveal feature-card" style="animation-delay: 0.25s;">
+        <div class="feature-media-placeholder">IDE integration screenshot</div>
+        <h3>IDE Integration</h3>
+        <p>
+          Jump from map to code and launch Uyava Desktop directly from your IDE.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -106,21 +112,19 @@ import { withBase } from '../utils/paths';
     />
     <Callout title="Planned or experimental (not guaranteed)">
       <ul>
-        <li><strong>Planned:</strong> LLM-assisted insights for architecture review.</li>
-        <li><strong>Experimental:</strong> Embed mode for custom dashboards.</li>
+        <li>
+          <strong>Planned:</strong> Local API mode — drive Uyava Desktop from any app/module via
+          localhost commands.
+        </li>
+        <li>
+          <strong>Experimental:</strong> LLM-assisted insights for architecture review from logs,
+          metrics, and runtime activity.
+        </li>
       </ul>
       <p>
         We will clearly mark these features before any public release.
       </p>
     </Callout>
-  </section>
-
-  <section class="container logo-showcase">
-    <img
-      class="logo-large"
-      src={withBase('/images/uyava_logo_n_text_horizontal_large_dark.png')}
-      alt="Uyava"
-    />
   </section>
 
   <section class="container">

@@ -137,6 +137,12 @@ a:hover {
   align-items: center;
 }
 
+.brand-placeholder {
+  width: 220px;
+  height: 32px;
+  flex: 0 0 auto;
+}
+
 .brand-logo {
   height: 32px;
   width: auto;
@@ -234,10 +240,32 @@ a:hover {
   font-size: 0.85rem;
 }
 
+.hero-subtitle {
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
 .name-note {
   font-size: 0.9rem;
   color: var(--ink-soft);
   margin-top: -6px;
+}
+
+.hero-logo-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  padding: 24px 8px;
+}
+
+.hero-logo {
+  width: min(560px, 100%);
+  height: auto;
+  display: block;
+  opacity: 0.92;
 }
 
 .hero-visual {
@@ -263,7 +291,7 @@ a:hover {
 
 .hero-support {
   margin-top: 32px;
-  max-width: 720px;
+  max-width: 100%;
 }
 
 .hero-actions {
@@ -337,6 +365,25 @@ a.card {
 .card li {
   margin-bottom: 12px;
   color: var(--ink-soft);
+}
+
+.feature-card {
+  gap: 10px;
+}
+
+.feature-media-placeholder {
+  border-radius: 12px;
+  border: 1px dashed rgba(83, 214, 182, 0.35);
+  background: rgba(10, 14, 21, 0.6);
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  margin-bottom: 6px;
 }
 
 .contact-note {
@@ -725,6 +772,10 @@ a.card {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+
+  .brand-placeholder {
+    display: none;
   }
 
   .nav-links {
