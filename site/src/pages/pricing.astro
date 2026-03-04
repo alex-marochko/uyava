@@ -1,18 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import { SITE } from '../config';
 import { withBase } from '../utils/paths';
 
 const billingApiBase = (import.meta.env.PUBLIC_BILLING_API_BASE ?? '').trim();
 const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_pro').trim();
 ---
-<BaseLayout title="Pricing" description="Choose between free DevTools, free Desktop, or Desktop Pro.">
+<BaseLayout
+  title="Pricing"
+  description="Choose between free DevTools, free Desktop, or Desktop Pro."
+  navActionLabel="Download"
+  navActionHref="/download"
+>
   <section class="container">
     <SectionHeader
       eyebrow="Pricing"
       title="Three options, one workflow"
       description="Use the free extension or free desktop app, then upgrade to Desktop Pro when needed."
     />
+    <div class="card pricing-beta-note">
+      <p>
+        <strong>Public Beta:</strong> Lock in early-bird pricing today. We will never increase the
+        price for current subscribers, even after the full release.
+      </p>
+    </div>
     <div class="grid three">
       <div class="card pricing-card">
         <p class="pill">Free</p>
@@ -23,6 +35,9 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
           <li>Core visualization and navigation.</li>
           <li>Filters, grouping, and event chains.</li>
         </ul>
+        <p class="pricing-oss-link">
+          <a href={SITE.github} target="_blank" rel="noreferrer">Open-source on GitHub</a>
+        </p>
         <a class="btn" href={withBase('/download')}>Get started</a>
       </div>
       <div class="card pricing-card">

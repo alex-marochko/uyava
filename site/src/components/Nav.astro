@@ -10,7 +10,11 @@ const links = [
 ];
 
 const { pathname } = Astro.url;
-const { hideBrand = false } = Astro.props;
+const {
+  hideBrand = false,
+  actionLabel = 'View pricing',
+  actionHref = '/pricing',
+} = Astro.props;
 const normalize = (value) => (value.endsWith('/') && value !== '/' ? value.slice(0, -1) : value);
 ---
 <nav class="nav">
@@ -37,6 +41,6 @@ const normalize = (value) => (value.endsWith('/') && value !== '/' ? value.slice
     })}
   </div>
   <div class="nav-actions">
-    <a class="btn small" href={withBase('/pricing')}>View pricing</a>
+    <a class="btn small" href={withBase(actionHref)}>{actionLabel}</a>
   </div>
 </nav>

@@ -8,6 +8,7 @@ import { withBase } from '../utils/paths';
   <section class="hero container">
     <div class="hero-grid">
       <div class="reveal">
+        <span class="badge beta-badge">Public Beta</span>
         <h1>Your app&apos;s live map</h1>
         <p class="hero-subtitle">Visual debugging &amp; event replay for Flutter apps.</p>
         <p class="name-note">
@@ -18,6 +19,11 @@ import { withBase } from '../utils/paths';
           <a class="btn" href={withBase('/docs')}>Read docs</a>
           <a class="btn" href={withBase('/pricing')}>View pricing</a>
         </div>
+        <p class="beta-note">
+          Uyava is currently in Public Beta. We are actively collecting feedback to improve Flutter
+          debugging. <a href={withBase('/pricing')}>Early-bird pricing</a> is available while we shape the
+          roadmap.
+        </p>
       </div>
       <div class="hero-logo-panel reveal" style="animation-delay: 0.15s;">
         <img
