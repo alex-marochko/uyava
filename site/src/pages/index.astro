@@ -71,44 +71,182 @@ import { withBase } from '../utils/paths';
       eyebrow="Core capabilities"
       title="Short feature overview"
     />
-    <div class="grid three">
+    <div class="grid feature-grid">
       <div class="card reveal feature-card">
-        <div class="feature-media-placeholder">Graph screenshot / GIF</div>
+        <button
+          class="feature-video-trigger"
+          type="button"
+          data-feature-video-trigger
+          data-feature-title="Live Architecture Graph"
+          data-feature-full-webm={withBase('/images/feature_live_graph_preview.webm')}
+          data-feature-full-mp4={withBase('/images/feature_live_graph_preview.mp4')}
+          data-feature-poster={withBase('/images/feature_live_graph_poster.webp')}
+          aria-label="Open full demo for Live Architecture Graph"
+        >
+          <video
+            class="feature-video-preview"
+            data-feature-video
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster={withBase('/images/feature_live_graph_poster.webp')}
+          >
+            <source src={withBase('/images/feature_live_graph_preview.webm')} type="video/webm" />
+            <source src={withBase('/images/feature_live_graph_preview.mp4')} type="video/mp4" />
+          </video>
+          <span class="feature-video-overlay">Open demo</span>
+        </button>
         <h3>Live Architecture Graph</h3>
         <p>
           See nodes and edges as the app runs, so structure is visible during debugging.
         </p>
       </div>
       <div class="card reveal feature-card" style="animation-delay: 0.05s;">
-        <div class="feature-media-placeholder">Animated events / GIF</div>
+        <button
+          class="feature-video-trigger"
+          type="button"
+          data-feature-video-trigger
+          data-feature-title="Event Flow Animation"
+          data-feature-full-webm={withBase('/images/feature_event_flow_preview.webm')}
+          data-feature-full-mp4={withBase('/images/feature_event_flow_preview.mp4')}
+          data-feature-poster={withBase('/images/feature_event_flow_poster.webp')}
+          aria-label="Open full demo for Event Flow Animation"
+        >
+          <video
+            class="feature-video-preview"
+            data-feature-video
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster={withBase('/images/feature_event_flow_poster.webp')}
+          >
+            <source src={withBase('/images/feature_event_flow_preview.webm')} type="video/webm" />
+            <source src={withBase('/images/feature_event_flow_preview.mp4')} type="video/mp4" />
+          </video>
+          <span class="feature-video-overlay">Open demo</span>
+        </button>
         <h3>Event Flow Animation</h3>
         <p>
           Watch events move through the graph to understand cause and effect quickly.
         </p>
       </div>
       <div class="card reveal feature-card" style="animation-delay: 0.1s;">
-        <div class="feature-media-placeholder">Node tree screenshot</div>
+        <button
+          class="feature-video-trigger"
+          type="button"
+          data-feature-video-trigger
+          data-feature-title="Node Hierarchy Drilldown"
+          data-feature-full-webm={withBase('/images/feature_node_hierarchy_preview.webm')}
+          data-feature-full-mp4={withBase('/images/feature_node_hierarchy_preview.mp4')}
+          data-feature-poster={withBase('/images/feature_node_hierarchy_poster.webp')}
+          aria-label="Open full demo for Node Hierarchy Drilldown"
+        >
+          <video
+            class="feature-video-preview"
+            data-feature-video
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster={withBase('/images/feature_node_hierarchy_poster.webp')}
+          >
+            <source src={withBase('/images/feature_node_hierarchy_preview.webm')} type="video/webm" />
+            <source src={withBase('/images/feature_node_hierarchy_preview.mp4')} type="video/mp4" />
+          </video>
+          <span class="feature-video-overlay">Open demo</span>
+        </button>
         <h3>Node Hierarchy Drilldown</h3>
         <p>
           Move from high-level graph to detailed node information and relations.
         </p>
       </div>
       <div class="card reveal feature-card" style="animation-delay: 0.15s;">
-        <div class="feature-media-placeholder">Metrics panel screenshot</div>
+        <button
+          class="feature-video-trigger"
+          type="button"
+          data-feature-video-trigger
+          data-feature-title="Runtime Metrics"
+          data-feature-full-webm={withBase('/images/feature_runtime_metrics_preview.webm')}
+          data-feature-full-mp4={withBase('/images/feature_runtime_metrics_preview.mp4')}
+          data-feature-poster={withBase('/images/feature_runtime_metrics_poster.webp')}
+          aria-label="Open full demo for Runtime Metrics"
+        >
+          <video
+            class="feature-video-preview"
+            data-feature-video
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster={withBase('/images/feature_runtime_metrics_poster.webp')}
+          >
+            <source src={withBase('/images/feature_runtime_metrics_preview.webm')} type="video/webm" />
+            <source src={withBase('/images/feature_runtime_metrics_preview.mp4')} type="video/mp4" />
+          </video>
+          <span class="feature-video-overlay">Open demo</span>
+        </button>
         <h3>Runtime Metrics</h3>
         <p>
           Track counters and timing signals to spot load, churn, and bottlenecks.
         </p>
       </div>
       <div class="card reveal feature-card" style="animation-delay: 0.2s;">
-        <div class="feature-media-placeholder">Replay controls screenshot</div>
+        <button
+          class="feature-video-trigger"
+          type="button"
+          data-feature-video-trigger
+          data-feature-title="Replay and Chains"
+          data-feature-full-webm={withBase('/images/feature_replay_chains_preview.webm')}
+          data-feature-full-mp4={withBase('/images/feature_replay_chains_preview.mp4')}
+          data-feature-poster={withBase('/images/feature_replay_chains_poster.webp')}
+          aria-label="Open full demo for Replay and Chains"
+        >
+          <video
+            class="feature-video-preview"
+            data-feature-video
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster={withBase('/images/feature_replay_chains_poster.webp')}
+          >
+            <source src={withBase('/images/feature_replay_chains_preview.webm')} type="video/webm" />
+            <source src={withBase('/images/feature_replay_chains_preview.mp4')} type="video/mp4" />
+          </video>
+          <span class="feature-video-overlay">Open demo</span>
+        </button>
         <h3>Replay and Chains</h3>
         <p>
           Rewind recorded sessions and inspect event chains step by step.
         </p>
       </div>
       <div class="card reveal feature-card" style="animation-delay: 0.25s;">
-        <div class="feature-media-placeholder">IDE integration screenshot</div>
+        <button
+          class="feature-video-trigger"
+          type="button"
+          data-feature-video-trigger
+          data-feature-title="IDE Integration"
+          data-feature-full-webm={withBase('/images/feature_ide_integration_preview.webm')}
+          data-feature-full-mp4={withBase('/images/feature_ide_integration_preview.mp4')}
+          data-feature-poster={withBase('/images/feature_ide_integration_poster.webp')}
+          aria-label="Open full demo for IDE Integration"
+        >
+          <video
+            class="feature-video-preview"
+            data-feature-video
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster={withBase('/images/feature_ide_integration_poster.webp')}
+          >
+            <source src={withBase('/images/feature_ide_integration_preview.webm')} type="video/webm" />
+            <source src={withBase('/images/feature_ide_integration_preview.mp4')} type="video/mp4" />
+          </video>
+          <span class="feature-video-overlay">Open demo</span>
+        </button>
         <h3>IDE Integration</h3>
         <p>
           Jump from map to code and launch Uyava Desktop directly from your IDE.
@@ -175,6 +313,28 @@ import { withBase } from '../utils/paths';
     </div>
   </div>
 
+  <div class="hero-video-modal feature-video-modal" data-feature-video-modal aria-hidden="true">
+    <button
+      type="button"
+      class="hero-video-modal-backdrop"
+      data-feature-video-close
+      aria-label="Close feature demo"
+    ></button>
+    <div
+      class="hero-video-modal-dialog feature-video-modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Feature demo"
+    >
+      <button type="button" class="hero-video-close" data-feature-video-close>Close</button>
+      <p class="feature-video-modal-title" data-feature-video-title></p>
+      <video class="hero-video-full" data-feature-video-full controls playsinline preload="none">
+        <source data-feature-video-source-webm type="video/webm" />
+        <source data-feature-video-source-mp4 type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
   <script is:inline>
     (() => {
       const preview = document.querySelector('[data-hero-video-preview]');
@@ -182,22 +342,32 @@ import { withBase } from '../utils/paths';
       const modal = document.querySelector('[data-hero-video-modal]');
       const fullVideo = document.querySelector('[data-hero-video-full]');
       const closeButtons = document.querySelectorAll('[data-hero-video-close]');
+      const featureTriggers = Array.from(
+        document.querySelectorAll('[data-feature-video-trigger]'),
+      );
+      const featureVideos = Array.from(document.querySelectorAll('[data-feature-video]'));
+      const featureModal = document.querySelector('[data-feature-video-modal]');
+      const featureFullVideo = document.querySelector('[data-feature-video-full]');
+      const featureVideoTitle = document.querySelector('[data-feature-video-title]');
+      const featureVideoSourceWebm = document.querySelector('[data-feature-video-source-webm]');
+      const featureVideoSourceMp4 = document.querySelector('[data-feature-video-source-mp4]');
+      const featureCloseButtons = document.querySelectorAll('[data-feature-video-close]');
       const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-      if (!modal || !fullVideo || !openButton) return;
-
-      const openModal = () => {
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('video-modal-open');
-        fullVideo.currentTime = 0;
-        const playPromise = fullVideo.play();
-        if (playPromise && typeof playPromise.catch === 'function') {
-          playPromise.catch(() => {});
-        }
+      const stopVideo = (video) => {
+        if (!video) return;
+        video.pause();
+        video.currentTime = 0;
       };
 
-      const closeModal = () => {
+      const stopAllFeatureVideos = (except) => {
+        featureVideos.forEach((video) => {
+          if (video !== except) stopVideo(video);
+        });
+      };
+
+      const stopHeroModal = () => {
+        if (!modal || !fullVideo) return;
         fullVideo.pause();
         fullVideo.currentTime = 0;
         modal.classList.remove('is-open');
@@ -205,28 +375,124 @@ import { withBase } from '../utils/paths';
         document.body.classList.remove('video-modal-open');
       };
 
-      if (supportsHover && preview) {
-        const stopPreview = () => {
-          preview.pause();
-          preview.currentTime = 0;
-        };
-        openButton.addEventListener('mouseenter', () => {
-          const playPromise = preview.play();
+      const stopFeatureModal = () => {
+        if (!featureModal || !featureFullVideo) return;
+        featureFullVideo.pause();
+        featureFullVideo.currentTime = 0;
+        featureModal.classList.remove('is-open');
+        featureModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('video-modal-open');
+      };
+
+      if (modal && fullVideo && openButton) {
+        const openModal = () => {
+          stopFeatureModal();
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('video-modal-open');
+          fullVideo.currentTime = 0;
+          const playPromise = fullVideo.play();
           if (playPromise && typeof playPromise.catch === 'function') {
             playPromise.catch(() => {});
           }
-        });
-        openButton.addEventListener('mouseleave', stopPreview);
-        openButton.addEventListener('blur', stopPreview);
+        };
+
+        if (supportsHover && preview) {
+          const stopPreview = () => {
+            preview.pause();
+            preview.currentTime = 0;
+          };
+          openButton.addEventListener('mouseenter', () => {
+            const playPromise = preview.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+              playPromise.catch(() => {});
+            }
+          });
+          openButton.addEventListener('mouseleave', stopPreview);
+          openButton.addEventListener('blur', stopPreview);
+        }
+
+        openButton.addEventListener('click', openModal);
+        closeButtons.forEach((button) => button.addEventListener('click', stopHeroModal));
       }
 
-      openButton.addEventListener('click', openModal);
-      closeButtons.forEach((button) => button.addEventListener('click', closeModal));
+      const openFeatureModal = (trigger) => {
+        if (!featureModal || !featureFullVideo) return;
+        const webm = trigger.dataset.featureFullWebm;
+        const mp4 = trigger.dataset.featureFullMp4;
+        const poster = trigger.dataset.featurePoster;
+        const title = trigger.dataset.featureTitle;
+
+        stopHeroModal();
+        stopAllFeatureVideos();
+
+        if (featureVideoSourceWebm) {
+          if (webm) {
+            featureVideoSourceWebm.setAttribute('src', webm);
+          } else {
+            featureVideoSourceWebm.removeAttribute('src');
+          }
+        }
+        if (featureVideoSourceMp4) {
+          if (mp4) {
+            featureVideoSourceMp4.setAttribute('src', mp4);
+          } else {
+            featureVideoSourceMp4.removeAttribute('src');
+          }
+        }
+        if (poster) {
+          featureFullVideo.setAttribute('poster', poster);
+        } else {
+          featureFullVideo.removeAttribute('poster');
+        }
+        if (featureVideoTitle) {
+          featureVideoTitle.textContent = title || 'Feature demo';
+        }
+
+        featureFullVideo.load();
+        featureModal.classList.add('is-open');
+        featureModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('video-modal-open');
+        const playPromise = featureFullVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {});
+        }
+      };
+
+      featureCloseButtons.forEach((button) => button.addEventListener('click', stopFeatureModal));
 
       window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-          closeModal();
+        if (event.key !== 'Escape') return;
+        if (featureModal && featureModal.classList.contains('is-open')) {
+          stopFeatureModal();
+          return;
         }
+        if (modal && modal.classList.contains('is-open')) {
+          stopHeroModal();
+        }
+      });
+
+      featureTriggers.forEach((trigger) => {
+        const video = trigger.querySelector('[data-feature-video]');
+        if (!video) return;
+
+        if (supportsHover) {
+          trigger.addEventListener('mouseenter', () => {
+            stopAllFeatureVideos(video);
+            const playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+              playPromise.catch(() => {});
+            }
+          });
+          trigger.addEventListener('mouseleave', () => stopVideo(video));
+          trigger.addEventListener('blur', () => stopVideo(video));
+          trigger.addEventListener('click', () => openFeatureModal(trigger));
+          return;
+        }
+
+        trigger.addEventListener('click', () => {
+          openFeatureModal(trigger);
+        });
       });
     })();
   </script>

@@ -503,7 +503,12 @@ a.card {
 }
 
 .feature-card {
-  gap: 10px;
+  gap: 12px;
+}
+
+.feature-grid {
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: 28px;
 }
 
 .feature-media-placeholder {
@@ -519,6 +524,66 @@ a.card {
   justify-content: center;
   padding: 12px;
   margin-bottom: 6px;
+}
+
+.feature-video-trigger {
+  width: 100%;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.feature-video-preview {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(83, 214, 182, 0.22);
+  background: rgba(10, 14, 21, 0.72);
+}
+
+.feature-video-overlay {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(8, 12, 18, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.feature-video-trigger:hover .feature-video-overlay,
+.feature-video-trigger:focus-visible .feature-video-overlay {
+  transform: translateY(-1px);
+  background: rgba(8, 12, 18, 0.9);
+}
+
+.feature-video-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.feature-video-modal-dialog {
+  width: min(1180px, 96vw);
+}
+
+.feature-video-modal-title {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .contact-note {
@@ -899,6 +964,11 @@ a.card {
   .docs-sidebar {
     position: relative;
     top: 0;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
   }
 }
 
