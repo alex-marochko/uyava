@@ -135,7 +135,7 @@ const billingProductId = (import.meta.env.PUBLIC_BILLING_PRODUCT_ID ?? 'desktop_
       <div class="card">
         <h3>How do I cancel my subscription?</h3>
         <p>
-          Use the Manage subscription page with your license key and purchase
+          Use the <a href={withBase('/checkout/manage')}>Manage subscription page</a> with your license key and purchase
           email to stop future renewals.
         </p>
       </div>
