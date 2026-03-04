@@ -30,25 +30,39 @@ import { withBase } from '../utils/paths';
     <div class="hero-support reveal grid two" style="animation-delay: 0.25s;">
       <div class="hero-card">
         <h3>What it helps with</h3>
-        <ul>
+        <ul class="hero-benefits">
           <li>See runtime behavior as an interactive architecture graph.</li>
           <li>Trace event paths and chain reactions across features.</li>
           <li>Inspect nodes, relationships, and metrics in one view.</li>
-          <li>Replay recorded sessions to debug tricky scenarios.</li>
+          <li>Replay sessions recorded by QA to reproduce tricky bugs instantly.</li>
+          <li>Onboard developers instantly with a living map instead of outdated text docs.</li>
         </ul>
       </div>
-      <a
-        class="hero-visual"
-        href={withBase('/images/screenshot_desktop.png')}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <img
-          src={withBase('/images/screenshot_desktop.png')}
-          alt="Uyava Desktop graph view preview"
-        />
-        <p class="caption">Desktop preview: live graph with event overlays.</p>
-      </a>
+      <div class="hero-visual hero-video-card">
+        <button
+          class="hero-video-trigger"
+          type="button"
+          data-hero-video-open
+          aria-label="Open full Uyava desktop demo"
+        >
+          <video
+            class="hero-video-preview"
+            data-hero-video-preview
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster={withBase('/images/hero_courier_burst_poster.webp')}
+          >
+            <source src={withBase('/images/hero_courier_burst_preview.webm')} type="video/webm" />
+            <source src={withBase('/images/hero_courier_burst_preview.mp4')} type="video/mp4" />
+          </video>
+          <span class="hero-video-overlay">Watch full demo</span>
+        </button>
+        <p class="caption">
+          Courier Live Burst preview. Hover to play on desktop, tap to open on mobile.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -137,4 +151,83 @@ import { withBase } from '../utils/paths';
       <a class="btn" href={withBase('/docs')}>Open documentation</a>
     </div>
   </section>
+
+  <div class="hero-video-modal" data-hero-video-modal aria-hidden="true">
+    <button
+      type="button"
+      class="hero-video-modal-backdrop"
+      data-hero-video-close
+      aria-label="Close full demo"
+    ></button>
+    <div class="hero-video-modal-dialog" role="dialog" aria-modal="true" aria-label="Uyava desktop demo">
+      <button type="button" class="hero-video-close" data-hero-video-close>Close</button>
+      <video
+        class="hero-video-full"
+        data-hero-video-full
+        controls
+        playsinline
+        preload="none"
+        poster={withBase('/images/hero_courier_burst_poster.webp')}
+      >
+        <source src={withBase('/images/hero_courier_burst_full.webm')} type="video/webm" />
+        <source src={withBase('/images/hero_courier_burst_full.mp4')} type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const preview = document.querySelector('[data-hero-video-preview]');
+      const openButton = document.querySelector('[data-hero-video-open]');
+      const modal = document.querySelector('[data-hero-video-modal]');
+      const fullVideo = document.querySelector('[data-hero-video-full]');
+      const closeButtons = document.querySelectorAll('[data-hero-video-close]');
+      const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      if (!modal || !fullVideo || !openButton) return;
+
+      const openModal = () => {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('video-modal-open');
+        fullVideo.currentTime = 0;
+        const playPromise = fullVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {});
+        }
+      };
+
+      const closeModal = () => {
+        fullVideo.pause();
+        fullVideo.currentTime = 0;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('video-modal-open');
+      };
+
+      if (supportsHover && preview) {
+        const stopPreview = () => {
+          preview.pause();
+          preview.currentTime = 0;
+        };
+        openButton.addEventListener('mouseenter', () => {
+          const playPromise = preview.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {});
+          }
+        });
+        openButton.addEventListener('mouseleave', stopPreview);
+        openButton.addEventListener('blur', stopPreview);
+      }
+
+      openButton.addEventListener('click', openModal);
+      closeButtons.forEach((button) => button.addEventListener('click', closeModal));
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
 </BaseLayout>

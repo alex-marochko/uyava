@@ -283,6 +283,136 @@ a:hover {
   border-radius: 14px;
 }
 
+.hero-video-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-video-trigger {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  position: relative;
+  display: block;
+  cursor: pointer;
+  color: inherit;
+  text-align: left;
+}
+
+.hero-video-preview {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.hero-video-overlay {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(8, 12, 18, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.hero-video-trigger:hover .hero-video-overlay,
+.hero-video-trigger:focus-visible .hero-video-overlay {
+  transform: translateY(-1px);
+  background: rgba(8, 12, 18, 0.9);
+}
+
+.hero-video-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 14px;
+}
+
+.hero-video-card .caption {
+  margin: 10px 16px 14px;
+}
+
+.hero-video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.hero-video-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hero-video-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: rgba(5, 8, 12, 0.84);
+  cursor: pointer;
+}
+
+.hero-video-modal-dialog {
+  position: relative;
+  width: min(1200px, 96vw);
+  max-height: 92vh;
+  z-index: 1;
+  border-radius: 16px;
+  padding: 14px;
+  background: rgba(12, 18, 27, 0.96);
+  border: 1px solid rgba(83, 214, 182, 0.24);
+  box-shadow: var(--shadow);
+}
+
+.hero-video-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: rgba(9, 14, 21, 0.92);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.hero-video-close:hover {
+  color: var(--accent);
+}
+
+.hero-video-full {
+  width: 100%;
+  max-height: calc(92vh - 28px);
+  display: block;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #04070a;
+}
+
+body.video-modal-open {
+  overflow: hidden;
+}
+
 .caption {
   margin-top: 12px;
   font-size: 0.9rem;
@@ -299,6 +429,11 @@ a:hover {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 24px;
+}
+
+.hero-benefits li {
+  margin-bottom: 18px;
+  line-height: 1.85;
 }
 
 .section-header {
@@ -784,6 +919,31 @@ a.card {
 
   .hero {
     padding-top: 24px;
+  }
+
+  .hero-video-overlay {
+    right: 10px;
+    bottom: 10px;
+    font-size: 0.78rem;
+    padding: 7px 10px;
+  }
+
+  .hero-video-modal {
+    padding: 8px;
+  }
+
+  .hero-video-modal-dialog {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .hero-video-close {
+    top: 6px;
+    right: 6px;
+  }
+
+  .hero-video-full {
+    max-height: calc(88vh - 20px);
   }
 
   .docs-content {
