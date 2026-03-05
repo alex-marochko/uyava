@@ -827,6 +827,23 @@ a.card {
   border-radius: var(--radius-sm);
   padding: 20px;
   background: rgba(20, 28, 40, 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.download-card p {
+  margin: 0;
+}
+
+.download-card-live {
+  border-style: solid;
+  border-color: rgba(83, 214, 182, 0.45);
+  background: linear-gradient(160deg, rgba(83, 214, 182, 0.12), rgba(20, 28, 40, 0.9) 45%);
+}
+
+.download-pricing-card {
+  margin-top: 28px;
 }
 
 .plugin-guide-card {

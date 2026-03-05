@@ -8,6 +8,10 @@ const hasJetBrainsMarketplace = IDE_PLUGINS.jetbrainsMarketplace.trim().length >
 const jetBrainsHref = hasJetBrainsMarketplace
   ? IDE_PLUGINS.jetbrainsMarketplace
   : IDE_PLUGINS.jetbrainsMarketplaceSearch;
+const macOsDmgUrl =
+  'https://github.com/alex-marochko/uyava-desktop-builds/releases/download/desktop-v0.2.1%2B1/Uyava-Desktop-0.2.1-build.1-macOS.dmg';
+const macOsReleaseNotesUrl =
+  'https://github.com/alex-marochko/uyava-desktop-builds/releases/tag/desktop-v0.2.1+1';
 ---
 <BaseLayout title="Download" description="Download the free desktop app or get the DevTools extension.">
   <section class="container">
@@ -23,10 +27,14 @@ const jetBrainsHref = hasJetBrainsMarketplace
       </p>
     </div>
     <div class="download-grid">
-      <div class="download-card">
+      <div class="download-card download-card-live">
         <h3>macOS</h3>
-        <p>Installer (.dmg)</p>
-        <span class="pill">Coming soon</span>
+        <p>Signed and notarized desktop build for Apple Silicon and Intel Macs.</p>
+        <span class="pill">Public beta · v0.2.1+1</span>
+        <a class="btn primary" href={macOsDmgUrl} target="_blank" rel="noreferrer">
+          Download for macOS
+        </a>
+        <p><a href={macOsReleaseNotesUrl} target="_blank" rel="noreferrer">View release notes</a></p>
       </div>
       <div class="download-card">
         <h3>Windows</h3>
@@ -34,7 +42,7 @@ const jetBrainsHref = hasJetBrainsMarketplace
         <span class="pill">Coming soon</span>
       </div>
     </div>
-    <div class="card">
+    <div class="card download-pricing-card">
       <p>
         Desktop is free to use. Desktop Pro adds advanced replay and navigation
         for .uyava logs. <a href={withBase('/pricing')}>See pricing</a>.
@@ -88,7 +96,7 @@ const jetBrainsHref = hasJetBrainsMarketplace
       title="Changelogs and release notes"
       description="Release artifacts will be published to GitHub Releases."
     />
-    <a class="btn" href="https://github.com/alex-marochko/uyava/releases" target="_blank" rel="noreferrer">
+    <a class="btn" href="https://github.com/alex-marochko/uyava-desktop-builds/releases" target="_blank" rel="noreferrer">
       View releases
     </a>
   </section>
