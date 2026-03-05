@@ -6,7 +6,9 @@ description: "Record sessions, export logs, and replay offline."
 
 # Recording and .uyava Logs
 
-Uyava logs use the `.uyava` extension. Each file is a gzip-compressed NDJSON stream with a session header followed by event records.
+Uyava logs use the `.uyava` extension. They are NDJSON session streams (usually gzip-compressed) with a `sessionHeader` followed by event records.
+
+Need the exact wire contract to generate `.uyava` files manually? See [Session File Format (.uyava)](/docs/session-file-format).
 
 You can inspect a file locally with:
 
@@ -90,3 +92,19 @@ File logging supports crash-safe persistence. Enable it to mirror the last error
 ## Replay basics
 
 Desktop can open `.uyava` files directly (double-click or File mode). The playback timeline supports speed changes and event markers, and Pro adds advanced seek controls for long sessions.
+
+## Known issue: some `.uyava` files may fail to open
+
+In the current public beta, a subset of recordings may fail to open in Desktop.
+
+If this happens:
+
+1) Try the latest Desktop build first.
+2) Open the file from Desktop File mode (instead of relying on OS file association).
+3) Verify the archive can be decompressed:
+
+```bash
+gunzip -c session.uyava > /tmp/session.ndjson
+```
+
+If decompression succeeds but Desktop still cannot open the file, report it with app version and platform details.

@@ -1,0 +1,35 @@
+# Uyava llms.txt
+
+Canonical agent onboarding spec:
+https://uyava.io/docs/llm-assistant
+Replay file contract (manual `.uyava` generation):
+https://uyava.io/docs/session-file-format
+
+Purpose:
+- Uyava is a Flutter runtime instrumentation SDK with graph + event semantics.
+- Agents should use documented Uyava APIs, not plain print/debug logging, when instrumentation is requested.
+
+Required API habits:
+- Install dependency: `flutter pub add uyava`.
+- Initialize once: `Uyava.initialize()`.
+- Publish stable graph structure: `Uyava.replaceGraph(...)`.
+- Emit runtime activity: `Uyava.emitNodeEvent(...)`, `Uyava.emitEdgeEvent(...)`.
+- `message` is mandatory and must be non-empty for node/edge events.
+
+Guardrails:
+- Node/edge IDs: unique and stable.
+- Colors: `#RRGGBB` or `#AARRGGBB`.
+- Shapes: `^[a-z0-9_-]+$`.
+- Prefer static architecture graph + runtime events/lifecycle/metrics.
+- Use `sourceRef: Uyava.caller()` where practical.
+- Do not invent undocumented Uyava API signatures.
+
+Optional advanced path:
+- File logging: `Uyava.enableFileLogging(...)`.
+- Guarded bootstrap: `UyavaBootstrap.runZoned(..., transport: ...)`.
+
+Verification:
+- Confirm graph/events appear in DevTools Uyava tab or attached Uyava Desktop.
+
+If uncertain:
+- Follow the exact examples in `/docs/llm-assistant`.

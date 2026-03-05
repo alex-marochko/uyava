@@ -50,14 +50,25 @@ export const docsNav = [
     description: 'Record sessions, export logs, and replay offline.',
   },
   {
+    title: 'Session File Format (.uyava)',
+    href: '/docs/session-file-format',
+    description: 'NDJSON contract for manually generating replay archives.',
+  },
+  {
     title: 'SDK Integration',
     href: '/docs/sdk-integration',
-    description: 'Instrument apps and ship Uyava data safely.',
+    description: 'Reference for SDK APIs, console mirroring, and transports.',
   },
   {
     title: 'Best Practices',
     href: '/docs/best-practices',
     description: 'Keep graphs stable, logs useful, and IDE links accurate.',
+  },
+  {
+    title: 'LLM Integration Spec (Agents)',
+    href: '/docs/llm-assistant',
+    description:
+      'Machine-oriented API rules and guardrails for AI coding agents.',
   },
   {
     title: 'Desktop Pro',

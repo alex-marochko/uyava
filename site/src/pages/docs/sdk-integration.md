@@ -1,45 +1,44 @@
 ---
 layout: ../../layouts/DocsLayout.astro
 title: "SDK Integration"
-description: "Instrument apps and ship Uyava data safely."
+description: "Technical reference for Uyava SDK APIs, console mirroring, and transports."
 ---
 
-# SDK Integration
+# SDK Integration (Reference)
 
-The `uyava` SDK runs inside your app and publishes structured events to connected hosts. It normalizes payloads, applies validation rules, and sends data through registered transports.
+This page is a technical reference for the `uyava` SDK APIs and behavior.
 
-## Core flow
+If you are onboarding, start with [Getting Started](/docs/getting-started) first, then use this page for exact API choices.
 
-1) Initialize once at startup:
+## Startup and graph APIs
+
+Initialize once:
 
 ```dart
 Uyava.initialize();
 ```
 
-2) Send a graph snapshot:
+Graph snapshot and updates:
 
 ```dart
-Uyava.replaceGraph(
-  nodes: const [
-    UyavaNode(id: 'ui.login', type: 'screen', label: 'Login', tags: ['ui']),
-  ],
-  edges: const [
-    UyavaEdge(id: 'ui.login->logic.auth', from: 'ui.login', to: 'logic.auth'),
-  ],
-);
+Uyava.replaceGraph(nodes: [...], edges: [...]);
+Uyava.loadGraph(nodes: [...], edges: [...]);
+
+Uyava.addNode(const UyavaNode(id: 'logic.auth', type: 'service'));
+Uyava.addEdge(const UyavaEdge(id: 'ui->logic', from: 'ui', to: 'logic'));
+
+Uyava.patchNode('logic.auth', {'label': 'Auth Service'});
+Uyava.patchEdge('ui->logic', {'label': 'Auth request'});
+
+Uyava.removeEdge('ui->logic');
+Uyava.removeNode('logic.auth');
 ```
 
-3) Apply incremental updates as needed:
+Reference rule: keep node/edge IDs stable and unique.
 
-```dart
-Uyava.addNode(const UyavaNode(id: 'logic.auth', type: 'service', label: 'Auth'));
-Uyava.patchNode('logic.auth', {'label': 'Auth Service', 'tags': ['auth']});
-Uyava.removeEdge('ui.login->logic.auth');
-```
+## Runtime event APIs
 
-## Runtime events
-
-Events power pulses, badges, and the journal.
+Node and edge events:
 
 ```dart
 Uyava.emitNodeEvent(
@@ -47,20 +46,18 @@ Uyava.emitNodeEvent(
   message: 'Sign in pressed',
   severity: UyavaSeverity.info,
   tags: ['auth'],
+  sourceRef: Uyava.caller(),
 );
 
 Uyava.emitEdgeEvent(
   edge: 'ui.login->logic.auth',
   message: 'Auth request sent',
   severity: UyavaSeverity.warn,
+  sourceRef: Uyava.caller(),
 );
 ```
 
-The `message` field is mandatory and appears in the Journal and log exports.
-
-## Lifecycle updates
-
-Use lifecycle signals to dim inactive nodes:
+Lifecycle signals:
 
 ```dart
 Uyava.updateNodeLifecycle(
@@ -72,51 +69,88 @@ Uyava.updateNodesListLifecycle(
   nodeIds: ['logic.auth', 'data.session'],
   state: UyavaLifecycleState.disposed,
 );
-```
 
-## Source references
-
-Add `sourceRef` to nodes or events so Desktop can open the IDE at the right file:
-
-```dart
-Uyava.addNode(
-  const UyavaNode(id: 'logic.auth', type: 'service', label: 'Auth'),
-  sourceRef: Uyava.caller(),
+Uyava.updateSubtreeLifecycle(
+  rootNodeId: 'feature.checkout',
+  state: UyavaLifecycleState.disposed,
+  includeRoot: true,
 );
 ```
 
-## Diagnostics
+Important:
 
-You can emit app-specific diagnostics or clear the buffer:
+- `message` is required for `emitNodeEvent` and `emitEdgeEvent`.
+- `sourceRef: Uyava.caller()` enables Desktop IDE jump-to-code behavior.
+
+## Diagnostics APIs
+
+Emit and clear diagnostics:
 
 ```dart
 Uyava.postDiagnostic(
   code: 'auth.token_expired',
   level: UyavaDiagnosticLevel.warn,
   nodeId: 'logic.auth',
+  context: {'tokenAgeMinutes': 87},
 );
 
 Uyava.clearDiagnostics();
 ```
 
-## Transports
+Use diagnostics for integrity or domain issues that should be visible in the Diagnostics panel.
 
-Uyava publishes events to a transport hub.
+## Console mirroring
 
-- Default: VM Service transport for DevTools and Desktop.
-- Optional: file logging and custom transports.
+Enable console mirror output when you want standard terminal logs in parallel with Uyava hosts:
+
+```dart
+Uyava.enableConsoleLogging(
+  config: UyavaConsoleLoggerConfig(
+    minLevel: UyavaSeverity.info,
+    includeTypes: {'nodeEvent', 'edgeEvent'},
+    excludeTypes: {'graphDiagnostics'},
+  ),
+);
+```
+
+Disable when no longer needed:
+
+```dart
+await Uyava.disableConsoleLogging();
+```
+
+Notes:
+
+- Console mirroring does not replace DevTools/Desktop visualization.
+- `includeTypes` and `excludeTypes` are useful for noisy sessions.
+- Keep it optional in production unless your support flow depends on it.
+
+## Transport APIs
+
+Uyava emits through a transport hub:
+
+- default transport: VM Service (used by DevTools/Desktop)
+- optional: file logging transport
+- optional: custom transports (for internal pipelines)
 
 ```dart
 Uyava.registerTransport(MyWebSocketTransport(uri: Uri.parse('ws://...')));
+Uyava.unregisterTransport(const UyavaTransportChannel('my.websocket'));
 ```
 
-See Recording and .uyava Logs for file logging details.
+For file transport usage and replay logs, see [Recording and .uyava Logs](/docs/recording-logs).
 
-## Data integrity rules
+## Integrity rules and constraints
 
 - Node and edge IDs must be unique.
 - Colors must be `#RRGGBB` or `#AARRGGBB`.
 - Shapes must match `^[a-z0-9_-]+$`.
-- Dangling edges are dropped and reported in diagnostics.
+- Unknown/dangling references are surfaced as diagnostics.
+- Prefer structural stability (graph) + runtime variability (events, lifecycle, metrics, chains).
 
-Follow these rules to keep the graph stable and diagnostics clean.
+## Related references
+
+- [Getting Started](/docs/getting-started)
+- [Best Practices](/docs/best-practices)
+- [Recording and .uyava Logs](/docs/recording-logs)
+- [Under the Hood](/docs/architecture)

@@ -18,10 +18,8 @@ If you are new to Uyava, start with DevTools or the free desktop app and connect
 
 1) Add the SDK:
 
-```yaml
-# pubspec.yaml
-dependencies:
-  uyava: ^0.0.0 # replace with the published version
+```bash
+flutter pub add uyava
 ```
 
 2) Initialize Uyava and send a snapshot early:
@@ -64,14 +62,32 @@ Uyava.emitEdgeEvent(
 );
 ```
 
+4) Optional: keep your usual console logs while using Uyava:
+
+```dart
+Uyava.enableConsoleLogging(
+  config: UyavaConsoleLoggerConfig(minLevel: UyavaSeverity.info),
+);
+```
+
+This mirrors Uyava events into the standard app console and does not replace DevTools/Desktop views.
+
 ## Connect a host
 
 - DevTools: run your app in debug or profile, open Flutter DevTools, and select the Uyava extension tab. The extension listens to VM Service events, so it works without extra network setup.
 - Desktop: launch the desktop app and paste the VM Service URI from your running app. The desktop host mirrors the same data model as DevTools.
 
+## Fast path for AI coding agents
+
+If you use Cursor, Copilot, Claude, or similar tools, share this page with your agent:
+
+- [LLM Integration Spec (Agents)](/docs/llm-assistant)
+
+It provides concentrated Uyava API patterns and guardrails so the agent can instrument your feature/code area without inventing SDK syntax.
+
 ## Next steps
 
-- Review the UI workflow in Quick Tour.
-- Learn how filtering affects the graph, metrics, chains, and journal.
-- If you need offline replays, read Recording and .uyava Logs.
-- For deeper API and transport details, see SDK Integration and Under the Hood.
+- Review the UI workflow in [Quick Tour](/docs/quick-tour).
+- Learn how filtering affects the graph, metrics, chains, and journal in [Filters, Focus, and Grouping](/docs/concepts-filtering).
+- If you need offline replays, read [Recording and .uyava Logs](/docs/recording-logs).
+- For API details, console mirroring options, and transport rules, see [SDK Integration](/docs/sdk-integration) and [Under the Hood](/docs/architecture).

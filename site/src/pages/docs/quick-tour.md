@@ -8,6 +8,8 @@ description: "A walkthrough of the graph, panels, and daily workflow."
 
 This tour follows the default DevTools and Desktop layouts. The UI is the same across hosts unless noted.
 
+If your workflow relies on terminal logs, you can mirror the same Uyava events to console in parallel. See [SDK Integration](/docs/sdk-integration).
+
 ## 1) Graph viewport
 
 - Nodes and edges form the live architecture map.
@@ -28,7 +30,7 @@ Filters sit at the top. They control what you see on the graph and in the journa
 - Tag filters let you include or exclude tagged nodes and edges.
 - Severity filtering can focus on warnings or errors without losing context.
 
-See Filters, Focus, and Grouping for full behavior details.
+See [Filters, Focus, and Grouping](/docs/concepts-filtering) for full behavior details.
 
 ## 4) Metrics dashboard
 
@@ -52,4 +54,4 @@ Desktop adds a Record/Replay bar:
 - Switch to File mode to replay a saved log with playback controls.
 - Recent recordings appear in the open list, and the app can reveal the current log in your file explorer.
 
-Read Recording and .uyava Logs for details.
+Read [Recording and .uyava Logs](/docs/recording-logs) for details.

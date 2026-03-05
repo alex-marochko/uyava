@@ -8,19 +8,23 @@ description: "Install the DevTools extension and the desktop app."
 
 Uyava ships as a DevTools extension and a desktop app. Both hosts read the same SDK events, so you can choose the workflow that fits your team.
 
-## DevTools extension
+If you want to keep terminal-based debugging habits, you can also mirror Uyava events to the app console during setup. See [SDK Integration](/docs/sdk-integration) for console logger options.
 
-- When published, install it from the Flutter DevTools Extensions catalog.
-- During development, build it locally from the repo and copy into the host package:
+## DevTools extension (for users)
+
+- Install it from the Flutter DevTools Extensions catalog when the public listing is available.
+- Open DevTools while your app runs in debug or profile mode, then select the Uyava tab.
+
+## DevTools extension (for contributors only)
+
+If you work on the extension itself, build and copy it locally:
 
 ```bash
-(cd packages/uyava_devtools_extension && \
-  flutter pub run devtools_extensions build_and_copy \
-    --source=. \
-    --dest=../uyava/extension/devtools)
+cd <repo>/.../uyava_devtools_extension
+flutter pub run devtools_extensions build_and_copy \
+  --source=. \
+  --dest=<host-project>/extension/devtools
 ```
-
-Open DevTools while your app runs in debug or profile mode, then select the Uyava tab.
 
 ## Desktop app
 
@@ -34,7 +38,7 @@ Open DevTools while your app runs in debug or profile mode, then select the Uyav
 - Use them to open or attach Uyava Desktop with project context and VM Service URI.
 - Keep Desktop installed locally; plugins are launchers, not replacements for Desktop.
 
-Useful CLI shortcuts (desktop):
+Useful CLI shortcuts (desktop binary):
 
 ```bash
 ./uyava_desktop --vm-service-uri ws://127.0.0.1:xxxxx/ws?authToken=... --project-path /path/to/project
