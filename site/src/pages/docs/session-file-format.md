@@ -1,129 +1,343 @@
 ---
 layout: ../../layouts/DocsLayout.astro
 title: "Session File Format (.uyava)"
-description: "NDJSON contract for manually generating Uyava replay archives."
+description: "Complete wire format for Uyava replay files."
 ---
 
 # Session File Format (.uyava)
 
-This page documents the `.uyava` session format so you can generate files manually (including via scripts or LLM agents) and open them in Uyava Desktop.
+This page defines the `.uyava` wire format for replay files.
 
-## Format at a glance
+## Container
 
 - File extension: `.uyava`
-- Payload format: NDJSON (one JSON object per line, UTF-8)
-- Recommended line order:
-  1) `sessionHeader`
-  2) event records
-  3) optional marker records
-- Compression for replay compatibility today: `gzip` or plain text (`none`)
+- Content: NDJSON (`UTF-8`, one JSON object per line)
+- Recommended order:
+  1. `sessionHeader`
+  2. event records
+  3. optional marker records
+- Desktop replay compatibility: `gzip` or plain NDJSON (`none`).
 
-## Minimal valid archive
+## Record kinds
+
+Each NDJSON line is one record. Supported kinds:
+
+- Header record: `type: "sessionHeader"` (or `recordType: "header"`)
+- Event record: `recordType: "event"` (or omitted)
+- Marker record: `recordType: "marker"` or `type: "_marker"`
+
+If `recordType` is omitted and `type` is not `sessionHeader`/`_marker`, the line is treated as an event.
+
+## Header record
+
+Required:
+
+- `type`: `"sessionHeader"`
+- `sessionId`: string
+- `startedAt`: ISO-8601 timestamp
+
+Versioning:
+
+- `formatVersion` (preferred) and `schemaVersion` (legacy alias) are both read
+- current supported value: `1`
+- values `> 1` are rejected by Desktop replay
+
+Optional metadata:
+
+- `compression`: `"gzip"` | `"none"` | `"zstd"` (for Desktop replay files, use `gzip` or `none`)
+- `app`: `{ "name"?, "version"?, "build"? }`
+- `platform`: `{ "os"?, "version"?, "timezone"? }`
+- `reason`: string
+- `redaction`: `{ redactionApplied, allowRawData?, maskFields?, dropFields?, tagsAllowList?, tagsDenyList? }`
+- `hostMetadata`: object
+- `recorder`: object
+
+## Event envelope
+
+Canonical shape:
 
 ```json
-{"type":"sessionHeader","formatVersion":1,"schemaVersion":1,"sessionId":"demo-001","startedAt":"2026-03-04T12:00:00.000Z","compression":"none"}
-{"recordType":"event","type":"replaceGraph","timestamp":"2026-03-04T12:00:00.100Z","monotonicMicros":100000,"scope":"snapshot","payload":{"nodes":[{"id":"screen.home","type":"screen","label":"Home"}],"edges":[]}}
-{"recordType":"event","type":"nodeEvent","timestamp":"2026-03-04T12:00:00.250Z","monotonicMicros":250000,"scope":"realtime","payload":{"nodeId":"screen.home","message":"Home opened","severity":"info"}}
+{
+  "recordType": "event",
+  "type": "replaceGraph",
+  "timestamp": "2026-03-06T13:17:34.282591Z",
+  "monotonicMicros": 22613,
+  "scope": "realtime",
+  "sequenceId": "optional",
+  "payload": {}
+}
 ```
 
-You can save this as plain text `demo.uyava`, or gzip it and keep the same extension.
+Fields:
 
-## Header record (`sessionHeader`)
+- `type` (required): event type string
+- `payload` (required): event payload object
+- `timestamp` (recommended): ISO-8601 timestamp
+- `monotonicMicros` (recommended): microseconds since session start
+  - legacy fallback: `timestampMicros`
+  - if both are missing, value becomes `0`
+- `scope` (optional): `snapshot` | `realtime` | `diagnostic`
+- `sequenceId` (optional): string
+- `redactedKeys` (optional): string[]
+- `hostMetadata` (optional): object
 
-Required fields:
+## Graph payload contracts
 
-- `type`: must be `"sessionHeader"`
-- `sessionId`: stable session identifier
-- `startedAt`: ISO timestamp (UTC recommended)
+### Node object (`nodes[]`, `addNode`, `patchNode.node`)
 
-Version fields:
+Required:
 
-- `formatVersion` and `schemaVersion` are both accepted
-- Current supported format version is `1`
-- Future unsupported versions are rejected by Desktop replay
+- `id`: string
 
-Useful optional fields:
+Canonical/recommended:
 
-- `compression`: `"gzip"`, `"none"` (use these for Desktop replay compatibility)
-- `app`: `{ "name", "version", "build" }`
-- `platform`: `{ "os", "version", "timezone" }`
-- `reason`
-- `hostMetadata`
-- `recorder`
-- `redaction`
+- `type`: string (`"unknown"` if omitted)
+- `label`: string (falls back to `id` if omitted/empty)
 
-## Event record
+Optional:
 
-Canonical event line:
+- `description`: string
+- `parentId`: string
+- `tags`: string[]
+- `tagsNormalized`: string[]
+- `tagsCatalog`: string[]
+- `color`: normalized hex color
+- `colorPriorityIndex`: int
+- `shape`: string
+- `lifecycle`: `unknown | initialized | disposed`
+- `initSource`: string
+
+### Edge object (`edges[]`, `addEdge`, `patchEdge.edge`)
+
+Required:
+
+- `id`: string
+- `source`: string (node id)
+- `target`: string (node id)
+
+Optional:
+
+- `label`: string
+- `description`: string
+- `remapped`: boolean
+- `bidirectional`: boolean
+
+For graph snapshots/updates, use `source`/`target` (not `from`/`to`).
+
+## Supported event types
+
+### `replaceGraph`
+
+Replaces graph state.
+
+Payload:
+
+- `nodes`: node[]
+- `edges`: edge[]
+- `metrics` (optional): metric definition[]
+- `eventChains` (optional): event-chain definition[]
+- `sourceId` / `sourceType` (optional): ingest metadata
+
+### `loadGraph`
+
+Merges graph data into current state.
+
+Payload:
+
+- `nodes` (optional): node[]
+- `edges` (optional): edge[]
+
+### `addNode`
+
+Payload: single node object.
+
+### `addEdge`
+
+Payload: single edge object.
+
+### `removeNode`
+
+Payload:
+
+- `id`: node id
+- `cascadeEdgeIds` (optional): string[]
+
+### `removeEdge`
+
+Payload:
+
+- `id`: edge id
+
+### `patchNode`
+
+Payload:
+
+- `id` (recommended): node id
+- `node`: full node object snapshot
+- `changedKeys` (optional): string[]
+
+### `patchEdge`
+
+Payload:
+
+- `id` (recommended): edge id
+- `edge`: full edge object snapshot (with `source`/`target`)
+- `changedKeys` (optional): string[]
+
+### `edgeEvent` (and legacy alias `animation`)
+
+Payload:
+
+- `message`: non-empty string (required for render/journal)
+- either:
+  - `from` + `to`, or
+  - `edge` (resolved to endpoints from known edges)
+- `severity` (optional): `trace|debug|info|warn|error|fatal`
+- `timestamp` (optional): ISO-8601
+- `sourceRef` / `sourceId` / `sourceType` (optional)
+- `isolateId` / `isolateName` / `isolateNumber` (optional)
+
+### `nodeEvent`
+
+Payload:
+
+- `nodeId`: string (required)
+- `message`: string (recommended; defaults to `"node event"` if missing/empty)
+- `severity` (optional): `trace|debug|info|warn|error|fatal`
+- `tags` (optional): string[]
+- `timestamp` (optional): ISO-8601
+- `sourceRef` / `sourceId` / `sourceType` (optional)
+- `isolateId` / `isolateName` / `isolateNumber` (optional)
+- `payload` (optional): object for nested data
+
+Nested metric sample inside `nodeEvent.payload`:
 
 ```json
-{"recordType":"event","type":"nodeEvent","timestamp":"2026-03-04T12:00:01.000Z","monotonicMicros":1000000,"scope":"realtime","payload":{"nodeId":"auth.cubit","message":"Sign in pressed","severity":"info"}}
+{
+  "metric": {
+    "id": "checkout_duration_ms",
+    "value": 1529.0,
+    "timestamp": "2026-03-06T13:17:35.813290Z"
+  }
+}
 ```
 
-Expected fields:
+Nested event-chain progress inside `nodeEvent.payload`:
 
-- `type`: event type (`replaceGraph`, `nodeEvent`, `edgeEvent`, etc.)
-- `timestamp`: ISO timestamp
-- `payload`: JSON object
+```json
+{
+  "chain": {
+    "id": "checkout_flow",
+    "step": "place_order",
+    "attempt": "attempt-1",
+    "status": "failed"
+  },
+  "edgeId": "e75"
+}
+```
 
-Strongly recommended:
+Notes:
 
-- `monotonicMicros`: integer offset from session start in microseconds
-- `scope`: `snapshot`, `realtime`, or `diagnostic`
-- `sequenceId`: stable ordering hint when needed
+- chain object requires `id` and `step`
+- `attempt` is optional
+- failure is detected when status is `"failed"` or `"failure"`
+- legacy fallback: if `chain.status` is missing, top-level `payload.status` is used
 
-Compatibility notes:
+### `nodeLifecycle`
 
-- If `recordType` is omitted, the line is still treated as an event (unless `type` is `sessionHeader` or `_marker`)
-- `timestampMicros` is accepted as a legacy fallback when `monotonicMicros` is missing
-- If `monotonicMicros` is missing, replay falls back to `0`, which collapses timeline accuracy
+Payload:
+
+- `nodeId`: string
+- `state`: `initialized | disposed | unknown`
+
+### `defineMetric`
+
+Payload:
+
+- `id`: string (required)
+- `label` (optional)
+- `description` (optional)
+- `unit` (optional)
+- `tags` (optional): string[]
+- `tagsNormalized` (optional): string[]
+- `aggregators` (optional): `last|min|max|sum|count`[]
+  - defaults to `["last"]` if missing/invalid
+
+### `defineEventChain`
+
+Payload:
+
+- `id`: string (required)
+- at least one tag:
+  - `tags`: string[] (preferred), or
+  - `tag`: string (legacy)
+- `label` (optional; defaults to `id`)
+- `description` (optional)
+- `tagsNormalized` (optional)
+- `tagsCatalog` (optional)
+- `steps`: step[] (required)
+
+Step object:
+
+- `stepId`: string (required)
+- `nodeId`: string (required)
+- `edgeId`: string (optional)
+- `expectedSeverity`: `trace|debug|info|warn|error|fatal` (optional)
+
+### `graphDiagnostics`
+
+Payload:
+
+- `code`: string (required)
+- `level`: `info|warning|error` (required)
+- `codeEnum` (optional)
+- `nodeId` (optional)
+- `edgeId` (optional)
+- `context` (optional): object
+- `timestamp` (optional): ISO-8601
+
+### `clearDiagnostics`
+
+Payload: empty object `{}` (recommended).
 
 ## Marker record (optional)
 
-Markers appear on replay timeline and can highlight errors/checkpoints.
+Marker shape:
 
 ```json
-{"recordType":"marker","type":"_marker","id":"m1","label":"API timeout","timestamp":"2026-03-04T12:00:01.500Z","offsetMicros":1500000,"kind":"error","level":"warn","meta":{"requestId":"r-42"}}
+{
+  "recordType": "marker",
+  "type": "_marker",
+  "id": "checkpoint-1",
+  "label": "Payment failed",
+  "timestamp": "2026-03-06T13:17:35.813365Z",
+  "offsetMicros": 1553387,
+  "kind": "error",
+  "level": "warn",
+  "meta": { "requestId": "r-42" }
+}
 ```
 
-Core fields:
+Core marker fields:
 
 - `id`
 - `label`
 - `timestamp`
 - `offsetMicros`
 
-## Recommended event types for practical replay
+## Minimal valid file
 
-- `replaceGraph`: publish a graph snapshot first (nodes/edges)
-- `nodeEvent`: node-level runtime messages
-- `edgeEvent`: directed interaction messages between nodes
-- `nodeLifecycle`: initialized/disposed state changes
-- `defineMetric` and metric samples in payloads
-- `defineEventChain`: multi-step flow definitions
-
-## Compression and conversion
-
-Create plain NDJSON first, then optionally gzip:
-
-```bash
-gzip -c demo.ndjson > demo.uyava
+```json
+{"type":"sessionHeader","formatVersion":1,"schemaVersion":1,"sessionId":"demo-001","startedAt":"2026-03-06T13:17:34.259978Z","compression":"none"}
+{"recordType":"event","type":"replaceGraph","timestamp":"2026-03-06T13:17:34.282591Z","monotonicMicros":22613,"scope":"snapshot","payload":{"nodes":[{"id":"a","type":"screen","label":"A"}],"edges":[]}}
+{"recordType":"event","type":"nodeEvent","timestamp":"2026-03-06T13:17:34.313886Z","monotonicMicros":53908,"scope":"realtime","payload":{"nodeId":"a","message":"opened","severity":"info"}}
 ```
-
-Desktop replay currently auto-detects gzip by file signature and also supports plain-text NDJSON files with `.uyava` extension.
 
 ## Validation checklist
 
-1. One JSON object per line (no top-level array).
-2. Include exactly one `sessionHeader` line and place it first.
-3. Use ISO timestamps (`YYYY-MM-DDTHH:mm:ss.sssZ`).
-4. Keep `monotonicMicros` non-negative and monotonically increasing.
-5. For `nodeEvent` and `edgeEvent`, include meaningful non-empty `message` in payload.
-
-## Troubleshooting
-
-- Error `Missing sessionHeader`: header record is absent or malformed.
-- Replay opens with many warnings: one or more NDJSON lines are invalid JSON.
-- Timeline looks flat/jumpy: missing or incorrect `monotonicMicros`.
-
-For capture/export flow and host behavior, see [Recording and .uyava Logs](/docs/recording-logs).
+1. NDJSON only: one JSON object per line.
+2. Include exactly one `sessionHeader`.
+3. Use `formatVersion: 1` (and `schemaVersion: 1` for compatibility).
+4. Keep `monotonicMicros` non-negative and monotonic.
+5. For graph edges in snapshots/updates use `source`/`target`.
+6. For `edgeEvent`, include non-empty `message` and valid endpoints (`from`/`to` or resolvable `edge`).
