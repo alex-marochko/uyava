@@ -36,14 +36,21 @@ Edges are directed connections between nodes.
 Required fields:
 
 - `id` (unique)
-- `from` and `to` (node IDs)
+- `source` and `target` (node IDs)
 
 Optional fields:
 
-- `label`, `description`, `tags`, `color`
-- `data.bidirectional` (if you want arrows on both ends)
+- `label`, `description`
+- `remapped` (bool flag used by hosts during merge/remap flows)
+- `bidirectional` (bool; if you want arrows on both ends)
 
 If an edge references missing nodes, it is dropped and a diagnostics entry is emitted.
+
+Wire-format note:
+
+- Snapshot/update payloads (`replaceGraph`, `loadGraph`, `addEdge`, `patchEdge`) use `source`/`target`.
+- `edgeEvent` payloads use `from`/`to`.
+- In SDK code you still construct `UyavaEdge(from: ..., to: ...)`; SDK serializes this to wire `source`/`target`.
 
 ## Groups and hierarchy
 
@@ -52,6 +59,8 @@ Use `parentId` to group nodes. Collapsing a parent does not animate through mult
 - Child nodes are hidden.
 - Event pulses are aggregated at the parent.
 - Edges route through the visible ancestor.
+
+Modeling note: avoid a single synthetic global root for the whole graph. It usually carries little information and tends to make large graphs visually dense. Prefer several meaningful top-level roots (features/domains) and only add `parentId` where hierarchy adds clarity.
 
 ## Lifecycle dimming
 

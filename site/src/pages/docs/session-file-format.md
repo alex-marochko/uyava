@@ -107,6 +107,8 @@ Optional:
 - `lifecycle`: `unknown | initialized | disposed`
 - `initSource`: string
 
+Modeling note: the format allows a single global root node, but this is discouraged for real graphs. A synthetic root with all nodes under it usually reduces readability and increases visual density. Prefer several meaningful top-level roots.
+
 ### Edge object (`edges[]`, `addEdge`, `patchEdge.edge`)
 
 Required:
@@ -341,3 +343,4 @@ Core marker fields:
 4. Keep `monotonicMicros` non-negative and monotonic.
 5. For graph edges in snapshots/updates use `source`/`target`.
 6. For `edgeEvent`, include non-empty `message` and valid endpoints (`from`/`to` or resolvable `edge`).
+7. Avoid a synthetic single global root parent for all nodes; prefer domain/feature top-level roots for better replay readability.

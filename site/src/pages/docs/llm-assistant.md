@@ -210,6 +210,7 @@ When user asks "instrument feature X with Uyava", do this in order:
 - Missing `message` in event emission.
 - Dynamic node IDs like `screen_${DateTime.now()}` for static architecture components.
 - Rebuilding full graph on every user action when only events are needed.
+- Generating a single synthetic global root node and attaching the whole graph under it.
 
 ## Agent completion checklist
 

@@ -73,6 +73,7 @@ Important notes:
 - `directoryPath` is required. Use `path_provider` to pick a stable path.
 - Files are gzip-compressed NDJSON with a `.uyava` extension.
 - A background worker handles rotation and compression to avoid UI jank.
+- Keep graph hierarchy meaningful in recorded snapshots; avoid a single synthetic global root if you want readable replay layouts.
 
 ### Exporting logs
 

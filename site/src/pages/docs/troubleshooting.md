@@ -62,5 +62,6 @@ gunzip -c session.uyava > /tmp/session.ndjson
 ## Performance tips
 
 - Collapse parent groups to reduce visual noise.
+- Avoid a single synthetic root parent for all nodes; split into meaningful top-level roots to reduce graph crowding.
 - Use severity filters for incident triage.
 - Enable sampling in file logging to reduce volume.

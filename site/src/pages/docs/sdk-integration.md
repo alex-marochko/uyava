@@ -147,6 +147,7 @@ For file transport usage and replay logs, see [Recording and .uyava Logs](/docs/
 - Shapes must match `^[a-z0-9_-]+$`.
 - Unknown/dangling references are surfaced as diagnostics.
 - Prefer structural stability (graph) + runtime variability (events, lifecycle, metrics, chains).
+- Avoid a synthetic single global root node for the entire graph; prefer meaningful top-level feature/domain roots.
 
 ## Related references
 

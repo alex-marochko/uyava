@@ -18,6 +18,16 @@ Define the full set of nodes and edges at startup. After that, update lifecycle 
 
 This keeps the layout stable and makes recordings deterministic.
 
+## Avoid a single global root node
+
+Do not put your entire graph under one synthetic root (for example `app.root` with every feature as a descendant).
+
+- It adds little semantic value.
+- It makes large graphs denser and harder to read in practice.
+- It weakens cluster separation during layout for real production-sized sessions.
+
+Prefer several meaningful top-level nodes (by domain/feature/bounded context) and use `parentId` only where grouping is actually useful.
+
 ## Keep data out of the structure
 
 Files, users, sessions, or requests are data. Represent them as events + payloads, not as nodes.
@@ -141,4 +151,3 @@ If you use `.uyava` recording:
 - include source references for nodes and events.
 
 The replay view is only as good as the structure you record.
-
