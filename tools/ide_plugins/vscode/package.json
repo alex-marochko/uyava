@@ -1,0 +1,57 @@
+{
+  "name": "uyava-desktop-launcher",
+  "displayName": "Uyava Desktop Launcher",
+  "description": "Launch or attach Uyava Desktop Pro to the active Flutter/Dart VM Service with one command.",
+  "version": "0.1.0",
+  "publisher": "uyava",
+  "license": "MIT",
+  "icon": "icon.png",
+  "homepage": "https://uyava.io/docs/ide-plugins",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alex-marochko/uyava.git",
+    "directory": "tools/ide_plugins/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/alex-marochko/uyava-desktop-issues/issues"
+  },
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "categories": [
+    "Other",
+    "Debuggers"
+  ],
+  "keywords": [
+    "flutter",
+    "dart",
+    "devtools",
+    "uyava",
+    "architecture",
+    "vm service"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:uyava.launchDesktop",
+    "onDebug"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "uyava.launchDesktop",
+        "title": "Uyava: Launch/Attach Desktop",
+        "category": "Uyava"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/vscode": "1.84.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3"
+  }
+}

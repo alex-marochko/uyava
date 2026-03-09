@@ -1,0 +1,22 @@
+<idea-plugin>
+  <id>io.uyava.desktop.launcher</id>
+  <name>Uyava Desktop Launcher</name>
+  <vendor email="support@uyava.io">Uyava</vendor>
+  <description><![CDATA[
+One-click launcher that finds a running Flutter/Dart VM Service and opens Uyava Desktop Pro with the project context.
+  ]]></description>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends>io.flutter</depends>
+
+  <actions>
+    <action id="io.uyava.desktop.launch" class="io.uyava.intellij.UyavaLaunchAction"
+            text="Launch/Attach Uyava Desktop" description="Launch or attach Uyava Desktop Pro to the active Flutter/Dart VM Service"
+            icon="/icons/uyava.svg">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+      <add-to-group group-id="Flutter.MainToolbarActions" anchor="after" relative-to-action="Flutter.DeviceSelector"/>
+      <add-to-group group-id="Flutter.MainToolbarActionsLegacy" anchor="after" relative-to-action="Flutter.DeviceSelectorLegacy"/>
+      <add-to-group group-id="ToolbarRunGroup" anchor="after" relative-to-action="RunConfiguration"/>
+    </action>
+  </actions>
+</idea-plugin>
