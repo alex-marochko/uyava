@@ -16,6 +16,8 @@ Initialize once:
 
 ```dart
 Uyava.initialize();
+// Optional: start every node as disposed and activate explicitly later.
+Uyava.initialize(defaultLifecycleState: UyavaLifecycleState.disposed);
 ```
 
 Graph snapshot and updates:
@@ -134,8 +136,11 @@ Uyava emits through a transport hub:
 - optional: custom transports (for internal pipelines)
 
 ```dart
-Uyava.registerTransport(MyWebSocketTransport(uri: Uri.parse('ws://...')));
-Uyava.unregisterTransport(const UyavaTransportChannel('my.websocket'));
+final transport = MyWebSocketTransport(uri: Uri.parse('ws://...'));
+Uyava.registerTransport(transport);
+
+// Remove by channel (enum), or use transport.channel.
+Uyava.unregisterTransport(UyavaTransportChannel.webSocket);
 ```
 
 For file transport usage and replay logs, see [Recording and .uyava Logs](/docs/recording-logs).

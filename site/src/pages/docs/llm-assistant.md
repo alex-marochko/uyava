@@ -133,13 +133,13 @@ Uyava.defineEventChain(
 );
 ```
 
-`defineEventChain` must include at least one tag and valid steps; invalid definitions fail sanitization.
+`defineEventChain` must include at least one tag (`tags` preferred, legacy `tag` supported) and valid steps; invalid definitions fail sanitization.
 
 Supported metric aggregators: `last`, `min`, `max`, `sum`, `count`.
 
 ## API quick reference (use exact names)
 
-- `Uyava.initialize()`
+- `Uyava.initialize({UyavaLifecycleState defaultLifecycleState = UyavaLifecycleState.unknown})`
 - `Uyava.replaceGraph({List<UyavaNode>? nodes, List<UyavaEdge>? edges})`
 - `Uyava.addNode(UyavaNode node, {String? sourceRef})`
 - `Uyava.addEdge(UyavaEdge edge)`
@@ -152,7 +152,7 @@ Supported metric aggregators: `last`, `min`, `max`, `sum`, `count`.
 - `Uyava.updateNodeLifecycle({required String nodeId, required UyavaLifecycleState state})`
 - `Uyava.updateNodesListLifecycle({required List<String> nodeIds, required UyavaLifecycleState state})`
 - `Uyava.defineMetric(...)`
-- `Uyava.defineEventChain(...)`
+- `Uyava.defineEventChain({required String id, List<String>? tags, String? tag, required List<UyavaEventChainStep> steps, ...})`
 - `Uyava.enableFileLogging(...)` / `Uyava.exportCurrentArchive()` / `Uyava.cloneActiveArchive()`
 - `Uyava.enableConsoleLogging(...)` / `Uyava.disableConsoleLogging()`
 - `Uyava.caller()` for source references

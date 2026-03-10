@@ -26,8 +26,22 @@ Uyava.defineEventChain(
 Rules:
 
 - `id` must be unique and stable.
-- `tags` are required; at least one tag must be present.
+- At least one tag is required (`tags` preferred, `tag` legacy-compatible).
 - Step IDs must be unique within the chain.
+
+Legacy-compatible form:
+
+```dart
+Uyava.defineEventChain(
+  id: 'auth.login_flow',
+  tag: 'auth',
+  steps: const [
+    UyavaEventChainStep(stepId: 'open', nodeId: 'ui.login'),
+    UyavaEventChainStep(stepId: 'submit', nodeId: 'logic.auth'),
+    UyavaEventChainStep(stepId: 'success', nodeId: 'logic.auth'),
+  ],
+);
+```
 
 ## Advance a chain
 
