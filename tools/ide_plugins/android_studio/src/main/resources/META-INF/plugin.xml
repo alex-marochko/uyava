@@ -4,6 +4,7 @@
   <vendor email="support@uyava.io">Uyava</vendor>
   <description><![CDATA[
 One-click launcher that finds a running Flutter/Dart VM Service and opens Uyava Desktop Pro with the project context.
+The plugin works locally, has no telemetry/analytics, and does not send project data or personal data to third-party services.
   ]]></description>
 
   <depends>com.intellij.modules.platform</depends>
