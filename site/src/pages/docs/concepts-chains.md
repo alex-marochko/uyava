@@ -71,6 +71,8 @@ Chains can fail in two ways:
 - **Explicit failure status**: set `chain.status` to `failed`/`failure` (case-insensitive). This marks the attempt as failed immediately.
 - **Out-of-order steps**: starting from a non-first step or skipping expected steps fails the attempt.
 
+Compatibility note: if `chain.status` is missing, Uyava also accepts top-level `payload.status` as a fallback.
+
 Example status-based failure:
 
 ```dart

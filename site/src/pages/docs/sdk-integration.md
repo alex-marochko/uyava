@@ -143,7 +143,56 @@ Uyava.registerTransport(transport);
 Uyava.unregisterTransport(UyavaTransportChannel.webSocket);
 ```
 
+File-logging runtime helpers:
+
+```dart
+final Stream<UyavaLogArchiveEvent>? archive = Uyava.archiveEvents;
+final Stream<UyavaDiscardStats>? discardStats = Uyava.discardStatsStream;
+final UyavaDiscardStats? lastDiscard = Uyava.latestDiscardStats;
+```
+
+Use `archiveEvents` to observe archive lifecycle updates (rotation/export/clone).
+Use discard stats to monitor buffer trims in real time.
+
+Shutdown helper:
+
+```dart
+await Uyava.shutdownTransports();
+```
+
 For file transport usage and replay logs, see [Recording and .uyava Logs](/docs/recording-logs).
+
+## Global error bootstrap (optional, file logging flows)
+
+Use these APIs when you want panic-tail/error capture with a file transport:
+
+```dart
+final transport = await Uyava.enableFileLogging(
+  config: UyavaFileLoggerConfig(directoryPath: '/tmp/uyava'),
+);
+
+final handle = UyavaBootstrap.installGlobalErrorHandlers(
+  transport: transport,
+  options: const UyavaGlobalErrorOptions(
+    enableIsolateErrors: true,
+    captureCurrentIsolateErrors: true,
+  ),
+);
+
+await UyavaBootstrap.runZoned(
+  () async {
+    Uyava.initialize();
+    runApp(const MyApp());
+  },
+  transport: transport,
+);
+
+final SendPort? isolatePort = UyavaBootstrap.isolateErrorPort;
+UyavaBootstrap.ensurePresentErrorHook();
+
+// Dispose when no longer needed:
+handle.dispose();
+```
 
 ## Integrity rules and constraints
 
