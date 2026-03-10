@@ -3,9 +3,6 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import { IDE_PLUGINS } from '../../config';
 
 const hasJetBrainsMarketplace = IDE_PLUGINS.jetbrainsMarketplace.trim().length > 0;
-const jetBrainsHref = hasJetBrainsMarketplace
-  ? IDE_PLUGINS.jetbrainsMarketplace
-  : IDE_PLUGINS.jetbrainsMarketplaceSearch;
 ---
 <DocsLayout
   title="IDE Plugins"
@@ -34,19 +31,22 @@ const jetBrainsHref = hasJetBrainsMarketplace
     <li>Plugin: <strong>Uyava Desktop Launcher</strong></li>
     <li>Command: <code>Tools → Uyava Desktop → Launch/Attach</code></li>
     <li>
-      Install:
-      <a href={jetBrainsHref} target="_blank" rel="noreferrer">
-        {hasJetBrainsMarketplace
-          ? 'JetBrains Marketplace'
-          : 'JetBrains listing (coming soon)'}
-      </a>
+      {hasJetBrainsMarketplace ? (
+        <>
+          Install:
+          <a href={IDE_PLUGINS.jetbrainsMarketplace} target="_blank" rel="noreferrer">
+            JetBrains Marketplace
+          </a>
+        </>
+      ) : (
+        <>Status: <strong>Expected soon</strong> (under JetBrains review).</>
+      )}
     </li>
   </ul>
 
   {!hasJetBrainsMarketplace && (
     <p>
-      JetBrains direct listing URL will be added after first public publication.
-      Until then, use the search link above.
+      JetBrains direct listing URL will be added right after publication.
     </p>
   )}
 

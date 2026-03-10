@@ -5,9 +5,6 @@ import { IDE_PLUGINS } from '../config';
 import { withBase } from '../utils/paths';
 
 const hasJetBrainsMarketplace = IDE_PLUGINS.jetbrainsMarketplace.trim().length > 0;
-const jetBrainsHref = hasJetBrainsMarketplace
-  ? IDE_PLUGINS.jetbrainsMarketplace
-  : IDE_PLUGINS.jetbrainsMarketplaceSearch;
 const macOsDmgUrl =
   'https://github.com/alex-marochko/uyava-desktop-builds/releases/download/desktop-v0.2.2%2B2/Uyava-Desktop-0.2.2-build.2-macOS.dmg';
 const macOsReleaseNotesUrl =
@@ -76,11 +73,13 @@ const macOsReleaseNotesUrl =
       <div class="download-card">
         <h3>Android Studio / IntelliJ</h3>
         <p>Uyava Desktop Launcher</p>
-        <a class="btn" href={jetBrainsHref} target="_blank" rel="noreferrer">
-          {hasJetBrainsMarketplace
-            ? 'Open JetBrains Marketplace'
-            : 'JetBrains listing (coming soon)'}
-        </a>
+        {hasJetBrainsMarketplace ? (
+          <a class="btn" href={IDE_PLUGINS.jetbrainsMarketplace} target="_blank" rel="noreferrer">
+            Open JetBrains Marketplace
+          </a>
+        ) : (
+          <p>JetBrains plugin listing is expected soon.</p>
+        )}
       </div>
     </div>
     <div class="card plugin-guide-card">
