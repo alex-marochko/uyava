@@ -2,7 +2,7 @@
   "name": "uyava-desktop-launcher",
   "displayName": "Uyava Desktop Launcher",
   "description": "Launch or attach Uyava Desktop Pro to the active Flutter/Dart VM Service with one command.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "uyava",
   "license": "MIT",
   "icon": "icon.png",
