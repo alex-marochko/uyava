@@ -5,7 +5,6 @@ Static site for uyava.io built with Astro.
 ## Requirements
 
 - Node.js 20+
-- `legal_3.zip` in the repository root (one level above `site/`)
 
 ## Development
 
@@ -21,7 +20,12 @@ Optional checkout-related env vars:
 - `PUBLIC_PADDLE_CLIENT_TOKEN` (Paddle.js client-side token: `test_...` for sandbox, `live_...` for production)
 - `PUBLIC_PADDLE_ENV` (optional override: `sandbox` or `live`; auto-inferred from token when omitted)
 
-The legal documents are synced automatically via `npm run sync-legal`.
+Legal docs source of truth:
+
+- `src/content/legal/terms.md`
+- `src/content/legal/privacy.md`
+- `src/content/legal/refunds.md`
+- `src/content/legal/licenses.md`
 
 ## Build
 
