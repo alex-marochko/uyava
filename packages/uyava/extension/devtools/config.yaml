@@ -5,7 +5,7 @@ name: uyava
 issueTracker: https://github.com/alex-marochko/uyava/issues
 
 # Version of the extension.
-version: 0.2.0+1
+version: 0.2.1-beta.1+1
 
 # A 16x16 png icon to display in the extension tab.
 # If specified, this icon will be used instead of the materialIconCodePoint.

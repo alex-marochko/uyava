@@ -234,6 +234,12 @@ melos exec -- "dart format --set-exit-if-changed ."
 `melos test` may work as a shorthand, but `melos run test` is the explicit and
 recommended form.
 
+Windows note:
+
+- `melos bootstrap` works normally.
+- In this repository, `melos run test` uses `bash tool/run_package_tests.sh`,
+  so on Windows you need WSL or Git Bash.
+
 ## License
 
 MIT. See `LICENSE`.

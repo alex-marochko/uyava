@@ -1,5 +1,6 @@
 name: uyava_devtools_extension
 description: "Flutter DevTools extension for visualizing Uyava architecture and runtime events."
+publish_to: none
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
