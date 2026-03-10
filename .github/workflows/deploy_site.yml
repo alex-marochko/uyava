@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'site/**'
-      - 'legal_3.zip'
       - '.github/workflows/deploy_site.yml'
   workflow_dispatch:
 
