@@ -842,10 +842,6 @@ a.card {
   background: linear-gradient(160deg, rgba(83, 214, 182, 0.12), rgba(20, 28, 40, 0.9) 45%);
 }
 
-.download-pricing-card {
-  margin-top: 28px;
-}
-
 .plugin-guide-card {
   margin-top: 20px;
 }
