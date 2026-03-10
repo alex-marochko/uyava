@@ -1,7 +1,7 @@
 name: uyava_ui
 description: Shared Flutter UI for Uyava graph rendering (painter, geometry, policies, configs).
 publish_to: 'none'
-version: 0.2.0
+version: 0.2.1-beta.1
 homepage: https://uyava.io
 repository: https://github.com/alex-marochko/uyava
 issue_tracker: https://github.com/alex-marochko/uyava/issues

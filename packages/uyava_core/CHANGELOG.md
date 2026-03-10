@@ -1,3 +1,9 @@
+## Unreleased
+
+## 0.2.1-beta.1
+
+- chore: align metadata for initial OSS prerelease publication.
+
 ## 1.0.0
 
 - Initial version.

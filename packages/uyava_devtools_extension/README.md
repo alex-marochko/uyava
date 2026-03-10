@@ -3,7 +3,7 @@
 [![CI](https://github.com/alex-marochko/uyava/actions/workflows/ci.yml/badge.svg)](https://github.com/alex-marochko/uyava/actions/workflows/ci.yml)
 
 <p>
-  <img src="docs/assets/uyava_logo_with_text_universal.png" alt="Uyava logo" width="220" />
+  <img src="doc/assets/uyava_logo_with_text_universal.png" alt="Uyava logo" width="220" />
 </p>
 
 Uyava is a Flutter DevTools extension for live runtime visibility: architecture graph, event journal, diagnostics, metrics, and event chains in one UI.
@@ -26,7 +26,7 @@ It is designed to help you:
 
 ## Preview
 
-![Uyava DevTools graph screenshot](docs/assets/devtools-screenshot.png)
+![Uyava DevTools graph screenshot](doc/assets/devtools-screenshot.png)
 
 ### Key capabilities in this DevTools extension
 

@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.2.1-beta.1
+
 - feat: add transport hub with pluggable transports and scoped event routing.
 - docs: document the SDK transport API and usage.
 - feat: support remove/patch node & edge mutations with diagnostics.
