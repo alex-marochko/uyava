@@ -1,6 +1,5 @@
 name: uyava_ui
 description: Shared Flutter UI for Uyava graph rendering (painter, geometry, policies, configs).
-publish_to: 'none'
 version: 0.2.1-beta.1
 homepage: https://uyava.io
 repository: https://github.com/alex-marochko/uyava
@@ -16,10 +15,8 @@ dependencies:
   flutter:
     sdk: flutter
   collection: ^1.18.0
-  uyava_core:
-    path: ../uyava_core
-  uyava_protocol:
-    path: ../uyava_protocol
+  uyava_core: ^0.2.1-beta.1
+  uyava_protocol: ^0.2.1-beta.1
 
 dev_dependencies:
   flutter_lints: ^6.0.0

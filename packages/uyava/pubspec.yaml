@@ -1,6 +1,5 @@
 name: uyava
 description: "Uyava app-side SDK for graph + event emission."
-publish_to: 'none'
 version: 0.2.1-beta.1
 homepage: https://uyava.io
 repository: https://github.com/alex-marochko/uyava
@@ -16,8 +15,7 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  uyava_protocol:
-    path: ../uyava_protocol
+  uyava_protocol: ^0.2.1-beta.1
 
 dev_dependencies:
   flutter_test:

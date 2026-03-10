@@ -5,7 +5,6 @@ homepage: https://uyava.io
 repository: https://github.com/alex-marochko/uyava
 issue_tracker: https://github.com/alex-marochko/uyava/issues
 documentation: https://uyava.io/docs
-publish_to: none
 
 environment:
   sdk: ^3.10.0-75.1.beta
@@ -18,8 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
   collection: ^1.18.0
-  uyava_protocol:
-    path: ../uyava_protocol
+  uyava_protocol: ^0.2.1-beta.1
 
 dev_dependencies:
   lints: ^6.0.0
