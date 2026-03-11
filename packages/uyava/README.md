@@ -6,17 +6,26 @@
   <img src="https://raw.githubusercontent.com/alex-marochko/uyava/main/packages/uyava_devtools_extension/doc/assets/uyava_logo_with_text_universal.png" alt="Uyava logo" width="100" />
 </p>
 
-Uyava is a Flutter runtime observability SDK: architecture graph, event journal,
-diagnostics, metrics, and event chains in one model that can be viewed in
-Flutter DevTools and Uyava Desktop.
+Visual event graph and debugging toolkit for Flutter apps.
+
+Uyava turns runtime events into a live map of your app.
+
+### Example visualization
+![Uyava DevTools graph screenshot](https://raw.githubusercontent.com/alex-marochko/uyava/main/packages/uyava_devtools_extension/doc/assets/devtools-screenshot.png)
+
+It acts as:
+- visual debugging tool
+- living documentation of your architecture
+- a new way to understand your app beyond traditional logs
+
+What Uyava helps you see
+- your app architecture in motion
+- event chains and happy flows
+- module lifecycle
+- key app metrics
+- relationships between components
 
 Status: Public Beta.
-
-“Uyava” means “imagination” in Ukrainian (pronounced “oo-YAH-vah”).
-
-## Preview
-
-![Uyava DevTools graph screenshot](https://raw.githubusercontent.com/alex-marochko/uyava/main/packages/uyava_devtools_extension/doc/assets/devtools-screenshot.png)
 
 ## Quick start (Flutter app)
 
