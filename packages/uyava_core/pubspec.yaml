@@ -1,6 +1,6 @@
 name: uyava_core
 description: Core graph domain, controller, filters, metrics, and layout engines for Uyava hosts.
-version: 0.2.1-beta.1
+version: 0.2.1-beta.2
 homepage: https://uyava.io
 repository: https://github.com/alex-marochko/uyava
 issue_tracker: https://github.com/alex-marochko/uyava/issues
