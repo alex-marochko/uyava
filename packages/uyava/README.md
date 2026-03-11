@@ -1,9 +1,9 @@
 # Uyava SDK
 
-[![CI](https://github.com/alex-marochko/uyava/actions/workflows/ci.yml/badge.svg)](https://github.com/alex-marochko/uyava/actions/workflows/ci.yml)
+[![CI](https://github.com/alex-marochko/uyava/actions/workflows/packages_ci.yml/badge.svg)](https://github.com/alex-marochko/uyava/actions/workflows/packages_ci.yml)
 
 <p>
-  <img src="https://raw.githubusercontent.com/alex-marochko/uyava/main/packages/uyava_devtools_extension/doc/assets/uyava_logo_with_text_universal.png" alt="Uyava logo" width="100" />
+  <img src="https://raw.githubusercontent.com/alex-marochko/uyava/main/packages/uyava_devtools_extension/doc/assets/uyava_logo_with_text_universal.png" alt="Uyava logo" width="200" />
 </p>
 
 Visual event graph and debugging toolkit for Flutter apps.
