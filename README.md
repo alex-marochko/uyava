@@ -106,3 +106,9 @@ GitHub Actions workflow:
 - `.github/workflows/packages_ci.yml`
 
 It runs workspace dependency resolution and package tests for `packages/**` and `examples/**`.
+
+## Project Policies
+
+- Contribution workflow: [CONTRIBUTING.md](./CONTRIBUTING.md)
+- Release/publish flow: [RELEASING.md](./RELEASING.md)
+- Security reporting: [SECURITY.md](./SECURITY.md)
