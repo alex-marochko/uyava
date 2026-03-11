@@ -24,7 +24,7 @@ melos:
     test:
       description: Run all package tests (skips packages without *_test.dart).
       run: >-
-        melos exec --dir-exists=test --fail-fast -c 1 -- bash "$MELOS_ROOT_PATH/tool/run_package_tests.sh"
+        dart run melos exec --dir-exists=test --fail-fast -c 1 -- bash "$MELOS_ROOT_PATH/tool/run_package_tests.sh"
     build_devtools_extension:
       description: Build and copy the DevTools extension assets into uyava package.
       run: bash "$MELOS_ROOT_PATH/tool/build_devtools_extension.sh"
