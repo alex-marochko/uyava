@@ -1,4 +1,27 @@
-# Uyava OSS Workspace
+# Uyava
+
+Visual event graph and debugging toolkit for Flutter apps.
+
+Uyava turns runtime events into a live map of your app.
+
+### Example visualization
+![Uyava DevTools graph screenshot](https://raw.githubusercontent.com/alex-marochko/uyava/main/packages/uyava_devtools_extension/doc/assets/devtools-screenshot.png)
+
+It acts as:
+- visual debugging tool
+- living documentation of your architecture
+- a new way to understand your app beyond traditional logs
+
+What Uyava helps you see
+- your app architecture in motion
+- event chains and happy flows
+- module lifecycle
+- key app metrics
+- relationships between components
+
+Status: Public Beta.
+
+## Uyava OSS Workspace
 
 This repository contains the open-source Uyava modules:
 - app-side SDK (`uyava`)
