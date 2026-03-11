@@ -1,5 +1,5 @@
 name: uyava
-description: "Uyava app-side SDK for graph + event emission."
+description: "Uyava Flutter SDK for runtime architecture graphs, events, diagnostics, and DevTools visualization."
 version: 0.2.1-beta.1
 homepage: https://uyava.io
 repository: https://github.com/alex-marochko/uyava
