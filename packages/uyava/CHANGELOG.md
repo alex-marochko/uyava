@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 0.2.1-beta.2
+
+- docs: fix CI badge link + pub.dev description/readme polish
+
 ## 0.2.1-beta.1
 
 - feat: add transport hub with pluggable transports and scoped event routing.

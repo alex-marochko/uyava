@@ -1,5 +1,8 @@
 ## Unreleased
 
+## 0.2.1-beta.2
+- docs: fix CI badge link
+
 ## 0.2.1-beta.1
 
 - chore: align metadata for initial OSS prerelease publication.
