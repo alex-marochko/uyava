@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages). 
 -->
 
-![CI](https://github.com/alex-marochko/uyava/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/alex-marochko/uyava/actions/workflows/packages_ci.yml/badge.svg)
 
 Uyava Core provides the graph models, controller, math types, and pluggable layout engines used by the Uyava DevTools extension and SDKs. It is UI-agnostic and has no Flutter dependencies.
 

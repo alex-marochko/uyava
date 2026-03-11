@@ -1,5 +1,9 @@
 # Uyava
 
+<p>
+  <img src="https://raw.githubusercontent.com/alex-marochko/uyava/main/packages/uyava_devtools_extension/doc/assets/uyava_logo_with_text_universal.png" alt="Uyava logo" width="200" />
+</p>
+
 Visual event graph and debugging toolkit for Flutter apps.
 
 Uyava turns runtime events into a live map of your app.
