@@ -10,7 +10,6 @@ Visual event graph and debugging toolkit for Flutter apps.
 
 Uyava turns runtime events into a live map of your app.
 
-### Example visualization
 ![Uyava DevTools graph screenshot](https://raw.githubusercontent.com/alex-marochko/uyava/main/packages/uyava_devtools_extension/doc/assets/devtools-screenshot.png)
 
 It acts as:
