@@ -36,6 +36,10 @@ This repository contains the open-source Uyava modules:
 - website/docs (`site/`)
 - IDE launcher plugins (`tools/ide_plugins/`)
 
+Real-world OSS integration example:
+- [`localsend-uyava`](https://github.com/alex-marochko/localsend-uyava) shows how
+  Uyava can be integrated into a popular open-source Flutter app.
+
 ## Repository Layout
 
 - `packages/uyava_protocol` — wire-format models, validation helpers, protocol constants.
