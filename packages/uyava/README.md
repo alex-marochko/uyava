@@ -98,6 +98,11 @@ Setup and installation:
 - https://uyava.io/docs/installation
 - https://uyava.io/docs/getting-started
 
+Real-world OSS example:
+
+- `localsend-uyava` fork: https://github.com/alex-marochko/localsend-uyava
+  shows how Uyava can be integrated into a popular open-source Flutter app.
+
 ## Lifecycle signals (recommended)
 
 Use lifecycle updates to reflect active/inactive parts of your app:

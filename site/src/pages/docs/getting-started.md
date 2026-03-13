@@ -14,6 +14,13 @@ Uyava is a developer tool for Flutter that turns architecture and runtime activi
 
 If you are new to Uyava, start with DevTools or the free desktop app and connect it to a running Flutter app.
 
+## Real-world OSS example
+
+If you want to see Uyava in a familiar open-source codebase, check the
+[`localsend-uyava` fork](https://github.com/alex-marochko/localsend-uyava).
+It shows Uyava integrated into LocalSend as a practical example of using the SDK
+in a popular OSS Flutter project.
+
 ## Quick start for Flutter apps
 
 1) Add the SDK:
