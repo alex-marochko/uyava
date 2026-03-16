@@ -1,0 +1,13 @@
+# Local/tooling state
+.dart_tool/
+.flutter-plugins-dependencies
+.idea/
+*.iml
+.DS_Store
+/coverage/
+/pubspec.lock
+
+# Ignore top-level package build output, but keep bundled DevTools extension assets.
+/build/
+!extension/devtools/build/
+!extension/devtools/build/**

@@ -1,0 +1,191 @@
+part of 'package:uyava_example/main.dart';
+
+List<UyavaNode> restaurantFeedNodes() {
+  return <UyavaNode>[
+    UyavaNode.standard(
+      id: 'feat_feed',
+      standardType: UyavaStandardType.group,
+      label: 'Restaurant Feed',
+    ),
+    UyavaNode.standard(
+      id: 'screen_home',
+      standardType: UyavaStandardType.screen,
+      label: 'Home Screen',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'widget_location_header',
+      standardType: UyavaStandardType.widget,
+      label: 'Location Header',
+      parentId: 'screen_home',
+    ),
+    UyavaNode.standard(
+      id: 'widget_banner_carousel',
+      standardType: UyavaStandardType.widget,
+      label: 'Banner Carousel',
+      parentId: 'screen_home',
+    ),
+    UyavaNode.standard(
+      id: 'widget_search_bar',
+      standardType: UyavaStandardType.widget,
+      label: 'Search Bar',
+      parentId: 'screen_home',
+    ),
+    UyavaNode.standard(
+      id: 'widget_cuisine_carousel',
+      standardType: UyavaStandardType.widget,
+      label: 'Cuisine Carousel',
+      parentId: 'screen_home',
+    ),
+    UyavaNode.standard(
+      id: 'widget_filter_chips',
+      standardType: UyavaStandardType.widget,
+      label: 'Filter Chips',
+      parentId: 'screen_home',
+    ),
+    UyavaNode.standard(
+      id: 'widget_restaurant_card',
+      standardType: UyavaStandardType.widget,
+      label: 'Restaurant Card',
+      parentId: 'screen_home',
+    ),
+    UyavaNode.standard(
+      id: 'screen_restaurant_details',
+      standardType: UyavaStandardType.screen,
+      label: 'Restaurant Details',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'widget_restaurant_header',
+      standardType: UyavaStandardType.widget,
+      label: 'Restaurant Header',
+      parentId: 'screen_restaurant_details',
+    ),
+    UyavaNode.standard(
+      id: 'widget_info_tab',
+      standardType: UyavaStandardType.widget,
+      label: 'Info Tab',
+      parentId: 'screen_restaurant_details',
+    ),
+    UyavaNode.standard(
+      id: 'widget_menu_tab',
+      standardType: UyavaStandardType.widget,
+      label: 'Menu Tab',
+      parentId: 'screen_restaurant_details',
+    ),
+    UyavaNode.standard(
+      id: 'widget_reviews_tab',
+      standardType: UyavaStandardType.widget,
+      label: 'Reviews Tab',
+      parentId: 'screen_restaurant_details',
+    ),
+    UyavaNode.standard(
+      id: 'widget_menu_list',
+      standardType: UyavaStandardType.widget,
+      label: 'Menu List',
+      parentId: 'screen_restaurant_details',
+    ),
+    UyavaNode.standard(
+      id: 'widget_menu_item_card',
+      standardType: UyavaStandardType.widget,
+      label: 'Menu Item Card',
+      parentId: 'widget_menu_list',
+    ),
+    UyavaNode.standard(
+      id: 'widget_add_to_cart_button',
+      standardType: UyavaStandardType.widget,
+      label: 'Add to Cart Button',
+      parentId: 'widget_menu_item_card',
+    ),
+    UyavaNode.standard(
+      id: 'widget_review_list',
+      standardType: UyavaStandardType.widget,
+      label: 'Review List',
+      parentId: 'screen_restaurant_details',
+    ),
+    UyavaNode.standard(
+      id: 'widget_review_card',
+      standardType: UyavaStandardType.widget,
+      label: 'Review Card',
+      parentId: 'widget_review_list',
+    ),
+    UyavaNode.standard(
+      id: 'service_image_loader',
+      standardType: UyavaStandardType.service,
+      label: 'Image Loader',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'bloc_restaurants',
+      standardType: UyavaStandardType.bloc,
+      label: 'Restaurants BLoC',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'bloc_restaurant_details',
+      standardType: UyavaStandardType.bloc,
+      label: 'Restaurant Details BLoC',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'util_pagination',
+      standardType: UyavaStandardType.usecase,
+      label: 'Pagination Controller',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'util_search_query_parser',
+      standardType: UyavaStandardType.usecase,
+      label: 'Search Query Parser',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'repo_restaurants',
+      standardType: UyavaStandardType.repository,
+      label: 'Restaurant Repository',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'repo_menu',
+      standardType: UyavaStandardType.repository,
+      label: 'Menu Repository',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'repo_reviews',
+      standardType: UyavaStandardType.repository,
+      label: 'Reviews Repository',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'service_api',
+      standardType: UyavaStandardType.api,
+      label: 'Gateway API',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'model_restaurant',
+      standardType: UyavaStandardType.model,
+      label: 'Restaurant Model',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'model_menu_item',
+      standardType: UyavaStandardType.model,
+      label: 'Menu Item Model',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'model_review',
+      standardType: UyavaStandardType.model,
+      label: 'Review Model',
+      parentId: 'feat_feed',
+    ),
+    UyavaNode.standard(
+      id: 'cache_app',
+      standardType: UyavaStandardType.database,
+      label: 'App Cache',
+      parentId: 'feat_feed',
+    ),
+  ];
+}

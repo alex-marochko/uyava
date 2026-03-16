@@ -138,6 +138,11 @@ Uyava emits through a transport hub:
 ```dart
 final transport = MyWebSocketTransport(uri: Uri.parse('ws://...'));
 Uyava.registerTransport(transport);
+// Keep an existing channel instance instead of replacing it.
+Uyava.registerTransport(
+  MyWebSocketTransport(uri: Uri.parse('ws://backup-host')),
+  replaceExisting: false,
+);
 
 // Remove by channel (enum), or use transport.channel.
 Uyava.unregisterTransport(UyavaTransportChannel.webSocket);
@@ -149,10 +154,20 @@ File-logging runtime helpers:
 final Stream<UyavaLogArchiveEvent>? archive = Uyava.archiveEvents;
 final Stream<UyavaDiscardStats>? discardStats = Uyava.discardStatsStream;
 final UyavaDiscardStats? lastDiscard = Uyava.latestDiscardStats;
+final UyavaLogArchive? latestAny = await Uyava.latestArchiveSnapshot();
+final UyavaLogArchive? latestRotatedOnly =
+    await Uyava.latestArchiveSnapshot(includeExports: false);
 ```
 
-Use `archiveEvents` to observe archive lifecycle updates (rotation/export/clone).
-Use discard stats to monitor buffer trims in real time.
+Use `archiveEvents` to observe archive lifecycle updates:
+
+- `rotation`
+- `export`
+- `clone`
+- `recovery` (streaming journal recovery)
+- `panicSeal`
+
+Use discard stats to monitor dropped events caused by filters/sampling/burst limits in real time.
 
 Shutdown helper:
 
@@ -189,10 +204,25 @@ await UyavaBootstrap.runZoned(
 
 final SendPort? isolatePort = UyavaBootstrap.isolateErrorPort;
 UyavaBootstrap.ensurePresentErrorHook();
+// Optional for spawned isolates:
+// UyavaBootstrap.attachIsolateErrorListener(mySpawnedIsolate);
 
 // Dispose when no longer needed:
 handle.dispose();
 ```
+
+Default `UyavaGlobalErrorOptions` values:
+
+- `enableFlutterError: true`
+- `enablePlatformDispatcher: true`
+- `enableZonedErrors: true`
+- `delegateOriginalHandlers: true`
+- `propagateToZone: true`
+- `enableIsolateErrors: false`
+- `captureCurrentIsolateErrors: true`
+- `emitNonFatalDiagnostics: true`
+- `autoGuardZone: false`
+- `flushTimeout: Duration(milliseconds: 500)`
 
 ## Integrity rules and constraints
 

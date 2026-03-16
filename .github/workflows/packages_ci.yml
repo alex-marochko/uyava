@@ -1,0 +1,41 @@
+name: Packages CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/**'
+      - 'examples/**'
+      - 'tool/**'
+      - 'pubspec.yaml'
+      - '.github/workflows/packages_ci.yml'
+  pull_request:
+    paths:
+      - 'packages/**'
+      - 'examples/**'
+      - 'tool/**'
+      - 'pubspec.yaml'
+      - '.github/workflows/packages_ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+
+      - name: Install workspace dependencies
+        run: dart pub get
+
+      - name: Run package test suite
+        env:
+          CI: 'true'
+          DART_SUPPRESS_ANALYTICS: '1'
+          FLUTTER_SUPPRESS_ANALYTICS: 'true'
+        run: dart run melos run test

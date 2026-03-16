@@ -75,6 +75,21 @@ Important notes:
 - A background worker handles rotation and compression to avoid UI jank.
 - Keep graph hierarchy meaningful in recorded snapshots; avoid a single synthetic global root if you want readable replay layouts.
 
+### Advanced file logger options
+
+`UyavaFileLoggerConfig` also supports:
+
+- Export retention: `maxExportCount`, `maxExportTotalBytes`
+- Archive retention mode: `retainLatestOnly`
+- Realtime controls: `realtimeEnabled`, `realtimeSamplingRate`, `realtimeBurstLimitPerSecond`
+- Event/severity filters: `includeTypes`, `excludeTypes`, `minLevel`
+- Write pacing: `flushInterval`
+- Redaction: `redaction` (`allowRawData`, `maskFields`, `dropFields`, tag allow/deny lists, custom handler)
+- Crash-safe file name: `panicMirrorFileName` (used when `crashSafePersistence: true`)
+- Streaming journal: `streamingJournalEnabled`, `streamingJournalFileName`, `streamingJournalFlushInterval`
+
+When realtime events are dropped by filters/sampling/burst limits, the logger emits aggregated discard control records in the archive and updates `Uyava.discardStatsStream`.
+
 ### Exporting logs
 
 Use the SDK helpers to export or snapshot logs without stopping recording:
@@ -85,6 +100,7 @@ final snapshot = await Uyava.cloneActiveArchive();
 ```
 
 Exports are copied into an `exports/` subfolder inside the logging directory.
+By default, `Uyava.latestArchiveSnapshot()` also considers exported copies. Use `includeExports: false` to restrict it to rotated archives only.
 
 ### Crash-safe logs (panic tail)
 

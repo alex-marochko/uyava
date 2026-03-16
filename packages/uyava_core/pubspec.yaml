@@ -1,0 +1,25 @@
+name: uyava_core
+description: Core graph domain, controller, filters, metrics, and layout engines for Uyava hosts.
+version: 0.2.1-beta.2
+homepage: https://uyava.io
+repository: https://github.com/alex-marochko/uyava
+issue_tracker: https://github.com/alex-marochko/uyava/issues
+documentation: https://uyava.io/docs
+
+environment:
+  sdk: ^3.10.0-75.1.beta
+  flutter: ">=1.17.0"
+
+resolution: workspace
+
+# Add regular dependencies here.
+dependencies:
+  flutter:
+    sdk: flutter
+  collection: ^1.18.0
+  uyava_protocol: ^0.2.1-beta.1
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
+  benchmark_harness: ^2.2.0

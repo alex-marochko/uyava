@@ -1,0 +1,30 @@
+name: uyava_oss_root
+publish_to: none
+
+environment:
+  sdk: ^3.10.0-75.1.beta
+
+dev_dependencies:
+  melos: ^7.1.1
+
+workspace:
+  - packages/uyava
+  - packages/uyava_core
+  - packages/uyava_devtools_extension
+  - packages/uyava_protocol
+  - packages/uyava_ui
+  - examples/uyava_example
+
+melos:
+  name: uyava_oss
+  packages:
+    - packages/**
+    - examples/**
+  scripts:
+    test:
+      description: Run all package tests (skips packages without *_test.dart).
+      run: >-
+        dart run melos exec --dir-exists=test --fail-fast -c 1 -- bash "$MELOS_ROOT_PATH/tool/run_package_tests.sh"
+    build_devtools_extension:
+      description: Build and copy the DevTools extension assets into uyava package.
+      run: bash "$MELOS_ROOT_PATH/tool/build_devtools_extension.sh"

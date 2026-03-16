@@ -30,3 +30,9 @@ Marketplace listing:
   - macOS: `/Applications/Uyava Desktop.app/Contents/MacOS/uyava_desktop`  
   - Windows: `C:\\Program Files\\Uyava Desktop\\UyavaDesktop.exe`, `C:\\Program Files (x86)\\Uyava Desktop\\UyavaDesktop.exe`  
   - Linux: `uyava-desktop` in `PATH`
+
+## Privacy
+- This plugin works locally and does not include telemetry or analytics.
+- It does not upload project files, source code, or personal data to Uyava or third-party servers.
+- It reads local environment variables and may read the VM Service URI from a running local Flutter session.
+- See `PRIVACY.md` for details.

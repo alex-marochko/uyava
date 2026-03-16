@@ -1,0 +1,17 @@
+# Name of the extension
+name: uyava
+
+# A url to the issue tracker for your package.
+issueTracker: https://github.com/alex-marochko/uyava/issues
+
+# Version of the extension.
+version: 0.2.1-beta.1+1
+
+# A 16x16 png icon to display in the extension tab.
+# If specified, this icon will be used instead of the materialIconCodePoint.
+icon: icon.png
+
+# The 5-digit hex code point for a Material Icon.
+# The list of available icons can be found here:
+# https://api.flutter.dev/flutter/material/Icons-class.html
+materialIconCodePoint: 0xf0649

@@ -1,0 +1,23 @@
+name: uyava_protocol
+description: Shared Uyava wire-protocol constants and minimal types (pure Dart).
+version: 0.2.1-beta.1
+homepage: https://uyava.io
+repository: https://github.com/alex-marochko/uyava
+issue_tracker: https://github.com/alex-marochko/uyava/issues
+documentation: https://uyava.io/docs
+
+environment:
+  sdk: ^3.10.0-75.1.beta
+
+resolution: workspace
+
+dependencies:
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
+
+dev_dependencies:
+  build_runner: ^2.4.6
+  freezed: ^3.2.3
+  json_serializable: ^6.7.1
+  lints: ^6.0.0
+  test: ^1.24.0
