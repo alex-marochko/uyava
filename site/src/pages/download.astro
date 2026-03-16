@@ -28,7 +28,15 @@ const macOsReleaseNotesUrl =
         <h3>macOS</h3>
         <p>Signed and notarized desktop build for Apple Silicon and Intel Macs.</p>
         <span class="pill">Public beta · v0.2.2+2</span>
-        <a class="btn primary" href={macOsDmgUrl} target="_blank" rel="noreferrer">
+        <a
+          class="btn primary"
+          href={macOsDmgUrl}
+          target="_blank"
+          rel="noreferrer"
+          data-analytics-event="desktop_download_click"
+          data-analytics-label="Download for macOS"
+          data-analytics-location="download_page"
+        >
           Download for macOS
         </a>
         <p><a href={macOsReleaseNotesUrl} target="_blank" rel="noreferrer">View release notes</a></p>
@@ -60,7 +68,15 @@ const macOsReleaseNotesUrl =
       <div class="download-card">
         <h3>VS Code</h3>
         <p>Uyava Desktop Launcher</p>
-        <a class="btn primary" href={IDE_PLUGINS.vscodeMarketplace} target="_blank" rel="noreferrer">
+        <a
+          class="btn primary"
+          href={IDE_PLUGINS.vscodeMarketplace}
+          target="_blank"
+          rel="noreferrer"
+          data-analytics-event="marketplace_click"
+          data-analytics-label="Open VS Code Marketplace"
+          data-analytics-location="download_page"
+        >
           Open VS Code Marketplace
         </a>
       </div>
@@ -68,7 +84,15 @@ const macOsReleaseNotesUrl =
         <h3>Android Studio / IntelliJ</h3>
         <p>Uyava Desktop Launcher</p>
         {hasJetBrainsMarketplace ? (
-          <a class="btn primary" href={IDE_PLUGINS.jetbrainsMarketplace} target="_blank" rel="noreferrer">
+          <a
+            class="btn primary"
+            href={IDE_PLUGINS.jetbrainsMarketplace}
+            target="_blank"
+            rel="noreferrer"
+            data-analytics-event="marketplace_click"
+            data-analytics-label="Open JetBrains Marketplace"
+            data-analytics-location="download_page"
+          >
             Open JetBrains Marketplace
           </a>
         ) : (
