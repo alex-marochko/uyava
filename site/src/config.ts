@@ -11,7 +11,7 @@ export const SITE = {
 };
 
 export const ANALYTICS = {
-  provider: 'plausible',
+  provider: 'cloudflare',
   scriptSrc: '',
   siteId: '',
   domain: '',
@@ -20,7 +20,8 @@ export const ANALYTICS = {
 export const IDE_PLUGINS = {
   vscodeMarketplace:
     'https://marketplace.visualstudio.com/items?itemName=uyava.uyava-desktop-launcher',
-  jetbrainsMarketplace: '',
+  jetbrainsMarketplace:
+    'https://plugins.jetbrains.com/plugin/30566-uyava-desktop-launcher',
   jetbrainsMarketplaceSearch:
     'https://plugins.jetbrains.com/search?search=Uyava%20Desktop%20Launcher',
 };

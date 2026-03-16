@@ -3,6 +3,8 @@ import { ANALYTICS } from '../config';
 
 const { provider, scriptSrc, siteId, domain } = ANALYTICS;
 let src = scriptSrc;
+const isCloudflare = provider === 'cloudflare';
+const shouldLoadCloudflare = isCloudflare && import.meta.env.PROD;
 
 if (!src) {
   if (provider === 'plausible' && domain) {
@@ -20,7 +22,35 @@ const shouldInject = Boolean(
       (provider !== 'plausible' && provider !== 'umami'))
 );
 ---
-{shouldInject ? (
+{shouldLoadCloudflare ? (
+  <>
+    <script src="/cdn-cgi/zaraz/i.js" referrerpolicy="origin"></script>
+    <script is:inline>
+      document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element
+          ? event.target.closest('[data-analytics-event]')
+          : null;
+        if (!target) return;
+
+        const zaraz = window.zaraz;
+        if (!zaraz || typeof zaraz.track !== 'function') return;
+
+        const eventName = target.getAttribute('data-analytics-event');
+        if (!eventName) return;
+
+        const label = target.getAttribute('data-analytics-label') || target.textContent?.trim();
+        const location = target.getAttribute('data-analytics-location');
+        const href = target.getAttribute('href');
+
+        zaraz.track(eventName, {
+          label,
+          location,
+          href,
+        });
+      });
+    </script>
+  </>
+) : shouldInject ? (
   <script
     src={src}
     defer
