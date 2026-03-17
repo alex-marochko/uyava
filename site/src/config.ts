@@ -11,7 +11,7 @@ export const SITE = {
 };
 
 export const ANALYTICS = {
-  provider: 'plausible',
+  provider: 'cloudflare',
   scriptSrc: '',
   siteId: '',
   domain: '',

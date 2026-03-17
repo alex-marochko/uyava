@@ -20,7 +20,14 @@ const hasJetBrainsMarketplace = IDE_PLUGINS.jetbrainsMarketplace.trim().length >
     <li>Command: <code>Uyava: Launch/Attach Desktop</code></li>
     <li>
       Install:
-      <a href={IDE_PLUGINS.vscodeMarketplace} target="_blank" rel="noreferrer">
+      <a
+        href={IDE_PLUGINS.vscodeMarketplace}
+        target="_blank"
+        rel="noreferrer"
+        data-analytics-event="marketplace_click"
+        data-analytics-label="Open VS Code Marketplace"
+        data-analytics-location="ide_plugins_docs"
+      >
         VS Code Marketplace
       </a>
     </li>
@@ -34,7 +41,14 @@ const hasJetBrainsMarketplace = IDE_PLUGINS.jetbrainsMarketplace.trim().length >
       {hasJetBrainsMarketplace ? (
         <>
           Install:
-          <a href={IDE_PLUGINS.jetbrainsMarketplace} target="_blank" rel="noreferrer">
+          <a
+            href={IDE_PLUGINS.jetbrainsMarketplace}
+            target="_blank"
+            rel="noreferrer"
+            data-analytics-event="marketplace_click"
+            data-analytics-label="Open JetBrains Marketplace"
+            data-analytics-location="ide_plugins_docs"
+          >
             JetBrains Marketplace
           </a>
         </>
