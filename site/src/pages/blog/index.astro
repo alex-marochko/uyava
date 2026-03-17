@@ -37,9 +37,6 @@ const dateFormatter = new Intl.DateTimeFormat('en', {
             </p>
             <h2>{post.data.title}</h2>
             <p>{post.data.description}</p>
-            {post.data.tags.length > 0 && (
-              <p class="blog-card-tags">{post.data.tags.map((tag) => `#${tag}`).join(' ')}</p>
-            )}
             {post.data.draft && <p class="pill">Draft</p>}
           </a>
         ))}
@@ -73,8 +70,7 @@ const dateFormatter = new Intl.DateTimeFormat('en', {
     line-height: 1.2;
   }
 
-  .blog-card-meta,
-  .blog-card-tags {
+  .blog-card-meta {
     color: var(--muted);
     font-size: 0.95rem;
   }

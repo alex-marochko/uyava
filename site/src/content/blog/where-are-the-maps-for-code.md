@@ -15,6 +15,9 @@ When I need to travel somewhere, I open a map. When people plan logistics, they 
 
 Software is not simpler than any of those systems, yet a surprising amount of day-to-day understanding still depends on something much less reliable: the map in a developer’s head. That feels normal only because we are used to it.
 
+![Log console and Uyava Desktop window](/images/blog/console_and_uyava.png)
+
+
 ## We already build these maps, just informally
 
 Whenever we explore a codebase, some form of mapping starts happening, whether we mean to or not.
@@ -63,9 +66,15 @@ Logs also live close to the real behavior of the application. They are not a sep
 
 The limitation is different: a plain log stream is linear. It scrolls away. It competes for your attention. If an important warning appears while you are looking somewhere else, you can miss it completely. A single line in a console is often too weak a trace for something that actually matters.
 
+![filters](/images/blog/filters.png)
+
 The same problem appears with filtering. Teams often invent naming conventions, prefixes, and keywords, and that definitely helps. But it still assumes you already know what you are looking for. It does not help much when you only have a vague sense that something in a certain part of the system is wrong.
 
+![metrics](/images/blog/metrics.png)
+
 Then there are values I want to watch over time. A debugger helps, of course: breakpoints are great when I need to stop at a particular moment and inspect state. But that is not quite the same thing. Often I do not want a frozen snapshot — I want to observe how a value changes while the app keeps running. In practice, that usually means either staring at logs continuously or building one-off debug UI, and neither option feels like a satisfying general solution.
+
+![event chains](/images/blog/event_chains.png)
 
 And then there are event chains. Most features have some form of happy path: a user action leads to state changes, side effects, network calls, maybe more UI updates. When the chain breaks, reconstructing it from raw logs can be painfully manual. That is the point where I stop wanting "better logs" and start wanting a different interface to runtime behavior.
 
@@ -73,7 +82,11 @@ And then there are event chains. Most features have some form of happy path: a u
 
 At that point, the problem starts to look less like logging itself and more like representation.
 
+![Events](/images/blog/events.gif)
+
 If a runtime event happens inside a module, that module matters. If it happens between two parts of the system, then the connection between those parts matters too. Once you think in those terms, isolated log lines start to look like fragments of a graph.
+
+![map](/images/blog/map.png)
 
 And real systems usually have more than one type of relationship. There is flow, but there is also hierarchy. A screen belongs to a feature. A component belongs to a module. A service belongs to some subsystem. These relationships are not just documentation trivia; they shape how we understand behavior.
 
@@ -101,6 +114,8 @@ Sometimes that is fine. Sometimes it is useful. But it is not a stable represent
 A compact, structured map of a codebase or of runtime behavior can play a different role. It can help a person return to context faster, and it can give AI tools a more grounded layer to reason over. In large projects, that kind of abstraction is not just a nice extra. It can be one of the few practical ways to hold on to the overall picture without constantly diving back into the raw code.
 
 ## Why I built Uyava
+
+![Uyava Desktop](/images/blog/uyava_desktop.png)
 
 This line of thinking eventually turned into Uyava.
 

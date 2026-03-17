@@ -33,9 +33,6 @@ const dateFormatter = new Intl.DateTimeFormat('en', {
         </p>
         <h1>{post.data.title}</h1>
         <p class="blog-post-description">{post.data.description}</p>
-        {post.data.tags.length > 0 && (
-          <p class="blog-post-tags">{post.data.tags.map((tag) => `#${tag}`).join(' ')}</p>
-        )}
       </header>
 
       <div class="markdown blog-post-body">
@@ -69,8 +66,7 @@ const dateFormatter = new Intl.DateTimeFormat('en', {
   }
 
   .blog-post-date,
-  .blog-post-description,
-  .blog-post-tags {
+  .blog-post-description {
     color: var(--muted);
   }
 
