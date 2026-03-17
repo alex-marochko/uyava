@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { withBase } from '../../utils/paths';
+import { getBlogEntries } from '../../data/blog';
+
+const posts = await getBlogEntries();
+const dateFormatter = new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+<BaseLayout title="Blog" description="Articles, launch notes, and product updates from Uyava.">
+  <section class="container">
+    <SectionHeader
+      eyebrow="Blog"
+      title="Notes from the Uyava build"
+      description="Articles, launch notes, and practical write-ups about the product and its ecosystem."
+    />
+    <div class="blog-actions">
+      <a class="btn" href={withBase('/rss.xml')}>RSS feed</a>
+      <a class="btn" href={withBase('/docs')}>Browse docs</a>
+    </div>
+  </section>
+
+  <section class="container">
+    {posts.length > 0 ? (
+      <div class="grid two">
+        {posts.map((post) => (
+          <a class="card blog-card" href={withBase(`/blog/${post.slug}`)}>
+            <p class="blog-card-meta">
+              <span>{dateFormatter.format(post.data.pubDate)}</span>
+              {post.data.updatedDate && (
+                <span>Updated {dateFormatter.format(post.data.updatedDate)}</span>
+              )}
+            </p>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <p class="blog-card-tags">{post.data.tags.map((tag) => `#${tag}`).join(' ')}</p>
+            )}
+            {post.data.draft && <p class="pill">Draft</p>}
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="card blog-empty">
+        <h2>First posts are still in draft</h2>
+        <p>
+          The blog structure is live, RSS is wired, and the first public article will appear here
+          once it is ready.
+        </p>
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-card {
+    display: block;
+  }
+
+  .blog-card h2 {
+    margin-top: 0;
+  }
+
+  .blog-card-meta,
+  .blog-card-tags {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .blog-card-meta {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-empty {
+    max-width: 42rem;
+  }
+</style>
